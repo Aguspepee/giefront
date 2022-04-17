@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import 'react-datasheet-grid/dist/style.css'
 import './App.css';
+import { CssBaseline } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './theme';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+//Páginas
+import Dashboard from "./pages/dashboard";
+import Login from './pages/login';
+import Register from './pages/register';
+import Account from './pages/account';
+
 
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/account" element={<Account />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
