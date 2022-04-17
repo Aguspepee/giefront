@@ -11,8 +11,6 @@ import {
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
   jobTitle: 'Senior Developer',
   name: 'Katarina Smith',
   timezone: 'GTM-7'
@@ -47,13 +45,7 @@ export const AccountProfile = (props) => (
           color="textSecondary"
           variant="body2"
         >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.timezone}
+          {`${user.jobTitle}`}
         </Typography>
       </Box>
     </CardContent>
@@ -64,7 +56,7 @@ export const AccountProfile = (props) => (
         fullWidth
         variant="text"
       >
-        Upload picture
+        Cambiar foto de perfil
       </Button>
     </CardActions>
   </Card>
