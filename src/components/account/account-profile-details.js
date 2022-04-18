@@ -23,7 +23,7 @@ const states = [
     value: 'san-francisco',
     label: 'San Francisco'
   }
-];
+]; 
 
 export const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
@@ -50,7 +50,7 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader="Puede editar la información y guardar los cambios"
+          subheader="Edite la información y guarde los cambios"
           title="Perfil"
         />
         <Divider />
@@ -66,8 +66,8 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
+               // helperText="Please specify the first name"
+                label="Nombre"
                 name="firstName"
                 onChange={handleChange}
                 required
@@ -82,7 +82,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Last name"
+                label="Apellido"
                 name="lastName"
                 onChange={handleChange}
                 required
@@ -97,7 +97,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Email Address"
+                label="Email"
                 name="email"
                 onChange={handleChange}
                 required
@@ -112,11 +112,40 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="Teléfono"
                 name="phone"
                 onChange={handleChange}
                 type="number"
                 value={values.phone}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="País"
+                name="country"
+                onChange={handleChange}
+                required
+               // value={values.email}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Rol"
+                name="rol"
+                onChange={handleChange}
+               // value={values.phone}
                 variant="outlined"
               />
             </Grid>

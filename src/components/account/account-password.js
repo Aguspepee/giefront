@@ -5,7 +5,7 @@ export const AccountPassword = (props) => {
   const [values, setValues] = useState({
     password: '',
     confirm: ''
-  });
+  }); 
 
   const handleChange = (event) => {
     setValues({
@@ -25,7 +25,7 @@ export const AccountPassword = (props) => {
         <CardContent>
           <TextField
             fullWidth
-            label="Password"
+            label="Contraseña"
             margin="normal"
             name="password"
             onChange={handleChange}
@@ -35,7 +35,7 @@ export const AccountPassword = (props) => {
           />
           <TextField
             fullWidth
-            label="Confirm password"
+            label="Confirme la contraseña"
             margin="normal"
             name="confirm"
             onChange={handleChange}

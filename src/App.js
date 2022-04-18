@@ -10,6 +10,7 @@ import Dashboard from "./pages/dashboard";
 import Login from './pages/login';
 import Register from './pages/register';
 import Account from './pages/account';
+import CargarParteDiario from './pages/cargarparte';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/cargarparte" element={<CargarParteDiario />} />
+          
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
