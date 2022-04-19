@@ -11,7 +11,7 @@ import {
   Typography
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const Register = () => {
   const formik = useFormik({
@@ -79,7 +79,7 @@ const Register = () => {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <PersonAddIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Crear una cuenta

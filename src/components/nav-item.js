@@ -45,7 +45,6 @@ export const NavItem = (props) => {
             {title}
           </Box>
         </Button>
-        
     </ListItem>
   );
 };

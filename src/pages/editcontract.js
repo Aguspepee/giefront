@@ -3,7 +3,7 @@ import { FormularioParte } from '../components/cargarparte/formulario-parte';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
-function CargarParteDiario() {
+function EditContract() {
   return (
     <DashboardLayout>
 
@@ -19,7 +19,7 @@ function CargarParteDiario() {
             sx={{ mb: 3 }}
             variant="h4"
           >
-            Cargar Parte Diario
+            Editar Contrato
           </Typography>
      
                   <FormularioParte />
@@ -31,4 +31,4 @@ function CargarParteDiario() {
 }
 
 
-export default CargarParteDiario;
+export default EditContract;

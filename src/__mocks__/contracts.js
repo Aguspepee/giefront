@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-export const customers = [
+export const contracts = [
   {
     id: uuid(),
     address: {

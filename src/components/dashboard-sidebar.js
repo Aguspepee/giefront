@@ -10,12 +10,14 @@ import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import { Typography } from '@mui/material';
 import {default as LinkMaterial} from '@mui/material/Link';
-
 
 const items = [
   {
@@ -24,9 +26,19 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '',
+    href: '/cargarparte',
+    icon: (<NoteAddIcon fontSize="small" />),
+    title: 'Cargar Parte'
+  },
+  {
+    href: '/clients',
+    icon: (<SupervisedUserCircleIcon fontSize="small" />),
+    title: 'Clientes'
+  },
+  {
+    href: '/users',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    title: 'Usuarios'
   },
   {
     href: '',
@@ -34,7 +46,17 @@ const items = [
     title: 'Products'
   },
   {
-    href: '',
+    href: '/contracts',
+    icon: (<HistoryEduIcon fontSize="small" />),
+    title: 'Contratos'
+  },
+  {
+    href: '/editcontract',
+    icon: (<HistoryEduIcon fontSize="small" />),
+    title: 'Editar Contrato'
+  },
+  {
+    href: '/account',
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
   },
@@ -43,7 +65,7 @@ const items = [
     icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
-/*   {
+   {
     href: '/login',
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
@@ -62,7 +84,7 @@ const items = [
     href: '/404',
     icon: (<XCircleIcon fontSize="small" />),
     title: 'Error'
-  } */
+  } 
 ];
 
 export const DashboardSidebar = (props) => {
