@@ -21,9 +21,7 @@ function CargarParteDiario() {
           >
             Cargar Parte Diario
           </Typography>
-     
-                  <FormularioParte />
-              
+          <FormularioParte />
         </Container>
       </Box>
     </DashboardLayout>

@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { FormularioParte } from '../components/cargarparte/formulario-parte';
+import { EditContractItems } from '../components/editcontract/editcontract-items';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
@@ -22,7 +22,7 @@ function EditContract() {
             Editar Contrato
           </Typography>
      
-                  <FormularioParte />
+                  <EditContractItems />
               
         </Container>
       </Box>
