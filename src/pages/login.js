@@ -3,12 +3,15 @@ import * as Yup from 'yup';
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { userLogin } from '../services/users';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      /*       email: 'demo@growup-digital.com',
-            password: 'Password123' */
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -24,8 +27,16 @@ const Login = () => {
         .required(
           'La contraseña es un campo requerido')
     }),
-    onSubmit: () => {
-      //  router.push('/');
+    onSubmit: async (user) => {
+      console.log(user)
+      try {
+        const res = await userLogin(user)
+        localStorage.setItem("token", res.data.token)
+        console.log("inición sesión", res.data)
+        res.data.token?navigate("/"):console.log(res.data.message)
+      } catch (e) {
+        console.log(e)
+      }
     }
   });
 
@@ -104,7 +115,7 @@ const Login = () => {
               No tenes una cuenta?
               {" "}
               <Link
-                to="/register"
+                href="/register"
                 variant="subtitle2"
                 underline="hover"
                 sx={{

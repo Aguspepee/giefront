@@ -12,17 +12,31 @@ import {
 } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { userRegister } from '../services/users';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: '',
       firstName: '',
       lastName: '',
       password: '',
+      roles: "Administrador",
       policy: false
     },
     validationSchema: Yup.object({
+      firstName: Yup
+        .string()
+        .max(255)
+        .required(
+          'El nombre es un campo requerido'),
+      lastName: Yup
+        .string()
+        .max(255)
+        .required(
+          'El apellido en un campo requerido'),
       email: Yup
         .string()
         .email(
@@ -30,16 +44,11 @@ const Register = () => {
         .max(255)
         .required(
           'El email es un campo requerido'),
-      firstName: Yup
+      roles: Yup
         .string()
         .max(255)
         .required(
-          'El primer nombre es un campo requerido'),
-      lastName: Yup
-        .string()
-        .max(255)
-        .required(
-          'El apellido en un campo requerido'),
+          'El rol en un campo requerido'),
       password: Yup
         .string()
         .max(255)
@@ -50,12 +59,38 @@ const Register = () => {
         .oneOf(
           [true],
           'Se deben aceptar los Términos y Condiciones'
-        )
+        ),
     }),
-    onSubmit: () => {
-      //   router.push('/');
+    onSubmit: async (user) => {
+      console.log("Usuario",user)
+      try {
+        const res = await userRegister(user)
+        console.log("Inició registró", res.data)
+        res.data?navigate("/login"):console.log(res.data)
+      } catch (e) {
+        console.log("Hubo un error aqui",e)
+      }
     }
   });
+
+  const roles = [
+    {
+      value: 'Administrador',
+      label: 'Administrador'
+    },
+    {
+      value: 'Supervisor',
+      label: 'Supervisor'
+    },
+    {
+      value: 'Inspector',
+      label: 'Inspector'
+    },
+    {
+      value: 'Asistente',
+      label: 'Asistente'
+    }
+  ];
 
   return (
     <>
@@ -124,6 +159,30 @@ const Register = () => {
               variant="outlined"
             />
             <TextField
+              error={Boolean(formik.touched.roles && formik.errors.roles)}
+              fullWidth
+              helperText={formik.touched.roles && formik.errors.roles}
+              label="Posición"
+              margin="normal"
+              name="roles"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              required
+              select
+              SelectProps={{ native: true }}
+              value={formik.values.roles}
+              variant="outlined"
+            >
+              {roles.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))}
+            </TextField>
+            <TextField
               error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
               helperText={formik.touched.password && formik.errors.password}
@@ -171,13 +230,13 @@ const Register = () => {
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
-                disabled={formik.isSubmitting}
+               // disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
               >
-                Sign Up Now
+                Registrarse
               </Button>
             </Box>
             <Typography
@@ -187,8 +246,12 @@ const Register = () => {
               Ya tienes una cuenta?
               {' '}
               <Link
+                href="/login"
                 variant="subtitle2"
                 underline="hover"
+                sx={{
+                  cursor: 'pointer'
+                }}
               >
                 Iniciar Sesión
               </Link>
