@@ -115,7 +115,7 @@ const UsersLogin = () => {
               No tenes una cuenta?
               {" "}
               <Link
-                href="/register"
+                href="/users-register"
                 variant="subtitle2"
                 underline="hover"
                 sx={{
