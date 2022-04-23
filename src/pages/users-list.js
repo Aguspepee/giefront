@@ -1,10 +1,10 @@
 import { Box, Container } from '@mui/material';
-import { ClientsListResults } from '../components/clients/clients-list-results';
-import { ClientsListToolbar } from '../components/clients/clients-list-toolbar';
+import { UsersListResults } from '../components/users/users-list-results';
+import { UsersListToolbar } from '../components/users/users-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { clients } from '../__mocks__/clients';
+import { users } from '../__mocks__/users';
 
-function Clients() {
+function UsersList() {
   return (
     <>
       <DashboardLayout>
@@ -16,9 +16,9 @@ function Clients() {
         }}
       >
         <Container maxWidth={false}>
-          <ClientsListToolbar />
+          <UsersListToolbar />
           <Box sx={{ mt: 3 }}>
-            <ClientsListResults clients={clients} />
+            <UsersListResults users={users} />
           </Box>
         </Container>
       </Box>
@@ -27,6 +27,4 @@ function Clients() {
   )
 }
 
-
-
-export default Clients;
+export default UsersList;

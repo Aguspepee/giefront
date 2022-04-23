@@ -18,13 +18,11 @@ import {
   Tooltip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { Link } from 'react-router-dom';
-
 
 //icons
-import EditIcon from '@mui/icons-material/Edit';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
-export const ClientsListResults = ({ clients, ...rest }) => {
+export const RemitosCreatePartes = ({ partes, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -33,7 +31,7 @@ export const ClientsListResults = ({ clients, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = clients.map((customer) => customer.id);
+      newSelectedCustomerIds = partes.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -78,11 +76,11 @@ export const ClientsListResults = ({ clients, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === clients.length}
+                    checked={selectedCustomerIds.length === partes.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < clients.length
+                      && selectedCustomerIds.length < partes.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -103,11 +101,12 @@ export const ClientsListResults = ({ clients, ...rest }) => {
                   Registration date
                 </TableCell>
                 <TableCell>
+                  
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {clients.slice(0, limit).map((customer) => (
+              {partes.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -153,11 +152,10 @@ export const ClientsListResults = ({ clients, ...rest }) => {
                   <TableCell>
                     {format(customer.createdAt, 'dd/MM/yyyy')}
                   </TableCell>
-
                   <TableCell>
-                    <Tooltip title="Editar remito">
-                      <IconButton sx={{ ml: 1 }} component={Link} to="/clientsedit/identificador">
-                        <EditIcon fontSize="small" />
+                    <Tooltip title="Añadir parte">
+                      <IconButton sx={{ ml: 1 }} >
+                        <AddBoxIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>
@@ -169,7 +167,7 @@ export const ClientsListResults = ({ clients, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={clients.length}
+        count={partes.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -180,6 +178,6 @@ export const ClientsListResults = ({ clients, ...rest }) => {
   );
 };
 
-ClientsListResults.propTypes = {
-  clients: PropTypes.array.isRequired
+RemitosCreatePartes.propTypes = {
+  partes: PropTypes.array.isRequired
 };

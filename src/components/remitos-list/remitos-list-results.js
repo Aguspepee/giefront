@@ -20,11 +20,12 @@ import {
 import { getInitials } from '../../utils/get-initials';
 import { Link } from 'react-router-dom';
 
-
 //icons
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
-export const ClientsListResults = ({ clients, ...rest }) => {
+export const RemitosListResults = ({ remitos, ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -33,7 +34,7 @@ export const ClientsListResults = ({ clients, ...rest }) => {
     let newSelectedCustomerIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = clients.map((customer) => customer.id);
+      newSelectedCustomerIds = remitos.map((customer) => customer.id);
     } else {
       newSelectedCustomerIds = [];
     }
@@ -78,11 +79,11 @@ export const ClientsListResults = ({ clients, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === clients.length}
+                    checked={selectedCustomerIds.length === remitos.length}
                     color="primary"
                     indeterminate={
                       selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < clients.length
+                      && selectedCustomerIds.length < remitos.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -103,11 +104,12 @@ export const ClientsListResults = ({ clients, ...rest }) => {
                   Registration date
                 </TableCell>
                 <TableCell>
+                  
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {clients.slice(0, limit).map((customer) => (
+              {remitos.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
@@ -153,11 +155,20 @@ export const ClientsListResults = ({ clients, ...rest }) => {
                   <TableCell>
                     {format(customer.createdAt, 'dd/MM/yyyy')}
                   </TableCell>
-
                   <TableCell>
                     <Tooltip title="Editar remito">
-                      <IconButton sx={{ ml: 1 }} component={Link} to="/clientsedit/identificador">
+                      <IconButton sx={{ ml: 1 }} component={Link} to="/remitosedit/identificador">
                         <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Descargar remito">
+                      <IconButton sx={{ ml: 1 }} >
+                        <PictureAsPdfIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar remito">
+                      <IconButton sx={{ ml: 1 }} >
+                        <DeleteIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>
@@ -169,7 +180,7 @@ export const ClientsListResults = ({ clients, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={clients.length}
+        count={remitos.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -180,6 +191,6 @@ export const ClientsListResults = ({ clients, ...rest }) => {
   );
 };
 
-ClientsListResults.propTypes = {
-  clients: PropTypes.array.isRequired
+RemitosListResults.propTypes = {
+  remitos: PropTypes.array.isRequired
 };

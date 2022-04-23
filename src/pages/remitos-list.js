@@ -1,10 +1,10 @@
 import { Box, Container } from '@mui/material';
-import { UsersListResults } from '../components/users/users-list-results';
-import { UsersListToolbar } from '../components/users/users-list-toolbar';
+import { RemitosListResults } from '../components/remitos-list/remitos-list-results';
+import { RemitosListToolbar } from '../components/remitos-list/remitos-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { users } from '../__mocks__/users';
+import { remitos } from '../__mocks__/remitos';
 
-function Users() {
+function RemitosList() {
   return (
     <>
       <DashboardLayout>
@@ -16,9 +16,9 @@ function Users() {
         }}
       >
         <Container maxWidth={false}>
-          <UsersListToolbar />
+          <RemitosListToolbar />
           <Box sx={{ mt: 3 }}>
-            <UsersListResults users={users} />
+            <RemitosListResults remitos={remitos} />
           </Box>
         </Container>
       </Box>
@@ -27,4 +27,5 @@ function Users() {
   )
 }
 
-export default Users;
+
+export default RemitosList;

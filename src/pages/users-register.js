@@ -15,7 +15,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { userRegister } from '../services/users';
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const UsersRegister = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -69,6 +69,7 @@ const Register = () => {
         res.data?navigate("/login"):console.log(res.data)
       } catch (e) {
         console.log("Hubo un error aqui",e)
+        alert("error")
       }
     }
   });
@@ -272,4 +273,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default UsersRegister;

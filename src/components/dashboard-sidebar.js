@@ -16,6 +16,8 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+
 import { Typography } from '@mui/material';
 import {default as LinkMaterial} from '@mui/material/Link';
 
@@ -26,17 +28,17 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/cargarparte',
+    href: '/partes-add',
     icon: (<NoteAddIcon fontSize="small" />),
     title: 'Cargar Parte'
   },
   {
-    href: '/clients',
+    href: '/clients-list',
     icon: (<SupervisedUserCircleIcon fontSize="small" />),
     title: 'Clientes'
   },
   {
-    href: '/users',
+    href: '/users-list',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Usuarios'
   },
@@ -56,9 +58,14 @@ const items = [
     title: 'Editar Contrato'
   },
   {
-    href: '/account',
+    href: '/users-account',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
+    title: 'Editar Cuenta'
+  },
+  {
+    href: '/remitoslist',
+    icon: (<ReceiptIcon fontSize="small" />),
+    title: 'Remitos'
   },
   {
     href: '',
@@ -66,19 +73,24 @@ const items = [
     title: 'Settings'
   },
    {
-    href: '/login',
+    href: '/users-login',
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
   },
   {
-    href: '/register',
+    href: '/users-register',
     icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
+    title: 'Registrar'
   },
   {
-    href: '/table',
+    href: '/remitostable',
     icon: (<TableRowsIcon fontSize="small" />),
-    title: 'Tabla'
+    title: 'Tabla Remitos'
+  },
+  {
+    href: '/partestable',
+    icon: (<TableRowsIcon fontSize="small" />),
+    title: 'Tabla Parte Diario'
   },
   {
     href: '/404',

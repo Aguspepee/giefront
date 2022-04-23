@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { userLogin } from '../services/users';
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const UsersLogin = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -142,4 +142,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default UsersLogin;

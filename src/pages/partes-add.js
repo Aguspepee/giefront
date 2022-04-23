@@ -3,7 +3,7 @@ import { FormularioParte } from '../components/cargarparte/formulario-parte';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 
-function CargarParteDiario() {
+function PartesAdd() {
   return (
     <DashboardLayout>
 
@@ -29,4 +29,4 @@ function CargarParteDiario() {
 }
 
 
-export default CargarParteDiario;
+export default PartesAdd;

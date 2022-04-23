@@ -14,7 +14,7 @@ import {
 
 
 
-function Table() {
+function RemitosTable() {
   const [data, setData] = useState([
     {
       ID: 10,
@@ -670,4 +670,4 @@ function Table() {
   )
 }
 
-export default Table;
+export default RemitosTable;

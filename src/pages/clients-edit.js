@@ -1,10 +1,9 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
-import { AccountProfileDetails } from '../components/account/account-profile-details';
+import { ClientProfile } from '../components/clients-edit/clients-edit-profile';
+import { ClientProfileDetails } from '../components/clients-edit/clients-edit-details';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { AccountPassword } from '../components/account/account-password';
 
-function Account() {
+function ClientsEdit() {
   return (
     <DashboardLayout>
 
@@ -20,7 +19,7 @@ function Account() {
             sx={{ mb: 3 }}
             variant="h4"
           >
-            Editar Cuenta
+            Editar Cliente
           </Typography>
           <Grid
             container
@@ -32,7 +31,7 @@ function Account() {
               md={6}
               xs={12}
             >
-              <AccountProfile />
+              <ClientProfile />
             </Grid>
             <Grid
               item
@@ -50,15 +49,7 @@ function Account() {
                   md={12}
                   xs={12}
                 >
-                  <AccountProfileDetails />
-                </Grid>
-                <Grid
-                  item
-                  lg={12}
-                  md={12}
-                  xs={12}
-                >
-                  <AccountPassword />
+                  <ClientProfileDetails />
                 </Grid>
               </Grid>
             </Grid>
@@ -70,4 +61,4 @@ function Account() {
 }
 
 
-export default Account;
+export default ClientsEdit;
