@@ -14,42 +14,58 @@ import UsersAccount from './pages/users-account';
 import PartesAdd from './pages/partes-add';
 import ClientsList from './pages/clients-list';
 import UsersList from './pages/users-list';
-import Contracts from './pages/contracts';
-import EditContract from './pages/editcontract';
+import ContractsList from './pages/contracts-list';
+import ContractsEdit from './pages/contracts-edit';
 import RemitosList from './pages/remitos-list';
 import RemitosCreate from './pages/remitos-create';
 import ClientsEdit from './pages/clients-edit';
 import RemitosTable from './pages/remitos-table';
 import PartesTable from './pages/partes-table';
-
+import CertificacionesCreate from './pages/certif-create';
+import CertificacionesList from './pages/certif-list';
 
 
 function App() {
-const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null)
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Routes>
+
+          {/* Dashboard */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users-login" element={<UsersLogin/>} />
-          <Route path="/users-register" element={<UsersRegister />} />
+
+          {/* Users */}
           <Route path="/users-account" element={<UsersAccount />} />
-          <Route path="/partes-add" element={<PartesAdd />} />
-          <Route path="/clients-list" element={<ClientsList />} />
           <Route path="/users-list" element={<UsersList />} />
-          <Route path="/contracts" element={<Contracts />} />
-          <Route path="/editcontract" element={<EditContract />} />
-         
-          <Route path="/remitoslist" element={<RemitosList />} />
-          <Route path="/remitoscreate" element={<RemitosCreate />} />
-          <Route path="/remitosedit/:id" element={<RemitosCreate />} />
-          <Route path="/clientsedit/:id" element={<ClientsEdit />} />
-          <Route path="/remitostable" element={<RemitosTable />} />
-          <Route path="/partestable" element={<RemitosTable />} />
-          
+          <Route path="/users-login" element={<UsersLogin />} />
+          <Route path="/users-register" element={<UsersRegister />} />
+
+          {/* Partes */}
+          <Route path="/partes-add" element={<PartesAdd />} />
+          <Route path="/partes-table" element={<RemitosTable />} />
+
+          {/* Contracts */}
+          <Route path="/contracts-edit" element={<ContractsEdit />} />
+          <Route path="/contracts-list" element={<ContractsList />} />
+
+          {/* Clients */}
+          <Route path="/clients-edit/:id" element={<ClientsEdit />} />
+          <Route path="/clients-list" element={<ClientsList />} />
+
+          {/* Remitos */}
+          <Route path="/remitos-list" element={<RemitosList />} />
+          <Route path="/remitos-create" element={<RemitosCreate />} />
+          <Route path="/remitos-table" element={<RemitosTable />} />
+          <Route path="/remitos-edit/:id" element={<RemitosCreate />} />
+
+          {/* Certificaciones */}
+          <Route path="/certif-create" element={<CertificacionesCreate />} />
+          <Route path="/certif-list" element={<CertificacionesList />} />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -31,7 +31,7 @@ const states = [
   }
 ];
 
-export const FormularioParte = (props) => {
+export const PartesAddForm = (props) => {
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',

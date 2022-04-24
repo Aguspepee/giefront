@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
   )
 });
 
-export const EditContractItems = (props) => {
+export const ContractsEditItems = (props) => {
 
 
   return (

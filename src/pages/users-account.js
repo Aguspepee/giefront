@@ -1,8 +1,8 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
-import { AccountProfileDetails } from '../components/account/account-profile-details';
+import { UsersAccountProfile } from '../components/users-account/users-account-profile';
+import { UsersAccountProfileDetails } from '../components/users-account/users-account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { AccountPassword } from '../components/account/account-password';
+import { UsersAccountPassword } from '../components/users-account/users-account-password';
 
 function UsersAccount() {
   return (
@@ -32,7 +32,7 @@ function UsersAccount() {
               md={6}
               xs={12}
             >
-              <AccountProfile />
+              <UsersAccountProfile />
             </Grid>
             <Grid
               item
@@ -50,7 +50,7 @@ function UsersAccount() {
                   md={12}
                   xs={12}
                 >
-                  <AccountProfileDetails />
+                  <UsersAccountProfileDetails />
                 </Grid>
                 <Grid
                   item
@@ -58,7 +58,7 @@ function UsersAccount() {
                   md={12}
                   xs={12}
                 >
-                  <AccountPassword />
+                  <UsersAccountPassword />
                 </Grid>
               </Grid>
             </Grid>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 
-export const AccountPassword = (props) => {
+export const UsersAccountPassword = (props) => {
   const [values, setValues] = useState({
     password: '',
     confirm: ''

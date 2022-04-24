@@ -1,10 +1,10 @@
 import { Box, Container } from '@mui/material';
-import { ClientsListResults } from '../components/clients-list/clients-list-results';
-import { ClientsListToolbar } from '../components/clients-list/clients-list-toolbar';
+import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
+import { ContractsListToolbar } from '../components/contracts-list/contracts-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { clients } from '../__mocks__/clients';
+import { contracts } from '../__mocks__/contracts';
 
-function ClientsList() {
+function ContractsList() {
   return (
     <>
       <DashboardLayout>
@@ -16,9 +16,9 @@ function ClientsList() {
         }}
       >
         <Container maxWidth={false}>
-          <ClientsListToolbar />
+          <ContractsListToolbar />
           <Box sx={{ mt: 3 }}>
-            <ClientsListResults clients={clients} />
+            <ContractsListResults contracts={contracts} />
           </Box>
         </Container>
       </Box>
@@ -29,4 +29,4 @@ function ClientsList() {
 
 
 
-export default ClientsList;
+export default ContractsList;

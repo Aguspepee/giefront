@@ -17,14 +17,15 @@ import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import PaidIcon from '@mui/icons-material/Paid';
 
 import { Typography } from '@mui/material';
-import {default as LinkMaterial} from '@mui/material/Link';
+import { default as LinkMaterial } from '@mui/material/Link';
 
 const items = [
   {
     href: '/',
-    icon: (<ChartBarIcon fontSize="small" />), 
+    icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
   },
   {
@@ -43,17 +44,12 @@ const items = [
     title: 'Usuarios'
   },
   {
-    href: '',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
-  },
-  {
-    href: '/contracts',
+    href: '/contracts-list',
     icon: (<HistoryEduIcon fontSize="small" />),
     title: 'Contratos'
   },
   {
-    href: '/editcontract',
+    href: '/contracts-edit',
     icon: (<HistoryEduIcon fontSize="small" />),
     title: 'Editar Contrato'
   },
@@ -63,16 +59,16 @@ const items = [
     title: 'Editar Cuenta'
   },
   {
-    href: '/remitoslist',
+    href: '/remitos-list',
     icon: (<ReceiptIcon fontSize="small" />),
     title: 'Remitos'
   },
   {
-    href: '',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    href: '/certif-list',
+    icon: (<PaidIcon fontSize="small" />),
+    title: 'Certificaciones'
   },
-   {
+  {
     href: '/users-login',
     icon: (<LockIcon fontSize="small" />),
     title: 'Login'
@@ -83,12 +79,12 @@ const items = [
     title: 'Registrar'
   },
   {
-    href: '/remitostable',
+    href: '/remitos-table',
     icon: (<TableRowsIcon fontSize="small" />),
     title: 'Tabla Remitos'
   },
   {
-    href: '/partestable',
+    href: '/partes-table',
     icon: (<TableRowsIcon fontSize="small" />),
     title: 'Tabla Parte Diario'
   },
@@ -96,7 +92,12 @@ const items = [
     href: '/404',
     icon: (<XCircleIcon fontSize="small" />),
     title: 'Error'
-  } 
+  },
+  {
+    href: '',
+    icon: (<CogIcon fontSize="small" />),
+    title: 'Settings'
+  },
 ];
 
 export const DashboardSidebar = (props) => {
@@ -157,19 +158,19 @@ export const DashboardSidebar = (props) => {
         <Divider sx={{ borderColor: '#2D3748' }} />
 
         <div style={{ padding: "2em 4em 2em 4em" }} >
-          
-            <Typography variant="caption" display="block" gutterBottom>
-              Made by
-            </Typography>
-            <LinkMaterial target="_blank" href="http://test.growup-digital.com" rel="noreferrer">
+
+          <Typography variant="caption" display="block" gutterBottom>
+            Made by
+          </Typography>
+          <LinkMaterial target="_blank" href="http://test.growup-digital.com" rel="noreferrer">
             <Logo
               sx={{
                 width: 30
               }}
-              
+
             />
-            </LinkMaterial>
-          </div>
+          </LinkMaterial>
+        </div>
       </Box>
     </>
   );

@@ -1,10 +1,10 @@
 import { Box, Container } from '@mui/material';
-import { ContractsListResults } from '../components/contracts/contracts-list-results';
-import { ContractsListToolbar } from '../components/contracts/contracts-list-toolbar';
+import { CertificacionesCreatePartes } from '../components/certif-create/certif-create-partes';
+import { CertificacionesCreateFilters } from '../components/certif-create/certif-create-filters';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { contracts } from '../__mocks__/contracts';
+import { partes } from '../__mocks__/partes';
 
-function Contracts() {
+function CertificacionesCreate() {
   return (
     <>
       <DashboardLayout>
@@ -16,9 +16,9 @@ function Contracts() {
         }}
       >
         <Container maxWidth={false}>
-          <ContractsListToolbar />
+          <CertificacionesCreateFilters />
           <Box sx={{ mt: 3 }}>
-            <ContractsListResults contracts={contracts} />
+            <CertificacionesCreatePartes partes={partes} />
           </Box>
         </Container>
       </Box>
@@ -28,5 +28,4 @@ function Contracts() {
 }
 
 
-
-export default Contracts;
+export default CertificacionesCreate;
