@@ -7,10 +7,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { userLogin } from '../services/users';
 import { useNavigate } from "react-router-dom";
 import UserContext from '../context/userContext';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Collapse from '@mui/material/Collapse';
+
 
 
 const UsersLogin = () => {
-
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("")
   const [user, setUser] = useContext(UserContext);
   const navigate = useNavigate();
   const formik = useFormik({
@@ -33,15 +38,17 @@ const UsersLogin = () => {
           'La contraseña es un campo requerido')
     }),
     onSubmit: async (user) => {
-      console.log(user)
+      //console.log(user)
       try {
         const res = await userLogin(user)
         localStorage.setItem("token", res.data.token)
-        console.log("inición sesión", res.data)
-        console.log(res.data.user)
+        //console.log("inición sesión", res.data)
+        //console.log(res.data.user)
         setUser(res.data.user)
-        res.data.token?navigate("/"):console.log(res.data.message)
-        
+        res.data.token ? navigate("/") :
+          // console.log(res.data.message)
+        setError(res.data.message)
+        setSuccess(true)
       } catch (e) {
         console.log(e)
       }
@@ -104,6 +111,11 @@ const UsersLogin = () => {
               value={formik.values.password}
               variant="outlined"
             />
+            <Collapse in={success}>
+              <Alert severity="error">
+                {error}
+              </Alert>
+            </Collapse>
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
@@ -116,6 +128,7 @@ const UsersLogin = () => {
                 Iniciar sesión
               </Button>
             </Box>
+
             <Typography
               color="textSecondary"
               variant="body2"
