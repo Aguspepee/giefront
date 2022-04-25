@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { RemitosCreatePartes } from '../components/remitos-create/remitos-create-partes';
 import { RemitosCreateFilters } from '../components/remitos-create/remitos-create-filters';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { partes } from '../__mocks__/partes';
 
 function RemitosCreate() {

@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { CertificacionesListResults } from '../components/certif-list/certif-list-results';
 import { CertificacionesListToolbar } from '../components/certif-list/certif-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { certificaciones } from '../__mocks__/certificaciones';
 
 function CertificacionessList() {

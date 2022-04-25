@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
 import { ContractsListToolbar } from '../components/contracts-list/contracts-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { contracts } from '../__mocks__/contracts';
 
 function ContractsList() {

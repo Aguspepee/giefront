@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { UsersAccountProfile } from '../components/users-account/users-account-profile';
 import { UsersAccountProfileDetails } from '../components/users-account/users-account-profile-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { UsersAccountPassword } from '../components/users-account/users-account-password';
 
 function UsersAccount() {

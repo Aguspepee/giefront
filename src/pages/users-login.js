@@ -1,12 +1,17 @@
 import { useFormik } from 'formik';
+import { useEffect, useState, useContext } from 'react';
 import * as Yup from 'yup';
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { userLogin } from '../services/users';
 import { useNavigate } from "react-router-dom";
+import UserContext from '../context/userContext';
+
 
 const UsersLogin = () => {
+
+  const [user, setUser] = useContext(UserContext);
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -33,7 +38,10 @@ const UsersLogin = () => {
         const res = await userLogin(user)
         localStorage.setItem("token", res.data.token)
         console.log("inición sesión", res.data)
+        console.log(res.data.user)
+        setUser(res.data.user)
         res.data.token?navigate("/"):console.log(res.data.message)
+        
       } catch (e) {
         console.log(e)
       }

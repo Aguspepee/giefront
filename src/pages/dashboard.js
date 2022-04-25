@@ -1,5 +1,5 @@
 import { Box, Container, Grid} from '@mui/material';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 
 function Dashboard() {
 

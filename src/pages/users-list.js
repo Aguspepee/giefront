@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { UsersListResults } from '../components/users-list/users-list-results';
 import { UsersListToolbar } from '../components/users-list/users-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { users } from '../__mocks__/users';
 
 function UsersList() {

@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { CertificacionesCreatePartes } from '../components/certif-create/certif-create-partes';
 import { CertificacionesCreateFilters } from '../components/certif-create/certif-create-filters';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { partes } from '../__mocks__/partes';
 
 function CertificacionesCreate() {

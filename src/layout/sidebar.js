@@ -13,7 +13,7 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { Logo } from './logo';
+import { Logo } from '../components/logo';
 import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import ReceiptIcon from '@mui/icons-material/Receipt';

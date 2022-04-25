@@ -1,7 +1,7 @@
 import { Box, Container } from '@mui/material';
 import { ClientsListResults } from '../components/clients-list/clients-list-results';
 import { ClientsListToolbar } from '../components/clients-list/clients-list-toolbar';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 import { clients } from '../__mocks__/clients';
 
 function ClientsList() {

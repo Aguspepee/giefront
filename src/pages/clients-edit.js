@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ClientProfile } from '../components/clients-edit/clients-edit-profile';
 import { ClientProfileDetails } from '../components/clients-edit/clients-edit-details';
-import { DashboardLayout } from '../components/dashboard-layout';
+import { DashboardLayout } from '../layout/layout';
 
 function ClientsEdit() {
   return (

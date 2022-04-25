@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { DashboardNavbar } from './dashboard-navbar';
-import { DashboardSidebar } from './dashboard-sidebar';
+import { DashboardNavbar } from './navbar';
+import { DashboardSidebar } from './sidebar';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -22,7 +22,7 @@ export const DashboardLayout = (props) => {
     <>
       <DashboardLayoutRoot>
         <Box
-          sx={{
+          sx={{ 
             display: 'flex',
             flex: '1 1 auto',
             flexDirection: 'column',

@@ -66,7 +66,7 @@ const UsersRegister = () => {
       try {
         const res = await userRegister(user)
         console.log("Inició registró", res.data)
-        res.data?navigate("/login"):console.log(res.data)
+        res.data?navigate("/users-login"):console.log(res.data)
       } catch (e) {
         console.log("Hubo un error aqui",e)
         alert("error")
