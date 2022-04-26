@@ -8,6 +8,7 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
+import { Link } from 'react-router-dom';
 import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
@@ -44,6 +45,8 @@ export const ClientsListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
+          component={Link}
+          to="/clients-create"
         >
           Nuevo Cliente
         </Button>

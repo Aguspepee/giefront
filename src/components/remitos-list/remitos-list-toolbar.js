@@ -45,7 +45,7 @@ export const RemitosListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
-          to= '/remitoscreate'
+          to= '/remitos-create'
           component={Link}
         >
           Nuevo Remito

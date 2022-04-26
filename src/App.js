@@ -11,6 +11,10 @@ import UserContext from './context/userContext';
 //Private Routes
 import Private from './components/Private';
 
+//Autenticación inicial
+import { userWhoami } from './services/users';
+import { Login } from '@mui/icons-material';
+
 //Páginas
 import Dashboard from "./pages/dashboard";
 import UsersLogin from './pages/users-login';
@@ -29,8 +33,7 @@ import ClientsEdit from './pages/clients-edit';
 import CertificacionesCreate from './pages/certif-create';
 import CertificacionesList from './pages/certif-list';
 import UsersCreate from './pages/users-create';
-import { userWhoami } from './services/users';
-import { Login } from '@mui/icons-material';
+import ClientsCreate from './pages/clients-create'
 
 
 function App() {
@@ -84,6 +87,7 @@ function App() {
               {/* Clients */}
               <Route path="/clients-edit/:id" element={<ClientsEdit />} />
               <Route path="/clients-list" element={<ClientsList />} />
+              <Route path="/clients-create" element={<ClientsCreate />} />
 
               {/* Remitos */}
               <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Supervisor", "Inspector", "Asistente"]}/>} />

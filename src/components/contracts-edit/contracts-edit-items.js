@@ -63,14 +63,7 @@ function ContractsEditItems() {
     console.log("contrato",contract)
     try {
       const res = await contractCreate(contract)
-      //localStorage.setItem("token", res.data.token)
       console.log("Se creó el contrato", res.data)
-      //console.log(res.data.user)
-      //setUser(res.data.user)
-      //res.data.token ? navigate("/") :
-        // console.log(res.data.message)
-      //setError(res.data.message)
-      //setSuccess(true) 
     } catch (e) {
       console.log(e)
     }
