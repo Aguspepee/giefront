@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ContractsEditItems } from '../components/contracts-edit/contracts-edit-items';
+import ContractsEditItems from '../components/contracts-edit/contracts-edit-items';
 import { DashboardLayout } from '../layout/layout';
 
 
