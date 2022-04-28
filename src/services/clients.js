@@ -6,6 +6,7 @@ export function clientGet() {
 }
 
 export function clientCreate(client) {
+    console.log("fueeeee")
     let token = localStorage.getItem("token")
     return instance.post(`clients/`, client, {
         headers: { Authorization: `Bearer ${token}` }

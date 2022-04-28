@@ -14,32 +14,17 @@ import {
 } from '@mui/material';
 import { clientCreate } from '../../services/clients';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
-
 export const ClientCreateDetails = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      nombre: '',
+       nombre: '',
       direccion: '',
       email: '',
-      telefono: "",
-      abreviatura: "",
-      deleted: "",
-      image: ""
+      telefono: '',
+      abreviatura: '',
+      //deleted: '',
+      image: '' 
     },
     validationSchema: Yup.object({
       nombre: Yup
@@ -67,11 +52,11 @@ export const ClientCreateDetails = (props) => {
         .string()
         .max(255)
         .required(
-          'El email es un campo requerido'),
+          'El email es un campo requerido'), 
 
     }),
 
-    onSubmit: async (client) => {
+     onSubmit: async (client) => {
       console.log("contrato", client)
       try {
         const res = await clientCreate(client)
@@ -79,12 +64,12 @@ export const ClientCreateDetails = (props) => {
       } catch (e) {
         console.log(e)
       }
-    }
+    } 
   });
 
   return (
-    <form form onSubmit={formik.handleSubmit} >
-      <Card>
+   <form onSubmit={formik.handleSubmit} >
+     <Card>
         <CardHeader
           subheader="Edite la información y guarde los cambios"
           title="Perfil"
@@ -95,7 +80,7 @@ export const ClientCreateDetails = (props) => {
             container
             spacing={3}
           >
-            <Grid
+           <Grid
               item
               md={6}
               xs={12}
@@ -152,7 +137,7 @@ export const ClientCreateDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
+             <Grid
               item
               md={6}
               xs={12}
@@ -166,7 +151,7 @@ export const ClientCreateDetails = (props) => {
                 name="telefono"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                type="number"
+                type="string"
                 value={formik.values.telefono}
                 variant="outlined"
               />
@@ -189,7 +174,7 @@ export const ClientCreateDetails = (props) => {
                 value={formik.values.abreviatura}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> 
           </Grid>
         </CardContent>
         <Divider />
@@ -200,18 +185,18 @@ export const ClientCreateDetails = (props) => {
             p: 2
           }}
         >
-          <Button
+         <Button
                 color="primary"
-                disabled={formik.isSubmitting}
+                //disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
                 variant="contained"
           >
             Save details
-          </Button>
+          </Button> 
         </Box>
-      </Card>
-    </form>
+      </Card> 
+    </form> 
   );
 };
