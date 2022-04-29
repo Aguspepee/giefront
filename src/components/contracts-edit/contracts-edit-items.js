@@ -4,13 +4,14 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
+  FormHelperText,
   Button,
   Divider,
   TextField,
   IconButton,
   Tooltip,
-  Typography
+  Typography,
+  Checkbox,
 } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -18,6 +19,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { contractCreate } from "../../services/contracts";
+
+import InputCheckbox from "./components/contracts-edit-items-checkbox"
+import InputAutocomplete from "./components/contracts-edit-items-autocomplete";
 
 //Icons
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -29,8 +33,26 @@ const schema = yup.object().shape({
   descripcion: yup.string().required("La descripción del contrato es requerida"),
   tipo: yup.string().required("La descripción del contrato es requerida"),
   cliente: yup.string().required("El cliente es requerido"),
-  fecha_inicio: yup.date().required("La fecha de inicio del proyecto es requerida"),
-  fecha_fin: yup.date().required("La fecha de inicio del proyecto es requerida"),
+  fecha_inicio: yup.date(),
+  fecha_fin: yup.date(),
+  numero_reporte: yup.boolean(),
+  prueba: yup.string().required("Es obligatorio"),
+
+
+  //esto funciona con yup.array().of() VEEEEEER QUE PASA 
+  //Agregar numeros descendentes en los checkbox
+  campos: yup.object().shape({
+    numero_reporte: yup.boolean().nullable(),
+    numero_orden: yup.boolean().nullable(),
+    adicionales: yup.boolean().nullable(),
+    equipo_completo: yup.boolean().nullable(),
+    diametro: yup.boolean().nullable(),
+    espesor: yup.boolean().nullable(),
+    numero_costuras: yup.boolean().nullable(),
+    cantidad_placas: yup.boolean().nullable(),
+    tipo_ensayo: yup.boolean().nullable(),
+  }),
+
   items: yup.array().of(
     yup.object().shape({
       descripcion: yup.string().required("First Name is required"),
@@ -41,25 +63,47 @@ const schema = yup.object().shape({
       valor: yup.number().required("First Name is required"),
     })
   ),
+
   unidades: yup.array().of(
     yup.object().shape({
       nombre: yup.string().required("El nombre de la unidad es requerido"),
       abreviatura: yup.string().length(3, "Debe tener 3 caracteres").required("Se debe colocar una abreviatura")
     })
   ),
+
   certificantes: yup.array().of(
     yup.object().shape({
       nombre: yup.string().required("El nombre de la unidad es requerido"),
       apellido: yup.string().required("El nombre de la unidad es requerido"),
     })
-  )
+  ),
+
+
 })
 
 function ContractsEditItems() {
-  const { register, control, handleSubmit, reset, trigger, setError, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+  const { register, control, handleSubmit, reset, trigger, setError, formState: { errors, value } } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      nombre: "Agustín",
+      prueba: "Hola",
+      unidades: [
+        { nombre: "ricardo", abreviatura: "rod" },
+        { nombre: "agustín", abreviatura: "san" }
+      ],
+      campos: [
+        { numero_reporte: true },
+        { numero_orden: true },
+        { adicionales: true },
+        { equipo_completo: true },
+        { diametro: false },
+        { espesor: false },
+        { numero_costuras: false },
+        { cantidad_placas: false },
+        { tipo_ensayo: false },
+      ]
+    }
   });
-  //const { fields, append, remove, move } = useFieldArray({
   const items = useFieldArray({
     control,
     name: "items"
@@ -72,6 +116,10 @@ function ContractsEditItems() {
     control,
     name: "certificantes"
   });
+  /*   const campos = useFieldArray({
+      control,
+      name: "campos"
+    }); */
 
   async function onSubmit(contract) {
     console.log("contrato", contract)
@@ -82,7 +130,6 @@ function ContractsEditItems() {
       console.log(e)
     }
   }
-
 
   //Estados de las fechas de inicio y fin
   const [fechaInicio, setFechaInicio] = useState();
@@ -97,8 +144,10 @@ function ContractsEditItems() {
               Datos generales
             </Typography>
             <Controller
-              render={({ field: { onChange, onBlur, ref, formState } }) =>
+
+              render={({ field: { onChange, onBlur, ref, formState, value } }) =>
                 <TextField
+                  defaultValue={value}
                   error={Boolean(errors.nombre)}
                   helperText={errors.nombre && errors.nombre.message}
                   label="Nombre del Contrato"
@@ -300,7 +349,6 @@ function ContractsEditItems() {
               </Box>
             ))}
             <Button
-              type="submit"
               color="primary"
               variant="contained"
               onClick={() => items.append({})}
@@ -308,7 +356,6 @@ function ContractsEditItems() {
               Agregar Ítems
             </Button>
             <Button
-              type="submit"
               color="primary"
               variant="contained"
               onClick={() => { for (let i = 1; i < 10; i++) { items.append({}) } }}
@@ -323,8 +370,9 @@ function ContractsEditItems() {
               <Box key={unidad.id} style={{ padding: "18px 0px 15px 0px" }}>
                 {index + 1}-
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, ref, value } }) =>
                     <TextField
+                      defaultValue={value}
                       error={Boolean(errors.unidades?.[index]?.nombre)}
                       helperText={errors.unidades?.[index]?.nombre && errors.unidades?.[index]?.nombre?.message}
                       label="Nombre"
@@ -337,8 +385,9 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, ref, value } }) =>
                     <TextField
+                      defaultValue={value}
                       error={Boolean(errors.unidades?.[index]?.abreviatura)}
                       helperText={errors.unidades?.[index]?.abreviatura && errors.unidades?.[index]?.abreviatura?.message}
                       label="Abreviatura"
@@ -401,11 +450,35 @@ function ContractsEditItems() {
             >
               Agregar Certificantes
             </Button>
+            <Divider style={{ paddingTop: "1.5em" }} />
+            <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>
+              Campos del contrato
+            </Typography>
+            <Box style={{ padding: "18px 0px 15px 0px" }}>
+              <InputCheckbox control={control} name="campos.numero_reporte" defaultValue={true} description="Numero de Reporte" />
+              <InputCheckbox control={control} name="campos.numero_orden" defaultValue={true} description="Numero de Orden" />
+              <InputCheckbox control={control} name="campos.adicionales" defaultValue={true} description="Adicionales" />
+              <InputCheckbox control={control} name="campos.equipo_completo" defaultValue={true} description="Equipo Completo" />
+              <InputCheckbox control={control} name="campos.diametro" defaultValue={false} description="Diámetro" />
+              <InputCheckbox control={control} name="campos.espesor" defaultValue={false} description="Espesor" />
+              <InputCheckbox control={control} name="campos.numero_costuras" defaultValue={false} description="Número de Costuras" />
+              <InputCheckbox control={control} name="campos.cantidad_placas" defaultValue={false} description="Cantidad de Placas" />
+              <InputCheckbox control={control} name="campos.tipo_ensayo" defaultValue={false} description="Tipo de Ensayo RX" />
+              <InputAutocomplete control={control} name="prueba" defaultValue={false} description="prueba" errors={errors} />
+            </Box>
             <Divider style={{ marginTop: 20, marginBottom: 20 }} />
             <Button
               type="submit"
               color="primary"
               variant="contained"
+            >
+              Guardar Cambios
+            </Button>
+            <Button
+
+              color="primary"
+              variant="contained"
+              onClick={() => console.log(errors)}
             >
               Guardar Cambios
             </Button>
