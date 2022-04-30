@@ -1,23 +1,12 @@
 import { React, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import {
-  Box,
-  Card,
-  CardContent,
-  Button,
-  Divider,
-  TextField,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, Button, Divider, TextField, IconButton, Tooltip, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { contractCreate } from "../../services/contracts";
-
 import InputCheckbox from "./components/contracts-edit-items-checkbox"
 import InputAutocomplete from "./components/contracts-edit-items-autocomplete";
 
@@ -25,6 +14,9 @@ import InputAutocomplete from "./components/contracts-edit-items-autocomplete";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+//GET listas
+import { clientGetNames } from '../../services/clients'
 
 const schema = yup.object().shape({
   nombre: yup.string().required("El nombre del cliente es requerido"),
@@ -83,7 +75,8 @@ function ContractsEditItems() {
     defaultValues: {
       nombre: "Agustín",
       prueba: "Hola",
-      cliente: { first_name: "MarShon", last_name: "Brooks" },
+      //cliente: { nombre: "asdasd" },
+      cliente: null,
       activo: true,
       unidades: [
         { nombre: "ricardo", abreviatura: "rod" },
@@ -183,7 +176,7 @@ function ContractsEditItems() {
               name={`tipo`}
               control={control}
             />
-            <InputAutocomplete control={control} name="cliente" description="Cliente" errors={errors} />
+            <InputAutocomplete control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
             <Controller
               name={`fecha_inicio`}
               control={control}
