@@ -6,9 +6,10 @@ import * as yup from "yup";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { contractCreate } from "../../services/contracts";
+import { contractEdit } from "../../services/contracts";
 import InputCheckbox from "./components/contracts-edit-items-checkbox"
 import InputAutocomplete from "./components/contracts-edit-items-autocomplete";
+import { useParams } from "react-router-dom";
 
 //Icons
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -70,6 +71,8 @@ const schema = yup.object().shape({
 })
 
 function ContractsEditItems() {
+  let { id } = useParams();
+  console.log(id)
   const { control, handleSubmit, formState: { errors, value } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -109,18 +112,19 @@ function ContractsEditItems() {
   });
 
   async function onSubmit(contract) {
+    
     console.log("contrato", contract)
     try {
-      const res = await contractCreate(contract)
-      console.log("Se creó el contrato", res.data)
+      const res = await contractEdit(contract,id)
+      console.log("Se modificó el contrato", res.data)
     } catch (e) {
       console.log(e)
     }
   }
 
   //Estados de las fechas de inicio y fin
-  const [fechaInicio, setFechaInicio] = useState();
-  const [fechaFin, setFechaFin] = useState();
+ // const [fechaInicio, setFechaInicio] = useState();
+  //const [fechaFin, setFechaFin] = useState();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -184,7 +188,7 @@ function ContractsEditItems() {
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
-                  setFechaInicio(newValue);
+                 // setFechaInicio(newValue);
                 };
                 return (
                   <DesktopDatePicker
@@ -210,7 +214,7 @@ function ContractsEditItems() {
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
-                  setFechaFin(newValue);
+                 // setFechaFin(newValue);
                 };
                 return (
                   <DesktopDatePicker

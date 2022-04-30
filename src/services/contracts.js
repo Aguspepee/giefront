@@ -1,8 +1,11 @@
 import instance from "../config/axios"
 
 //rutas Axios
-export function contractGet() {
-    return instance.get(`contracts/`)
+export function contractGetList() {
+    let token = localStorage.getItem("token")
+    return instance.get(`contracts/list`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 export function contractCreate(contract) {
@@ -12,3 +15,17 @@ export function contractCreate(contract) {
     })
 }
 
+export function contractEdit(contract,id) {
+    let token = localStorage.getItem("token")
+    return instance.put(`contracts/edit/${id}`, contract, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function contractDelete(id) {
+    console.log(id)
+    let token = localStorage.getItem("token")
+    return instance.delete(`contracts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}

@@ -16,6 +16,7 @@ function InputAutocomplete(props) {
             try {
                 const res = await get()
                 setJsonResults(res.data)
+                console.log(res.data)
             } catch (e) {
                 console.log(e)
             }
@@ -34,16 +35,16 @@ function InputAutocomplete(props) {
                     <Autocomplete
                         defaultValue={value }
                         disablePortal
-                        getOptionLabel={(jsonResults) => `${jsonResults?.nombre}`}
+                        getOptionLabel={(jsonResults) => `${jsonResults}`}
                         options={jsonResults}
-                        isOptionEqualToValue={(option, value) => option?.nombre === value?.nombre}
+                        isOptionEqualToValue={(option, value) => option === value}
                         noOptionsText={"Sin opciones"}
                         renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
                         size="small"
                         margin="none"
                         value={value? value : null}
                         onChange={(event, item) => {
-                            onChange(item? { nombre: item?.nombre }: null)
+                            onChange(item? item : null)
                         }}
                         onBlur={onBlur}
                         style={{ width: "10em" }}

@@ -80,7 +80,7 @@ function App() {
               {/* <Route path="/partes-table" element={<RemitosTable />} /> */}
 
               {/* Contracts */}
-              <Route path="/contracts-edit" element={<Private Component={ContractsEdit}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+              <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
               <Route path="/contracts-list" element={<ContractsList />} />
 
               {/* Clients */}

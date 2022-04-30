@@ -1,67 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import {
-  Avatar,
-  Box,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography
-} from '@mui/material';
+import { Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography,  IconButton,
+  Tooltip } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import { contractGetList, contractDelete } from '../../services/contracts';
+import { Link } from 'react-router-dom';
 
-export const ContractsListResults = ({ contracts, ...rest }) => {
+//icons
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+
+export const ContractsListResults = ({ ...rest }) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+  const [contracts, setContracts] = useState([])
+  useEffect(() => {
+    async function getList() {
+      try {
+        const contracts = await contractGetList()
+        setContracts(contracts.data)
+        console.log(contracts.data)
+      } catch (error) {
+        console.log(error)
+      }
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = contracts.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
     }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
+    getList()
+  }, [])
+  //let fecha = new Date('2022-04-08T02:55:11.000Z')
+  // console.log(fecha)
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -69,48 +38,28 @@ export const ContractsListResults = ({ contracts, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === contracts.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < contracts.length
-                    }
-                    onChange={handleSelectAll}
-                  />
+                <TableCell>
+                  Contrato
                 </TableCell>
                 <TableCell>
-                  Nombre
+                  Cliente
                 </TableCell>
                 <TableCell>
-                  Email
+                  Tipo
                 </TableCell>
                 <TableCell>
-                  Location
+                  Fecha de Inicio
                 </TableCell>
                 <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {contracts.slice(0, limit).map((customer) => (
+              {contracts?.map((contract) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={contract._id}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -119,46 +68,52 @@ export const ContractsListResults = ({ contracts, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        src={contract?.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(contract?.nombre)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {contract.nombre}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {contract.cliente}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {contract.tipo}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {format(new Date(contract.fecha_inicio), 'dd/MM/yyyy')}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                  <Tooltip title="Editar contrato">
+                      <IconButton sx={{ ml: 1 }} component={Link} to={`/contracts-edit/${contract._id}`}>
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Nueva versión">
+                      <IconButton sx={{ ml: 1 }} >
+                        <DynamicFeedIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar contrato">
+                      <IconButton sx={{ ml: 1 }} onClick={()=>{contractDelete(contract._id)}}>
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={contracts.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
     </Card>
   );
 };
