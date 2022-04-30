@@ -4,14 +4,12 @@ import {
   Box,
   Card,
   CardContent,
-  FormHelperText,
   Button,
   Divider,
   TextField,
   IconButton,
   Tooltip,
   Typography,
-  Checkbox,
 } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -36,11 +34,8 @@ const schema = yup.object().shape({
   fecha_inicio: yup.date(),
   fecha_fin: yup.date(),
   numero_reporte: yup.boolean(),
-  prueba: yup.string().required("Es obligatorio"),
+  activo: yup.boolean(),
 
-
-  //esto funciona con yup.array().of() VEEEEEER QUE PASA 
-  //Agregar numeros descendentes en los checkbox
   campos: yup.object().shape({
     numero_reporte: yup.boolean().nullable(),
     numero_orden: yup.boolean().nullable(),
@@ -60,7 +55,10 @@ const schema = yup.object().shape({
       unidad_medida: yup.string().required("First Name is required"),
       tipo_actividad: yup.string().required("First Name is required"),
       subtipo_actividad: yup.string().required("First Name is required"),
-      valor: yup.number().required("First Name is required"),
+      valor: yup.number()
+        .typeError('age must be a number')
+        .positive('age must be greater than zero')
+        .required('age is required')
     })
   ),
 
@@ -77,31 +75,31 @@ const schema = yup.object().shape({
       apellido: yup.string().required("El nombre de la unidad es requerido"),
     })
   ),
-
-
 })
 
 function ContractsEditItems() {
-  const { register, control, handleSubmit, reset, trigger, setError, formState: { errors, value } } = useForm({
+  const { control, handleSubmit, formState: { errors, value } } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       nombre: "Agustín",
       prueba: "Hola",
+      cliente: { first_name: "MarShon", last_name: "Brooks" },
+      activo: true,
       unidades: [
         { nombre: "ricardo", abreviatura: "rod" },
         { nombre: "agustín", abreviatura: "san" }
       ],
-      campos: [
-        { numero_reporte: true },
-        { numero_orden: true },
-        { adicionales: true },
-        { equipo_completo: true },
-        { diametro: false },
-        { espesor: false },
-        { numero_costuras: false },
-        { cantidad_placas: false },
-        { tipo_ensayo: false },
-      ]
+      campos: {
+        numero_reporte: true,
+        numero_orden: true,
+        adicionales: true,
+        equipo_completo: true,
+        diametro: false,
+        espesor: false,
+        numero_costuras: false,
+        cantidad_placas: false,
+        tipo_ensayo: false,
+      }
     }
   });
   const items = useFieldArray({
@@ -116,10 +114,6 @@ function ContractsEditItems() {
     control,
     name: "certificantes"
   });
-  /*   const campos = useFieldArray({
-      control,
-      name: "campos"
-    }); */
 
   async function onSubmit(contract) {
     console.log("contrato", contract)
@@ -145,11 +139,11 @@ function ContractsEditItems() {
             </Typography>
             <Controller
 
-              render={({ field: { onChange, onBlur, ref, formState, value } }) =>
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                 <TextField
                   defaultValue={value}
-                  error={Boolean(errors.nombre)}
-                  helperText={errors.nombre && errors.nombre.message}
+                  error={Boolean(error)}
+                  helperText={error && error.message}
                   label="Nombre del Contrato"
                   margin="normal"
                   onChange={onChange}
@@ -160,10 +154,11 @@ function ContractsEditItems() {
               control={control}
             />
             <Controller
-              render={({ field: { onChange, onBlur, ref } }) =>
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                 <TextField
-                  error={Boolean(errors.descripcion)}
-                  helperText={errors.descripcion && errors.descripcion.message}
+                  defaultValue={value}
+                  error={Boolean(error)}
+                  helperText={error && error.message}
                   label="Descripción del Contrato"
                   margin="normal"
                   onChange={onChange}
@@ -174,10 +169,11 @@ function ContractsEditItems() {
               control={control}
             />
             <Controller
-              render={({ field: { onChange, onBlur, ref } }) =>
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                 <TextField
-                  error={Boolean(errors.tipo)}
-                  helperText={errors.tipo && errors.tipo.message}
+                  defaultValue={value}
+                  error={Boolean(error)}
+                  helperText={error && error.message}
                   label="Tipo del Contrato"
                   margin="normal"
                   onChange={onChange}
@@ -187,25 +183,12 @@ function ContractsEditItems() {
               name={`tipo`}
               control={control}
             />
-            <Controller
-              render={({ field: { onChange, onBlur, ref } }) =>
-                <TextField
-                  error={Boolean(errors.cliente)}
-                  helperText={errors.cliente && errors.cliente.message}
-                  label="Cliente"
-                  margin="normal"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  size="small"
-                />}
-              name={`cliente`}
-              control={control}
-            />
+            <InputAutocomplete control={control} name="cliente" description="Cliente" errors={errors} />
             <Controller
               name={`fecha_inicio`}
               control={control}
               defaultValue={null}
-              render={({ field: { onChange, value, onBlur } }) => {
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
                   setFechaInicio(newValue);
@@ -226,11 +209,12 @@ function ContractsEditItems() {
               }}
 
             />
+
             <Controller
               name={`fecha_fin`}
               control={control}
               defaultValue={null}
-              render={({ field: { onChange, value, onBlur } }) => {
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
                   setFechaFin(newValue);
@@ -250,7 +234,7 @@ function ContractsEditItems() {
                   />)
               }}
             />
-
+            <InputCheckbox control={control} name="activo" defaultValue={false} description="Contrato Activo" />
             <Divider style={{ paddingTop: "1.5em" }} />
             <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>
               Ítems del contrato
@@ -259,8 +243,11 @@ function ContractsEditItems() {
               <Box key={item.id} style={{ padding: "18px 0px 15px 0px" }}>
                 {index + 1}-
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="Descripción"
                       margin="none"
                       onChange={onChange}
@@ -272,8 +259,11 @@ function ContractsEditItems() {
                 />
 
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="Código de Servicio"
                       margin="none"
                       onChange={onChange}
@@ -284,8 +274,11 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="Tipo de Actividad"
                       margin="none"
                       onChange={onChange}
@@ -296,8 +289,11 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="SubTipo de Actividad"
                       margin="none"
                       onChange={onChange}
@@ -308,8 +304,11 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="Valor"
                       margin="none"
                       onChange={onChange}
@@ -320,8 +319,11 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                     <TextField
+                      defaultValue={value}
+                      error={Boolean(error)}
+                      helperText={error && error.message}
                       label="Unidad de Medida"
                       margin="none"
                       onChange={onChange}
@@ -429,7 +431,7 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur } }) =>
                     <TextField
                       error={Boolean(errors.certificantes?.[index]?.apellido)}
                       helperText={errors.certificantes?.[index]?.apellido && errors.certificantes?.[index]?.apellido?.message}
@@ -455,16 +457,16 @@ function ContractsEditItems() {
               Campos del contrato
             </Typography>
             <Box style={{ padding: "18px 0px 15px 0px" }}>
-              <InputCheckbox control={control} name="campos.numero_reporte" defaultValue={true} description="Numero de Reporte" />
-              <InputCheckbox control={control} name="campos.numero_orden" defaultValue={true} description="Numero de Orden" />
-              <InputCheckbox control={control} name="campos.adicionales" defaultValue={true} description="Adicionales" />
-              <InputCheckbox control={control} name="campos.equipo_completo" defaultValue={true} description="Equipo Completo" />
-              <InputCheckbox control={control} name="campos.diametro" defaultValue={false} description="Diámetro" />
-              <InputCheckbox control={control} name="campos.espesor" defaultValue={false} description="Espesor" />
-              <InputCheckbox control={control} name="campos.numero_costuras" defaultValue={false} description="Número de Costuras" />
-              <InputCheckbox control={control} name="campos.cantidad_placas" defaultValue={false} description="Cantidad de Placas" />
-              <InputCheckbox control={control} name="campos.tipo_ensayo" defaultValue={false} description="Tipo de Ensayo RX" />
-              <InputAutocomplete control={control} name="prueba" defaultValue={false} description="prueba" errors={errors} />
+              <InputCheckbox control={control} name="campos.numero_reporte" description="Numero de Reporte" />
+              <InputCheckbox control={control} name="campos.numero_orden" description="Numero de Orden" />
+              <InputCheckbox control={control} name="campos.adicionales" description="Adicionales" />
+              <InputCheckbox control={control} name="campos.equipo_completo" description="Equipo Completo" />
+              <InputCheckbox control={control} name="campos.diametro" description="Diámetro" />
+              <InputCheckbox control={control} name="campos.espesor" description="Espesor" />
+              <InputCheckbox control={control} name="campos.numero_costuras" description="Número de Costuras" />
+              <InputCheckbox control={control} name="campos.cantidad_placas" description="Cantidad de Placas" />
+              <InputCheckbox control={control} name="campos.tipo_ensayo" description="Tipo de Ensayo RX" />
+
             </Box>
             <Divider style={{ marginTop: 20, marginBottom: 20 }} />
             <Button

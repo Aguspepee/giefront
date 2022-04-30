@@ -37,7 +37,6 @@ import ClientsCreate from './pages/clients-create'
 
 
 function App() {
-  console.log("CARGÓ")
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
 

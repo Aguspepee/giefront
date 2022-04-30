@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 function Private( props) {
 //function Private( Component, user, roles, ...props) {
     //const currentUser = JSON.parse(sessionStorage.getItem("user"))[0]
-    console.log(props.user)
+    //console.log(props.user)
     const roles = props.roles
     const currentUser = props.user
     const Component = props.Component
@@ -22,7 +22,6 @@ function Private( props) {
 
     // authorised so return component
     return <Component {...props} />
-
 }
 export default Private
 

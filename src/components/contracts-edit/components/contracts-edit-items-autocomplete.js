@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Stack, Autocomplete, Box, Typography } from '@mui/material';
+import { TextField, Autocomplete } from '@mui/material';
 
 function InputAutocomplete(props) {
     const control = props.control
@@ -15,44 +15,37 @@ function InputAutocomplete(props) {
             .then((response) => response.json())
             .then((json) => setJsonResults(json.data))
     }, [])
-    console.log(jsonResults)
 
     return (
-        <Box
-            sx={{
-                alignItems: 'center',
-                display: 'flex',
-                ml: -1
-            }}
-        >
-            <Controller
-                name={name}
-                control={control}
-               // 
-                render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
-                    console.log(value)
-                    return(
+        <Controller
+            name={name}
+            control={control}
+            // 
+            render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
+                console.log(value)
+                return (
                     <Autocomplete
-                    defaultValue={{first_name: "MarShon",last_name:"Brooks"}}
+                        defaultValue={value}
                         disablePortal
                         getOptionLabel={(jsonResults) => `${jsonResults.first_name} ${jsonResults.last_name}`}
                         options={jsonResults}
                         isOptionEqualToValue={(option, value) => option?.first_name === value?.first_name}
                         noOptionsText={"Sin opciones"}
-                        renderInput={(params) => <TextField {...params} label={description} value={value} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message}/>}
+                        renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
                         size="small"
                         margin="none"
+                        value={value}
                         onChange={(event, item) => {
-                            onChange(item?.first_name)
+                            onChange({first_name: item.first_name ,last_name:item.last_name})
                         }}
                         onBlur={onBlur}
-                        style={{ width: "100%" }}
-                        
-                        
+                        style={{ width: "10em" }}
+
+
                     />
-                )}}
-            />
-        </Box>
+                )
+            }}
+        />
     )
 }
 

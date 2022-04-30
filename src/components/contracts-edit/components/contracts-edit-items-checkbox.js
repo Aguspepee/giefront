@@ -4,7 +4,6 @@ import { Checkbox, Box, Typography } from '@mui/material';
 function InputCheckbox(props) {
     const control = props.control
     const name = props.name
-    const defaultValue = props.defaultValue
     const description = props.description
     return (
         <Box
@@ -17,9 +16,7 @@ function InputCheckbox(props) {
             <Controller
                 name={name}
                 control={control}
-                //defaultValue={defaultValue}
                 render={({ field: { value, ref, onChange } }) => {
-                    console.log(value)
                     return(
                     <Checkbox
                         inputRef={ref}
