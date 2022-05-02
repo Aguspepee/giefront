@@ -81,7 +81,7 @@ function App() {
 
               {/* Contracts */}
               <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-              <Route path="/contracts-list" element={<ContractsList />} />
+              <Route path="/contracts-list" element={<Private Component={ContractsList}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
               {/* Clients */}
               <Route path="/clients-edit/:id" element={<ClientsEdit />} />

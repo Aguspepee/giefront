@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete } from '@mui/material';
 
-function InputAutocomplete(props) {
+function InputAutocompleteGet(props) {
     const control = props.control
     const name = props.name
     const description = props.description
@@ -16,7 +16,6 @@ function InputAutocomplete(props) {
             try {
                 const res = await get()
                 setJsonResults(res.data)
-                console.log(res.data)
             } catch (e) {
                 console.log(e)
             }
@@ -28,9 +27,7 @@ function InputAutocomplete(props) {
         <Controller
             name={name}
             control={control}
-            // 
             render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
-                //console.log(value)
                 return (
                     <Autocomplete
                         defaultValue={value }
@@ -57,4 +54,4 @@ function InputAutocomplete(props) {
     )
 }
 
-export default InputAutocomplete
+export default InputAutocompleteGet

@@ -1,11 +1,14 @@
+import UserContext from '../context/userContext';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar,  Box, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import AccountMenu from './account-menu';
 import { Typography } from '@mui/material';
 import { userLogout } from '../services/users';
+import Stack from '@mui/material/Stack';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -13,6 +16,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
+  const [user, setUser] = useContext(UserContext);
   const { onSidebarOpen, ...other } = props;
 
   return (
@@ -46,10 +50,20 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Typography variant="subtitle1" gutterBottom component="div" color="gray" style={{padding:"0em 0em 0em 0em"}}>
-        Agustín Sánchez
-      </Typography>
-{/*            <Tooltip title="Search">
+          <Stack spacing={0}>
+
+            <Typography variant="subtitle1" gutterBottom component="div" display="block" color="gray" style={{ padding: "0em 0em 0em 0em", margin:"0em 0em 0em 0em" }}>
+              {user?.firstName.toUpperCase()}
+            </Typography>
+            <Typography variant="caption" gutterBottom component="div" display="block" color="gray" style={{ padding: "0em 0em 0em 0em", margin:"0em 0em 0em 0em" }}>
+            {user?.role}
+            </Typography>
+
+
+          </Stack>
+
+
+          {/*            <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
               <SearchIcon fontSize="small" />
             </IconButton>
@@ -81,7 +95,7 @@ export const DashboardNavbar = (props) => {
           >
             <UserCircleIcon fontSize="small" />
           </Avatar> */}
-          <AccountMenu/>
+          <AccountMenu />
         </Toolbar>
       </DashboardNavbarRoot>
     </>

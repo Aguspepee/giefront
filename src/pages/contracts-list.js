@@ -1,10 +1,13 @@
 import { Box, Container } from '@mui/material';
+import { useState } from 'react';
 import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
-import { ContractsListToolbar } from '../components/contracts-list/contracts-list-toolbar';
+import ContractsListToolbar from '../components/contracts-list/contracts-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
 import { contracts } from '../__mocks__/contracts';
 
 function ContractsList() {
+  const [reload, setReload] = useState(false)
+  
   return (
     <>
       <DashboardLayout>
@@ -16,9 +19,9 @@ function ContractsList() {
         }}
       >
         <Container maxWidth={false}>
-          <ContractsListToolbar />
+          <ContractsListToolbar  setReload={setReload} reload={reload}/>
           <Box sx={{ mt: 3 }}>
-            <ContractsListResults contracts={contracts} />
+            <ContractsListResults setReload={setReload} reload={reload} contracts={contracts} />
           </Box>
         </Container>
       </Box>

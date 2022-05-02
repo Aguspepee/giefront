@@ -13,7 +13,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 
-export const ContractsListResults = ({ ...rest }) => {
+export const ContractsListResults = (props) => {
+  const setReload = props.setReload
+  const reload = props.reload
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [contracts, setContracts] = useState([])
   useEffect(() => {
@@ -22,17 +24,24 @@ export const ContractsListResults = ({ ...rest }) => {
         const contracts = await contractGetList()
         setContracts(contracts.data)
         console.log(contracts.data)
+        setReload(false)
       } catch (error) {
         console.log(error)
       }
 
     }
     getList()
-  }, [])
+  }, [reload])
+
+
+  function handleDelete (id){
+    contractDelete(id)
+    setReload(true)
+  }
   //let fecha = new Date('2022-04-08T02:55:11.000Z')
   // console.log(fecha)
   return (
-    <Card {...rest}>
+    <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
@@ -102,7 +111,7 @@ export const ContractsListResults = ({ ...rest }) => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Eliminar contrato">
-                      <IconButton sx={{ ml: 1 }} onClick={()=>{contractDelete(contract._id)}}>
+                      <IconButton sx={{ ml: 1 }} onClick={()=>{handleDelete(contract._id)}}>
                         <DeleteIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>

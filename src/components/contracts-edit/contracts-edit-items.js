@@ -1,103 +1,76 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { Box, Card, CardContent, Button, Divider, TextField, IconButton, Tooltip, Typography } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { contractEdit } from "../../services/contracts";
+import { contractEdit, contractOne } from "../../services/contracts";
 import InputCheckbox from "./components/contracts-edit-items-checkbox"
-import InputAutocomplete from "./components/contracts-edit-items-autocomplete";
+import InputAutocompleteGet from "./components/contracts-edit-items-autocomplete-get";
+import InputAutocompleteList from "./components/contracts-edit-items-autocomplete-list";
 import { useParams } from "react-router-dom";
-
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
 //Icons
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 //GET listas
 import { clientGetNames } from '../../services/clients'
-
-const schema = yup.object().shape({
-  nombre: yup.string().required("El nombre del cliente es requerido"),
-  descripcion: yup.string().required("La descripción del contrato es requerida"),
-  tipo: yup.string().required("La descripción del contrato es requerida"),
-  cliente: yup.string().required("El cliente es requerido"),
-  fecha_inicio: yup.date(),
-  fecha_fin: yup.date(),
-  numero_reporte: yup.boolean(),
-  activo: yup.boolean(),
-
-  campos: yup.object().shape({
-    numero_reporte: yup.boolean().nullable(),
-    numero_orden: yup.boolean().nullable(),
-    adicionales: yup.boolean().nullable(),
-    equipo_completo: yup.boolean().nullable(),
-    diametro: yup.boolean().nullable(),
-    espesor: yup.boolean().nullable(),
-    numero_costuras: yup.boolean().nullable(),
-    cantidad_placas: yup.boolean().nullable(),
-    tipo_ensayo: yup.boolean().nullable(),
-  }),
-
-  items: yup.array().of(
-    yup.object().shape({
-      descripcion: yup.string().required("First Name is required"),
-      codigo_servicio: yup.string().required("First Name is required"),
-      unidad_medida: yup.string().required("First Name is required"),
-      tipo_actividad: yup.string().required("First Name is required"),
-      subtipo_actividad: yup.string().required("First Name is required"),
-      valor: yup.number()
-        .typeError('age must be a number')
-        .positive('age must be greater than zero')
-        .required('age is required')
-    })
-  ),
-
-  unidades: yup.array().of(
-    yup.object().shape({
-      nombre: yup.string().required("El nombre de la unidad es requerido"),
-      abreviatura: yup.string().length(3, "Debe tener 3 caracteres").required("Se debe colocar una abreviatura")
-    })
-  ),
-
-  certificantes: yup.array().of(
-    yup.object().shape({
-      nombre: yup.string().required("El nombre de la unidad es requerido"),
-      apellido: yup.string().required("El nombre de la unidad es requerido"),
-    })
-  ),
-})
+//Listados
+import { unidades_medida, tipos_actividad, subtipos_actividad, tipos_contrato } from "../../utils/list";
+//YUP Schema
+import { contractSchema } from '../../utils/yup'
+import InputTexfield from "./components/contracts-edit-items-textfield";
 
 function ContractsEditItems() {
   let { id } = useParams();
-  console.log(id)
-  const { control, handleSubmit, formState: { errors, value } } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      nombre: "Agustín",
-      prueba: "Hola",
-      //cliente: { nombre: "asdasd" },
-      cliente: null,
-      activo: true,
-      unidades: [
-        { nombre: "ricardo", abreviatura: "rod" },
-        { nombre: "agustín", abreviatura: "san" }
-      ],
-      campos: {
-        numero_reporte: true,
-        numero_orden: true,
-        adicionales: true,
-        equipo_completo: true,
-        diametro: false,
-        espesor: false,
-        numero_costuras: false,
-        cantidad_placas: false,
-        tipo_ensayo: false,
+  const [data, setData] = useState([])
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
+    resolver: yupResolver(contractSchema),
+  });
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const document = await contractOne(id)
+        setData(document.data)
+      } catch (e) {
+        console.log(e)
       }
     }
-  });
+    getData()
+  }, [])
+
+  useEffect(() => {
+    reset({
+      nombre: data.nombre,
+      descripcion: data.descripcion,
+      tipo: data.tipo,
+      cliente: data.cliente,
+      fecha_inicio: data.fecha_inicio,
+      fecha_fin: data.fecha_fin,
+      activo: data.activo,
+      unidades: data.unidades,
+      items: data.items,
+      certificantes: data.certificantes,
+      campos: {
+        numero_reporte: data.campos ? data.campos[0].numero_reporte : false,
+        numero_orden: data.campos ? data.campos[0].numero_orden : false,
+        adicionales: data.campos ? data.campos[0].adicionales : false,
+        equipo_completo: data.campos ? data.campos[0].equipo_completo : false,
+        diametro: data.campos ? data.campos[0].diametro : false,
+        espesor: data.campos ? data.campos[0].espesor : false,
+        numero_costuras: data.campos ? data.campos[0].numero_costuras : false,
+        cantidad_placas: data.campos ? data.campos[0].cantidad_placas : false,
+        tipo_ensayo: data.campos ? data.campos[0].tipo_ensayo : false,
+      }
+    });
+  }, [data]);
+
   const items = useFieldArray({
     control,
     name: "items"
@@ -112,19 +85,17 @@ function ContractsEditItems() {
   });
 
   async function onSubmit(contract) {
-    
-    console.log("contrato", contract)
     try {
-      const res = await contractEdit(contract,id)
+      const res = await contractEdit(contract, id)
       console.log("Se modificó el contrato", res.data)
+      setSuccess(true)
+      setError(false)
     } catch (e) {
       console.log(e)
+      setError(true)
+      setSuccess(false)
     }
   }
-
-  //Estados de las fechas de inicio y fin
- // const [fechaInicio, setFechaInicio] = useState();
-  //const [fechaFin, setFechaFin] = useState();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -134,53 +105,10 @@ function ContractsEditItems() {
             <Typography variant="h6" gutterBottom component="div">
               Datos generales
             </Typography>
-            <Controller
-
-              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                <TextField
-                  defaultValue={value}
-                  error={Boolean(error)}
-                  helperText={error && error.message}
-                  label="Nombre del Contrato"
-                  margin="normal"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  size="small"
-                />}
-              name={`nombre`}
-              control={control}
-            />
-            <Controller
-              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                <TextField
-                  defaultValue={value}
-                  error={Boolean(error)}
-                  helperText={error && error.message}
-                  label="Descripción del Contrato"
-                  margin="normal"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  size="small"
-                />}
-              name={`descripcion`}
-              control={control}
-            />
-            <Controller
-              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                <TextField
-                  defaultValue={value}
-                  error={Boolean(error)}
-                  helperText={error && error.message}
-                  label="Tipo del Contrato"
-                  margin="normal"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  size="small"
-                />}
-              name={`tipo`}
-              control={control}
-            />
-            <InputAutocomplete control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
+            <InputTexfield control={control} name={`nombre`} type="text" description="Nombre del Contrato" errors={errors} />
+            <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} />
+            <InputAutocompleteList control={control} name={`tipo`} list={tipos_contrato} description="Tipo de Contrato" errors={errors} />
+            <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
             <Controller
               name={`fecha_inicio`}
               control={control}
@@ -188,7 +116,7 @@ function ContractsEditItems() {
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
-                 // setFechaInicio(newValue);
+                  // setFechaInicio(newValue);
                 };
                 return (
                   <DesktopDatePicker
@@ -214,7 +142,7 @@ function ContractsEditItems() {
               render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
                 const handleDateChange = (newValue) => {
                   onChange(newValue);
-                 // setFechaFin(newValue);
+                  // setFechaFin(newValue);
                 };
                 return (
                   <DesktopDatePicker
@@ -239,97 +167,12 @@ function ContractsEditItems() {
             {items.fields.map((item, index) => (
               <Box key={item.id} style={{ padding: "18px 0px 15px 0px" }}>
                 {index + 1}-
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="Descripción"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.descripcion`}
-                  control={control}
-                />
-
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="Código de Servicio"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.codigo_servicio`}
-                  control={control}
-                />
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="Tipo de Actividad"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.tipo_actividad`}
-                  control={control}
-                />
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="SubTipo de Actividad"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.subtipo_actividad`}
-                  control={control}
-                />
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="Valor"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.valor`}
-                  control={control}
-                />
-                <Controller
-                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
-                    <TextField
-                      defaultValue={value}
-                      error={Boolean(error)}
-                      helperText={error && error.message}
-                      label="Unidad de Medida"
-                      margin="none"
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      size="small"
-                    />}
-                  name={`items.${index}.unidad_medida`}
-                  control={control}
-                />
+                <InputTexfield control={control} name={`items.${index}.descripcion`} type="text" description="Descripción" errors={errors} />
+                <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="Código de Servicio" errors={errors} />
+                <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="Tipo de Actividad" errors={errors} />
+                <InputAutocompleteList control={control} name={`items.${index}.subtipo_actividad`} list={subtipos_actividad} description="Subtipo de Actividad" errors={errors} />
+                <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="Valor" errors={errors} />
+                <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="Unidad de Medida" errors={errors} />
                 <Tooltip title="Subir un nivel">
                   <IconButton sx={{ ml: 1 }} onClick={() => items.move(index, index !== 0 ? index - 1 : index)}>
                     <ArrowUpwardIcon fontSize="small" />
@@ -414,8 +257,9 @@ function ContractsEditItems() {
               <Box key={certificante.id} style={{ padding: "18px 0px 15px 0px" }}>
                 {index + 1}-
                 <Controller
-                  render={({ field: { onChange, onBlur, ref } }) =>
+                  render={({ field: { onChange, onBlur, ref, value } }) =>
                     <TextField
+                      defaultValue={value}
                       error={Boolean(errors.certificantes?.[index]?.nombre)}
                       helperText={errors.certificantes?.[index]?.nombre && errors.certificantes?.[index]?.nombre?.message}
                       label="Nombre"
@@ -428,8 +272,9 @@ function ContractsEditItems() {
                   control={control}
                 />
                 <Controller
-                  render={({ field: { onChange, onBlur } }) =>
+                  render={({ field: { onChange, onBlur, ref, value } }) =>
                     <TextField
+                      defaultValue={value}
                       error={Boolean(errors.certificantes?.[index]?.apellido)}
                       helperText={errors.certificantes?.[index]?.apellido && errors.certificantes?.[index]?.apellido?.message}
                       label="Apellido"
@@ -463,9 +308,18 @@ function ContractsEditItems() {
               <InputCheckbox control={control} name="campos.numero_costuras" description="Número de Costuras" />
               <InputCheckbox control={control} name="campos.cantidad_placas" description="Cantidad de Placas" />
               <InputCheckbox control={control} name="campos.tipo_ensayo" description="Tipo de Ensayo RX" />
-
             </Box>
             <Divider style={{ marginTop: 20, marginBottom: 20 }} />
+            <Collapse in={success}>
+              <Alert severity="success">
+                El contrato se ha modificado correctamente
+              </Alert>
+            </Collapse>
+            <Collapse in={error}>
+              <Alert severity="error">
+                Ha habido un error
+              </Alert>
+            </Collapse>
             <Button
               type="submit"
               color="primary"
@@ -474,7 +328,6 @@ function ContractsEditItems() {
               Guardar Cambios
             </Button>
             <Button
-
               color="primary"
               variant="contained"
               onClick={() => console.log(errors)}

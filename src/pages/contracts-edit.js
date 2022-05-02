@@ -6,7 +6,6 @@ import { DashboardLayout } from '../layout/layout';
 function EditContract() {
   return (
     <DashboardLayout>
-
       <Box
         component="main"
         sx={{

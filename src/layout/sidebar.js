@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-//import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, useMediaQuery } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
 import { Lock as LockIcon } from '../icons/lock';
-import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
 import { User as UserIcon } from '../icons/user';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
@@ -18,6 +16,7 @@ import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidIcon from '@mui/icons-material/Paid';
+
 
 import { Typography } from '@mui/material';
 import { default as LinkMaterial } from '@mui/material/Link';
@@ -47,11 +46,6 @@ const items = [
     href: '/contracts-list',
     icon: (<HistoryEduIcon fontSize="small" />),
     title: 'Contratos'
-  },
-  {
-    href: '/contracts-edit',
-    icon: (<HistoryEduIcon fontSize="small" />),
-    title: 'Editar Contrato'
   },
   {
     href: '/users-account',
