@@ -20,19 +20,19 @@ const UsersRegister = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      firstName: '',
-      lastName: '',
+      nombre: '',
+      apellido: '',
       password: '',
       roles: "Administrador",
       policy: false
     },
     validationSchema: Yup.object({
-      firstName: Yup
+      nombre: Yup
         .string()
         .max(255)
         .required(
           'El nombre es un campo requerido'),
-      lastName: Yup
+      apellido: Yup
         .string()
         .max(255)
         .required(
@@ -123,27 +123,27 @@ const UsersRegister = () => {
           </Box>
           <form onSubmit={formik.handleSubmit}>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              error={Boolean(formik.touched.nombre && formik.errors.nombre)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
+              helperText={formik.touched.nombre && formik.errors.nombre}
               label="Nombre"
               margin="normal"
-              name="firstName"
+              name="nombre"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.firstName}
+              value={formik.values.nombre}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+              error={Boolean(formik.touched.apellido && formik.errors.apellido)}
               fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              helperText={formik.touched.apellido && formik.errors.apellido}
               label="Apellido"
               margin="normal"
-              name="lastName"
+              name="apellido"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.lastName}
+              value={formik.values.apellido}
               variant="outlined"
             />
             <TextField

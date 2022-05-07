@@ -16,7 +16,6 @@ import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 export const ContractsListResults = (props) => {
   const setReload = props.setReload
   const reload = props.reload
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [contracts, setContracts] = useState([])
   useEffect(() => {
     async function getList() {
@@ -125,8 +124,4 @@ export const ContractsListResults = (props) => {
       </PerfectScrollbar>
     </Card>
   );
-};
-
-ContractsListResults.propTypes = {
-  contracts: PropTypes.array.isRequired
 };

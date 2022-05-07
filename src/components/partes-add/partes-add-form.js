@@ -33,8 +33,8 @@ const states = [
 
 export const PartesAddForm = (props) => {
   const [values, setValues] = useState({
-    firstName: '',
-    lastName: '',
+    nombre: '',
+    apellido: '',
     email: '',
     phone: '',
     state: '',
@@ -153,10 +153,10 @@ export const PartesAddForm = (props) => {
                   fullWidth
                   // helperText="Please specify the first name"
                   label="N° de Reporte"
-                  name="firstName"
+                  name="nombre"
                   onChange={handleChange}
                   required
-                  value={values.firstName}
+                  value={values.nombre}
                   variant="outlined"
                   size="small"
                 />
@@ -169,10 +169,10 @@ export const PartesAddForm = (props) => {
                 <TextField
                   fullWidth
                   label="O.T."
-                  name="lastName"
+                  name="apellido"
                   onChange={handleChange}
                   required
-                  value={values.lastName}
+                  value={values.apellido}
                   variant="outlined"
                   size="small"
                 />

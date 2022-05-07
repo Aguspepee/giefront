@@ -33,7 +33,8 @@ import ClientsEdit from './pages/clients-edit';
 import CertificacionesCreate from './pages/certif-create';
 import CertificacionesList from './pages/certif-list';
 import UsersCreate from './pages/users-create';
-import ClientsCreate from './pages/clients-create'
+import ClientsCreate from './pages/clients-create';
+import UsersEdit from './pages/users-edit';
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
               {/* Users */}
               <Route path="/users-account" element={<UsersAccount />} />
               <Route path="/users-create" element={<UsersCreate />} />
+              <Route path="/users-edit/:id" element={<UsersEdit/>} />
               <Route path="/users-list" element={<UsersList />} />
               <Route path="/users-login" element={<UsersLogin />} />
               <Route path="/users-register" element={<UsersRegister />} />

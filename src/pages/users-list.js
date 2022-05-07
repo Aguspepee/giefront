@@ -1,10 +1,12 @@
 import { Box, Container } from '@mui/material';
+import { useState } from 'react';
 import { UsersListResults } from '../components/users-list/users-list-results';
 import { UsersListToolbar } from '../components/users-list/users-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
 import { users } from '../__mocks__/users';
 
 function UsersList() {
+  const [reload, setReload] = useState(false)
   return (
     <>
       <DashboardLayout>
@@ -16,9 +18,9 @@ function UsersList() {
         }}
       >
         <Container maxWidth={false}>
-          <UsersListToolbar />
+          <UsersListToolbar  setReload={setReload} reload={reload}/>
           <Box sx={{ mt: 3 }}>
-            <UsersListResults users={users} />
+            <UsersListResults setReload={setReload} reload={reload} />
           </Box>
         </Container>
       </Box>

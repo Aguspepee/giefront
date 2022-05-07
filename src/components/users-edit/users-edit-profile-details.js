@@ -25,7 +25,7 @@ const states = [
   }
 ]; 
 
-export const UsersAccountProfileDetails = (props) => {
+export const UsersEditProfileDetails = (props) => {
   const [values, setValues] = useState({
     nombre: 'Katarina',
     apellido: 'Smith',

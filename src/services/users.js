@@ -1,13 +1,16 @@
 import instance from "../config/axios"
 
 //rutas Axios
-export function userGet() {
-    return instance.get(`users/`)
-}
-
 export function userRegister(user) {
     let token = localStorage.getItem("token")
     return instance.post(`users/register`, user, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function userGetAll(user) {
+    let token = localStorage.getItem("token")
+    return instance.get(`users/`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
@@ -25,6 +28,27 @@ export function userWhoami() {
     let token = localStorage.getItem("token")
 
     return instance.post(`users/whoami`, "hola", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function userEdit(user, id) {
+    let token = localStorage.getItem("token")
+    return instance.put(`users/edit/${id}`, user, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function userGetList() {
+    let token = localStorage.getItem("token")
+    return instance.get(`users/list`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function userDelete(id) {
+    let token = localStorage.getItem("token")
+    return instance.delete(`users/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

@@ -53,7 +53,7 @@ export const DashboardNavbar = (props) => {
           <Stack spacing={0}>
 
             <Typography variant="subtitle1" gutterBottom component="div" display="block" color="gray" style={{ padding: "0em 0em 0em 0em", margin:"0em 0em 0em 0em" }}>
-              {user?.firstName.toUpperCase()}
+              {user?.nombre.toUpperCase()}
             </Typography>
             <Typography variant="caption" gutterBottom component="div" display="block" color="gray" style={{ padding: "0em 0em 0em 0em", margin:"0em 0em 0em 0em" }}>
             {user?.role}

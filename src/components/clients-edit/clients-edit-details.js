@@ -27,8 +27,8 @@ const states = [
 
 export const ClientProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
+    nombre: 'Katarina',
+    apellido: 'Smith',
     email: 'demo@growup-digital.com',
     phone: '',
     state: 'Alabama',
@@ -68,10 +68,10 @@ export const ClientProfileDetails = (props) => {
                 fullWidth
                // helperText="Please specify the first name"
                 label="Nombre"
-                name="firstName"
+                name="nombre"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.nombre}
                 variant="outlined"
               />
             </Grid>
@@ -83,10 +83,10 @@ export const ClientProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Apellido"
-                name="lastName"
+                name="apellido"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.apellido}
                 variant="outlined"
               />
             </Grid>

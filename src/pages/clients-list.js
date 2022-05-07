@@ -1,10 +1,11 @@
 import { Box, Container } from '@mui/material';
+import { useState } from 'react';
 import { ClientsListResults } from '../components/clients-list/clients-list-results';
 import { ClientsListToolbar } from '../components/clients-list/clients-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { clients } from '../__mocks__/clients';
 
 function ClientsList() {
+  const [reload, setReload] = useState(false)
   return (
     <>
       <DashboardLayout>
@@ -16,9 +17,9 @@ function ClientsList() {
         }}
       >
         <Container maxWidth={false}>
-          <ClientsListToolbar />
+          <ClientsListToolbar setReload={setReload} reload={reload}/>
           <Box sx={{ mt: 3 }}>
-            <ClientsListResults clients={clients} />
+            <ClientsListResults setReload={setReload} reload={reload}/>
           </Box>
         </Container>
       </Box>

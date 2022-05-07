@@ -7,29 +7,27 @@ import { contracts } from '../__mocks__/contracts';
 
 function ContractsList() {
   const [reload, setReload] = useState(false)
-  
+
   return (
     <>
       <DashboardLayout>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8
-        }}
-      >
-        <Container maxWidth={false}>
-          <ContractsListToolbar  setReload={setReload} reload={reload}/>
-          <Box sx={{ mt: 3 }}>
-            <ContractsListResults setReload={setReload} reload={reload} contracts={contracts} />
-          </Box>
-        </Container>
-      </Box>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            py: 8
+          }}
+        >
+          <Container maxWidth={false}>
+            <ContractsListToolbar setReload={setReload} reload={reload} />
+            <Box sx={{ mt: 3 }}>
+              <ContractsListResults setReload={setReload} reload={reload} />
+            </Box>
+          </Container>
+        </Box>
       </DashboardLayout>
     </>
   )
 }
-
-
 
 export default ContractsList;

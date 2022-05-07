@@ -1,118 +1,76 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
-  Avatar,
-  Box,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography
+  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
+  Tooltip
 } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import { getInitials } from '../../utils/get-initials';
+import { userGetAll, userDelete } from '../../services/users';
+import { Link } from 'react-router-dom';
 
-export const UsersListResults = ({ users, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+//icons
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import { CheckBox } from '@mui/icons-material';
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+export const UsersListResults = (props) => {
+  const setReload = props.setReload
+  const reload = props.reload
+  const [users, setUsers] = useState([])
+  useEffect(() => {
+    async function getList() { 
+      try {
+        const users = await userGetAll()
+        setUsers(users.data)
+        console.log(users.data)
+        setReload(false)
+      } catch (error) {
+        console.log(error)
+      }
 
-    if (event.target.checked) {
-      newSelectedCustomerIds = users.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
     }
+    getList()
+  }, [reload])
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
+  function handleDelete(id) {
+    userDelete(id)
+    setReload(true)
+  }
+  //let fecha = new Date('2022-04-08T02:55:11.000Z')
+  // console.log(fecha)
   return (
-    <Card {...rest}>
-{/*       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}> */}
-        <Paper sx={{overflowX: "auto"}}>
-          <Table sx={{ minWidth: 1050 }}>
+    <Card>
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 1050 }}>
+          <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === users.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < users.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
                 <TableCell>
                   Nombre
                 </TableCell>
                 <TableCell>
-                  Email
+                  Rol
                 </TableCell>
                 <TableCell>
-                  Location
+                  Área
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Activo
                 </TableCell>
                 <TableCell>
-                  Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.slice(0, limit).map((customer) => (
+              {users?.map((user) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={user._id}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -121,51 +79,48 @@ export const UsersListResults = ({ users, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        src={user?.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(user?.nombre)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {user.nombre} {user.apellido}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {user.role}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {user.area}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    <CheckBox />
+                  {/* {user.active} */}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+                    <Tooltip title="Editar contrato">
+                      <IconButton sx={{ ml: 1 }} component={Link} to={`/users-edit/${user._id}`}>
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar contrato">
+                      <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(user._id) }}>
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-          </Paper>
-{/*         </Box>
-      </PerfectScrollbar> */}
-{/*       <TablePagination
-        component="div"
-        count={users.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      /> */}
+        </Box>
+      </PerfectScrollbar>
     </Card>
   );
-};
-
-UsersListResults.propTypes = {
-  users: PropTypes.array.isRequired
 };
