@@ -2,7 +2,7 @@ import * as yup from "yup";
 export const contractSchema = yup.object().shape({
     nombre: yup.string().required("El nombre del cliente es requerido"),
     descripcion: yup.string().required("La descripción del contrato es requerida"),
-    tipo: yup.string().required("La descripción del contrato es requerida"),
+    area: yup.string().required("La descripción del contrato es requerida"),
     cliente: yup.string().required("El cliente es requerido"),
     fecha_inicio: yup.date(),
     fecha_fin: yup.date(),
@@ -49,4 +49,14 @@ export const contractSchema = yup.object().shape({
       })
     ),
   })
+
+  export const userSchema = yup.object().shape({
+    nombre: yup.string().required("El nombre del cliente es requerido"),
+    apellido: yup.string().required("La descripción del contrato es requerida"),
+    area: yup.string().required("La descripción del contrato es requerida"),
+    role: yup.string().required("El cliente es requerido"),
+    active: yup.boolean(),
+  })
+
+  
   

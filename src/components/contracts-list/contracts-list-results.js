@@ -93,7 +93,7 @@ export const ContractsListResults = (props) => {
                     {contract.cliente}
                   </TableCell>
                   <TableCell>
-                    {contract.tipo}
+                    {contract.area}
                   </TableCell>
                   <TableCell>
                     {format(new Date(contract.fecha_inicio), 'dd/MM/yyyy')}

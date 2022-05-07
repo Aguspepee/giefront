@@ -19,7 +19,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 //GET listas
 import { clientGetNames } from '../../services/clients'
 //Listados
-import { unidades_medida, tipos_actividad, subtipos_actividad, tipos_contrato } from "../../utils/list";
+import { unidades_medida, tipos_actividad, subtipos_actividad, area } from "../../utils/list";
 //YUP Schema
 import { contractSchema } from '../../utils/yup'
 import InputTexfield from "./components/contracts-edit-items-textfield";
@@ -49,7 +49,7 @@ function ContractsEditItems() {
     reset({
       nombre: data.nombre,
       descripcion: data.descripcion,
-      tipo: data.tipo,
+    area: data.area,
       cliente: data.cliente,
       fecha_inicio: data.fecha_inicio,
       fecha_fin: data.fecha_fin,
@@ -107,7 +107,7 @@ function ContractsEditItems() {
             </Typography>
             <InputTexfield control={control} name={`nombre`} type="text" description="Nombre del Contrato" errors={errors} />
             <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} />
-            <InputAutocompleteList control={control} name={`tipo`} list={tipos_contrato} description="Tipo de Contrato" errors={errors} />
+            <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} />
             <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
             <Controller
               name={`fecha_inicio`}

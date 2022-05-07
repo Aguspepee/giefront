@@ -52,3 +52,10 @@ export function userDelete(id) {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
+
+export function userOne(id) {
+    let token = localStorage.getItem("token")
+    return instance.get(`users/one/${id}`,{
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}

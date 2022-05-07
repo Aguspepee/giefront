@@ -6,8 +6,8 @@ export const subtipos_actividad = [
     "Ítem",
     "Subítem"
 ]
-export const tipos_contrato = [
-    "Inspeccion",
+export const area = [
+    "Inspección",
     "Radiografía"
 ]
 export const unidades_medida = [
@@ -23,5 +23,8 @@ export const unidades_medida = [
     "Unidad",
     "Unidad (dia x persona)",
     "Unidad (croquis/hoja)",
+]
+export const role = [
+    "Administrador","Supervisor","Inspector","Asistente"
 ]
 
