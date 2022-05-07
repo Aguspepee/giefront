@@ -58,5 +58,14 @@ export const contractSchema = yup.object().shape({
     active: yup.boolean(),
   })
 
+  export const clientSchema = yup.object().shape({
+    nombre: yup.string().required("El nombre del cliente es requerido"),
+    abreviatura: yup.string().required("La descripción del contrato es requerida"),
+    telefono: yup.string().required("La descripción del contrato es requerida"),
+    direccion: yup.string().required("La descripción del contrato es requerida"),
+    email: yup.string().required("La descripción del contrato es requerida"),
+    active: yup.boolean(),
+  })
+
   
   

@@ -1,125 +1,75 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
-  Avatar,
-  Box,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  IconButton,
+  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
   Tooltip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import { clientGetAll, clientDelete, clientEdit } from '../../services/clients';
 import { Link } from 'react-router-dom';
-
+import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'
 
 //icons
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export const ClientsListResults = ({ clients, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
+export const ClientsListResults = (props) => {
+  const setReload = props.setReload
+  const reload = props.reload
+  const [clients, setClients] = useState([])
+  useEffect(() => {
+    async function getList() {
+      try {
+        const clients = await clientGetAll()
+        setClients(clients.data)
+        console.log(clients.data)
+        setReload(false)
+      } catch (error) {
+        console.log(error)
+      }
 
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = clients.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
     }
+    getList()
+  }, [reload])
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
+  function handleDelete(id) {
+    clientDelete(id)
+    setReload(true)
+  }
+  //let fecha = new Date('2022-04-08T02:55:11.000Z')
+  // console.log(fecha)
   return (
-    <Card {...rest}>
+    <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === clients.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < clients.length
-                    }
-                    onChange={handleSelectAll}
-                  />
+                <TableCell>
+                  Cliente
                 </TableCell>
                 <TableCell>
-                  Nombre
+                  Abreviatura
                 </TableCell>
                 <TableCell>
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Phone
-                </TableCell>
-                <TableCell>
-                  Registration date
+                  Activo
                 </TableCell>
                 <TableCell>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {clients.slice(0, limit).map((customer) => (
+              {clients?.map((client) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={client._id}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
                       sx={{
@@ -128,58 +78,47 @@ export const ClientsListResults = ({ clients, ...rest }) => {
                       }}
                     >
                       <Avatar
-                        src={customer.avatarUrl}
+                        src={client?.avatarUrl}
                         sx={{ mr: 2 }}
                       >
-                        {getInitials(customer.name)}
+                        {getInitials(client?.nombre)}
                       </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {client.nombre}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {client.abreviatura}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {client.email}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    <StyledCheckboxActive value={client.active} id={client._id} edit={clientEdit}/>
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
-                  </TableCell>
-
-                  <TableCell>
-                    <Tooltip title="Editar remito">
-                      <IconButton sx={{ ml: 1 }} component={Link} to="/clientsedit/identificador">
+                    <Tooltip title="Editar contrato">
+                      <IconButton sx={{ ml: 1 }} component={Link} to={`/clients-edit/${client._id}`}>
                         <EditIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
+                    <Tooltip title="Eliminar contrato">
+                      <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(client._id) }}>
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
+
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={clients.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
     </Card>
   );
-};
-
-ClientsListResults.propTypes = {
-  clients: PropTypes.array.isRequired
 };

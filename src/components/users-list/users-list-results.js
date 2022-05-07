@@ -7,8 +7,9 @@ import {
   Tooltip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { userGetAll, userDelete } from '../../services/users';
+import { userGetAll, userDelete, userEdit } from '../../services/users';
 import { Link } from 'react-router-dom';
+import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'
 
 //icons
 import EditIcon from '@mui/icons-material/Edit';
@@ -99,8 +100,7 @@ export const UsersListResults = (props) => {
                     {user.area}
                   </TableCell>
                   <TableCell>
-                    <CheckBox />
-                  {/* {user.active} */}
+                  <StyledCheckboxActive value={user.active} id={user._id} edit={userEdit}/>
                   </TableCell>
                   <TableCell>
                     <Tooltip title="Editar contrato">

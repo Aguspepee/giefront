@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ClientProfile } from '../components/clients-edit/clients-edit-profile';
-import { ClientProfileDetails } from '../components/clients-edit/clients-edit-details';
+import { ClientsEditProfile } from '../components/clients-edit/clients-edit-profile';
+import {ClientsEditDetails} from '../components/clients-edit/clients-edit-details';
 import { DashboardLayout } from '../layout/layout';
 
 function ClientsEdit() {
@@ -31,7 +31,7 @@ function ClientsEdit() {
               md={6}
               xs={12}
             >
-              <ClientProfile />
+              <ClientsEditProfile />
             </Grid>
             <Grid
               item
@@ -49,7 +49,7 @@ function ClientsEdit() {
                   md={12}
                   xs={12}
                 >
-                  <ClientProfileDetails />
+                  <ClientsEditDetails />
                 </Grid>
               </Grid>
             </Grid>
