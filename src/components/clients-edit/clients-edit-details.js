@@ -20,10 +20,11 @@ import StyledTextfield from '../../styled-components/styled-textfield';
 import StyledAutocompleteList from '../../styled-components/styled-autocomplete-list';
 import StyledCheckbox from '../../styled-components/styled-checkbox';
 import { area, role } from '../../utils/list';
+
  
 export const ClientsEditDetails = (props) => {
   let { id } = useParams();
-  const [data, setData] = useState([])
+ const client = props.client;
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
@@ -31,28 +32,15 @@ export const ClientsEditDetails = (props) => {
   });
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const document = await clientOne(id)
-        setData(document.data)
-        console.log(document.data)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    getData()
-  }, [])
-
-  useEffect(() => {
     reset({
-      nombre: data.nombre,
-      abreviatura: data.abreviatura,
-      email: data.email,
-      direccion: data.direccion,
-      telefono: data.telefono,
-      active: data.active,
+      nombre: client.nombre,
+      abreviatura: client.abreviatura,
+      email: client.email,
+      direccion: client.direccion,
+      telefono: client.telefono,
+      active: client.active,
     });
-  }, [data]);
+  }, [client]);
 
   async function onSubmit(client) {
     try {

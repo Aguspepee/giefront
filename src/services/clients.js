@@ -9,7 +9,7 @@ export function clientGetAll() {
     })
 }
 
-//Get Names
+//Get Names 
 export function clientGetNames() {
     let token = localStorage.getItem("token")
     return instance.get(`clients/names`, {
@@ -42,6 +42,13 @@ export function clientCreate(client) {
 export function clientDelete(id) {
     let token = localStorage.getItem("token")
     return instance.delete(`clients/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function clientImage(id, formData) {
+    let token = localStorage.getItem("token")
+    return instance.put(`clients/image/${id}`, formData,{
         headers: { Authorization: `Bearer ${token}` }
     })
 }

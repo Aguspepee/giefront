@@ -59,3 +59,11 @@ export function userOne(id) {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
+
+    export function userImage(id, formData) {
+        let token = localStorage.getItem("token")
+        return instance.put(`users/image/${id}`,{data: formData,
+            headers: { Authorization: `Bearer ${token}` }
+        })
+}
+

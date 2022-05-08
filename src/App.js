@@ -91,7 +91,7 @@ function App() {
               <Route path="/clients-create" element={<ClientsCreate />} />
 
               {/* Remitos */}
-              <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Supervisor", "Inspector", "Asistente"]}/>} />
+              <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]}/>} />
               <Route path="/remitos-create" element={<RemitosCreate />} />
               {/* <Route path="/remitos-table" element={<RemitosTable />} /> */}
               <Route path="/remitos-edit/:id" element={<RemitosCreate />} />

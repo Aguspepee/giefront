@@ -1,9 +1,28 @@
+import { useEffect, useState } from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ClientsEditProfile } from '../components/clients-edit/clients-edit-profile';
 import {ClientsEditDetails} from '../components/clients-edit/clients-edit-details';
 import { DashboardLayout } from '../layout/layout';
+import { useParams } from "react-router-dom";
+import { clientOne, clientEdit } from '../services/clients';
 
 function ClientsEdit() {
+  let { id } = useParams();
+  const [client, setClient] = useState([])
+
+  useEffect(() => {
+    async function getClient() {
+      try {
+        const document = await clientOne(id)
+        setClient(document.data)
+        console.log(document.data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getClient()
+  }, [])
+
   return (
     <DashboardLayout>
 
@@ -31,7 +50,7 @@ function ClientsEdit() {
               md={6}
               xs={12}
             >
-              <ClientsEditProfile />
+              <ClientsEditProfile client={client}/>
             </Grid>
             <Grid
               item
@@ -49,7 +68,7 @@ function ClientsEdit() {
                   md={12}
                   xs={12}
                 >
-                  <ClientsEditDetails />
+                  <ClientsEditDetails client={client}/>
                 </Grid>
               </Grid>
             </Grid>

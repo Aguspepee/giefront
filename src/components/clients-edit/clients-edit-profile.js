@@ -1,3 +1,5 @@
+import React from 'react';
+import { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -8,56 +10,71 @@ import {
   Divider,
   Typography
 } from '@mui/material';
+import { clientImage } from '../../services/clients';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
+export const ClientsEditProfile = (props) => {
+  const client = props.client;
 
-export const ClientsEditProfile = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          src={user.avatar}
+  async function handleFileSelect(event) {
+    const formData = new FormData();
+    formData.append("userImage", event.target.files[0]);
+    try {
+      const response = await clientImage(client._id, formData)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (
+    <Card {...props}>
+      <CardContent>
+        <Box
           sx={{
-            height: 64,
-            mb: 2,
-            width: 64
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column'
           }}
-        />
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h5"
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
+          <Avatar
+            src={client.image ? `http://localhost:9000/${client.image}` : ""}
+            sx={{
+              height: 200,
+              mb: 0,
+              width: 200
+            }}
+          />
+          <Typography
+            color="textPrimary"
+            gutterBottom
+            variant="h5"
+          >
+            {client.abreviatura}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {client.nombre}
+          </Typography>
+        </Box>
+      </CardContent>
+      <Divider />
+      <CardActions>
+        <Button
+          color="primary"
+          fullWidth
+          variant="contained"
+          component="label"
         >
-          {`${user.jobTitle}`}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Cambiar foto de perfil
-      </Button>
-    </CardActions>
-  </Card>
-);
+          Cambiar foto de perfil
+          <input
+            type="file"
+            hidden
+            onChange={handleFileSelect}
+          />
+        </Button>
+      </CardActions>
+    </Card>
+  );
+}
