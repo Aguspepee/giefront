@@ -2,12 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, useMediaQuery } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
-import { Cog as CogIcon } from '../icons/cog';
-import { Lock as LockIcon } from '../icons/lock';
-import { User as UserIcon } from '../icons/user';
-import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
-import { XCircle as XCircleIcon } from '../icons/x-circle';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
@@ -16,6 +11,8 @@ import { NavItem } from './nav-item';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidIcon from '@mui/icons-material/Paid';
+import UserContext from '../context/userContext';
+import { useContext } from 'react';
 
 
 import { Typography } from '@mui/material';
@@ -25,86 +22,72 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Dashboard',
+    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
   },
   {
     href: '/partes-add',
     icon: (<NoteAddIcon fontSize="small" />),
-    title: 'Cargar Parte'
+    title: 'Cargar Parte',
+    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
   },
   {
     href: '/clients-list',
     icon: (<SupervisedUserCircleIcon fontSize="small" />),
-    title: 'Clientes'
+    title: 'Clientes',
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/users-list',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Usuarios'
+    title: 'Usuarios',
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/contracts-list',
     icon: (<HistoryEduIcon fontSize="small" />),
-    title: 'Contratos'
-  },
-  {
-    href: '/users-account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Editar Cuenta'
+    title: 'Contratos',
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/remitos-list',
     icon: (<ReceiptIcon fontSize="small" />),
-    title: 'Remitos'
+    title: 'Remitos',
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/certif-list',
     icon: (<PaidIcon fontSize="small" />),
-    title: 'Certificaciones'
-  },
-  {
-    href: '/users-login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/users-register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Registrar'
+    title: 'Certificaciones',
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/remitos-table',
     icon: (<TableRowsIcon fontSize="small" />),
-    title: 'Tabla Remitos'
+    title: 'Tabla Remitos',
+    roles: ["Administrador"]
   },
   {
     href: '/partes-table',
     icon: (<TableRowsIcon fontSize="small" />),
-    title: 'Tabla Parte Diario'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  },
-  {
-    href: '',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
+    title: 'Tabla Parte Diario',
+    roles: ["Administrador"]
   },
 ];
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
+  const [user, setUser] = useContext(UserContext);
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
   });
-
+  //console.log(items[8].roles)
+  let items_filtrados = items.filter((items)=>{
+    return(items.roles?.includes(user.role))
+  })
   useEffect(
     () => {
-
-
       if (open) {
         onClose?.();
       }
@@ -139,7 +122,7 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
+          {items_filtrados.map((item) => (
             <NavItem
               key={item.title}
               icon={item.icon}

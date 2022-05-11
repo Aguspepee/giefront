@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete } from '@mui/material';
-
+ 
 function StyledAutocompleteGet(props) {
     const control = props.control
     const name = props.name
@@ -16,6 +16,7 @@ function StyledAutocompleteGet(props) {
             try {
                 const res = await get()
                 setJsonResults(res.data)
+                console.log(res.data)
             } catch (e) {
                 console.log(e)
             }
@@ -37,14 +38,15 @@ function StyledAutocompleteGet(props) {
                         isOptionEqualToValue={(option, value) => option === value}
                         noOptionsText={"Sin opciones"}
                         renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
-                        size="small"
-                        margin="none"
+                        //size="small"
+                        //margin="none"
                         value={value? value : null}
                         onChange={(event, item) => {
+                            console.log()
                             onChange(item? item : null)
                         }}
                         onBlur={onBlur}
-                        style={{ width: "10em" }}
+                        //style={{ width: "10em" }}
                         clearOnBlur = {true}
 
                     />

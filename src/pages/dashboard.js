@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from 'react';
-import { Box, Container, Grid } from '@mui/material';
+import { useContext } from 'react';
+import { Box } from '@mui/material';
 import { DashboardLayout } from '../layout/layout';
 import UserContext from '../context/userContext';
 
@@ -11,7 +11,6 @@ import DashboardAsistente from '../components/dashboard/dashboard-asistente';
 
 function Dashboard() {
   const [user, setUser] = useContext(UserContext);
-  console.log("dashboard", user.role)
   return (
     <>
       <DashboardLayout>

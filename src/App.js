@@ -13,7 +13,6 @@ import Private from './components/Private';
 
 //Autenticación inicial
 import { userWhoami } from './services/users';
-import { Login } from '@mui/icons-material';
 
 //Páginas
 import Dashboard from "./pages/dashboard";

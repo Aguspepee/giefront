@@ -8,6 +8,14 @@ export function contractGetList() {
     })
 }
 
+//Get Names 
+export function contractGetNames() {
+    let token = localStorage.getItem("token")
+    return instance.get(`contracts/names`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function contractEmpty() {
     let token = localStorage.getItem("token")
     return instance.post(`contracts/empty`, [],{
@@ -39,6 +47,13 @@ export function contractEdit(contract,id) {
 export function contractDelete(id) {
     let token = localStorage.getItem("token")
     return instance.delete(`contracts/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function contractGetItems() {
+    let token = localStorage.getItem("token")
+    return instance.get(`contracts/items`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

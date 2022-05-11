@@ -22,7 +22,6 @@ export const ContractsListResults = (props) => {
       try {
         const contracts = await contractGetList()
         setContracts(contracts.data)
-        console.log(contracts.data)
         setReload(false)
       } catch (error) {
         console.log(error)
@@ -32,13 +31,10 @@ export const ContractsListResults = (props) => {
     getList()
   }, [reload])
 
-
   function handleDelete (id){
     contractDelete(id)
     setReload(true)
   }
-  //let fecha = new Date('2022-04-08T02:55:11.000Z')
-  // console.log(fecha)
   return (
     <Card>
       <PerfectScrollbar>

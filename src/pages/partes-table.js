@@ -10,10 +10,6 @@ import {
   intColumn
 } from 'react-datasheet-grid'
 
-
-
-
-
 function PartesTable() {
   const [data, setData] = useState([
     {

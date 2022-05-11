@@ -22,7 +22,6 @@ export const ClientsListResults = (props) => {
       try {
         const clients = await clientGetAll()
         setClients(clients.data)
-        console.log(clients.data)
         setReload(false)
       } catch (error) {
         console.log(error)

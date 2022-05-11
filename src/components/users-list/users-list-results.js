@@ -3,7 +3,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
-  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
+  Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
   Tooltip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
@@ -14,19 +14,16 @@ import StyledCheckboxActive from '../../styled-components/styled-checkbox-active
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import { CheckBox } from '@mui/icons-material';
 
 export const UsersListResults = (props) => {
   const setReload = props.setReload
   const reload = props.reload
   const [users, setUsers] = useState([])
   useEffect(() => {
-    async function getList() { 
+    async function getList() {
       try {
         const users = await userGetAll()
         setUsers(users.data)
-        console.log(users.data)
         setReload(false)
       } catch (error) {
         console.log(error)
@@ -36,13 +33,10 @@ export const UsersListResults = (props) => {
     getList()
   }, [reload])
 
-
   function handleDelete(id) {
     userDelete(id)
     setReload(true)
   }
-  //let fecha = new Date('2022-04-08T02:55:11.000Z')
-  // console.log(fecha)
   return (
     <Card>
       <PerfectScrollbar>
@@ -100,7 +94,7 @@ export const UsersListResults = (props) => {
                     {user.area}
                   </TableCell>
                   <TableCell>
-                  <StyledCheckboxActive value={user.active} id={user._id} edit={userEdit}/>
+                    <StyledCheckboxActive value={user.active} id={user._id} edit={userEdit} />
                   </TableCell>
                   <TableCell>
                     <Tooltip title="Editar contrato">

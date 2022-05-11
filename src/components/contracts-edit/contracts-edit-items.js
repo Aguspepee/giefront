@@ -49,7 +49,7 @@ function ContractsEditItems() {
     reset({
       nombre: data.nombre,
       descripcion: data.descripcion,
-    area: data.area,
+      area: data.area,
       cliente: data.cliente,
       fecha_inicio: data.fecha_inicio,
       fecha_fin: data.fecha_fin,
@@ -167,10 +167,10 @@ function ContractsEditItems() {
             {items.fields.map((item, index) => (
               <Box key={item.id} style={{ padding: "18px 0px 15px 0px" }}>
                 {index + 1}-
-                <InputTexfield control={control} name={`items.${index}.descripcion`} type="text" description="Descripción" errors={errors} />
+                <InputTexfield control={control} name={`items.${index}.descripcion_servicio`} type="text" description="Descripción" errors={errors} />
                 <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="Código de Servicio" errors={errors} />
                 <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="Tipo de Actividad" errors={errors} />
-                <InputAutocompleteList control={control} name={`items.${index}.subtipo_actividad`} list={subtipos_actividad} description="Subtipo de Actividad" errors={errors} />
+                <InputAutocompleteList control={control} name={`items.${index}.clase`} list={subtipos_actividad} description="Subtipo de Actividad" errors={errors} />
                 <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="Valor" errors={errors} />
                 <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="Unidad de Medida" errors={errors} />
                 <Tooltip title="Subir un nivel">
