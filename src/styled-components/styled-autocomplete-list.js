@@ -14,6 +14,7 @@ function StyledAutocompleteList({md,xs, control,name,description,errors,list,sho
                         control={control}
                         render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
                             return (
+                                <>
                                 <Autocomplete
                                     defaultValue={value}
                                     disablePortal
@@ -31,6 +32,7 @@ function StyledAutocompleteList({md,xs, control,name,description,errors,list,sho
                                     onBlur={onBlur}
                                     clearOnBlur={true}
                                 />
+                                </>
                             )
                         }}
                     />

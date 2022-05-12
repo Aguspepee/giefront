@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import { Grid } from '@mui/material';
 
 function StyledTexfield({ show, control, name, description, type, md, xs, ...rest }) {
-    console.log(show)
     return (
         <>
             {show &&

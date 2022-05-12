@@ -28,3 +28,15 @@ export const role = [
     "Administrador","Supervisor","Inspector","Asistente"
 ]
 
+export const tipo_rx = [
+    "Normal","Exposiciones","Reparaciones","Horas","Metros"
+]
+
+export const contratista = [
+    "BSI","DOW","HCI","FB","UTE"
+]
+
+export const paga = [
+    "BSI","DOW","HCI","FB","UTE"
+]
+

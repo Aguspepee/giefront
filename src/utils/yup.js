@@ -20,7 +20,7 @@ export const contractSchema = yup.object().shape({
     espesor: yup.boolean().nullable(),
     numero_costuras: yup.boolean().nullable(),
     cantidad_placas: yup.boolean().nullable(),
-    tipo_ensayo: yup.boolean().nullable(),
+    tipo_rx: yup.boolean().nullable(),
   }),
 
   items: yup.array().of(
@@ -74,16 +74,25 @@ export const clientSchema = yup.object().shape({
 //PARTE DIARIO
 export const partesSchema = yup.object().shape({
   contrato: yup.string().required("El contrato es un campo requerido"),
+  descripcion_servicio: yup.string().required("First Name is required"),
   numero_reporte: yup.string(),
   numero_orden: yup.string(),
   tag: yup.string().required("El cliente es requerido"),
-  tag_detalle: yup.string().required("El cliente es requerido"),
-  cantidad: yup.number(),
+  tag_detalle: yup.string(),
+  cantidad: yup.number().required("La cantidad es requerida"),
   informe_realizado: yup.boolean(),
+
+  detalles: yup.object().shape({
+    diametro: yup.number(),
+    espesor: yup.number(),
+    numero_costuras: yup.number(),
+    cantidad_placas: yup.number(),
+    tipo: yup.string(),
+  }),
 
   adicionales: yup.array().of(
     yup.object().shape({
-      descripcion: yup.string().required("First Name is required"),
+      descripcion_servicio: yup.string().required("First Name is required"),
       cantidad: yup.string().required("First Name is required"),
     })
   ),

@@ -66,7 +66,7 @@ function ContractsEditItems() {
         espesor: data.campos ? data.campos[0].espesor : false,
         numero_costuras: data.campos ? data.campos[0].numero_costuras : false,
         cantidad_placas: data.campos ? data.campos[0].cantidad_placas : false,
-        tipo_ensayo: data.campos ? data.campos[0].tipo_ensayo : false,
+        tipo_rx: data.campos ? data.campos[0].tipo_rx : false,
       }
     });
   }, [data]);
@@ -307,7 +307,7 @@ function ContractsEditItems() {
               <InputCheckbox control={control} name="campos.espesor" description="Espesor" />
               <InputCheckbox control={control} name="campos.numero_costuras" description="Número de Costuras" />
               <InputCheckbox control={control} name="campos.cantidad_placas" description="Cantidad de Placas" />
-              <InputCheckbox control={control} name="campos.tipo_ensayo" description="Tipo de Ensayo RX" />
+              <InputCheckbox control={control} name="campos.tipo_rx" description="Tipo de Ensayo RX" />
             </Box>
             <Divider style={{ marginTop: 20, marginBottom: 20 }} />
             <Collapse in={success}>

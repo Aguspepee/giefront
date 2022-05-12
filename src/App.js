@@ -77,7 +77,7 @@ function App() {
               <Route path="/users-register" element={<UsersRegister />} />
 
               {/* Partes */}
-              <Route path="/partes-add" element={<PartesAdd />} />
+              <Route path="/partes-add" element={<Private Component={PartesAdd}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />}  />
               {/* <Route path="/partes-table" element={<RemitosTable />} /> */}
 
               {/* Contracts */}
