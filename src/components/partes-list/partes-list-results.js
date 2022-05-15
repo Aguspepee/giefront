@@ -26,7 +26,7 @@ export const PartesListResults = (props) => {
       try {
         const partes = await parteGetAll()
         setPartes(partes.data)
-        setReload(false)
+        setReload(false) 
       } catch (error) {
         console.log(error)
       }
