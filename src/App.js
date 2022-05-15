@@ -20,6 +20,7 @@ import UsersLogin from './pages/users-login';
 import UsersRegister from './pages/users-register';
 import UsersAccount from './pages/users-account';
 import PartesAdd from './pages/partes-add';
+import PartesList from './pages/partes-list';
 import ClientsList from './pages/clients-list';
 import UsersList from './pages/users-list';
 import ContractsList from './pages/contracts-list';
@@ -39,11 +40,16 @@ import UsersEdit from './pages/users-edit';
 function App() {
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
-
+  let Now = new Date()
+  let Difference = 100000000
   useEffect(() => {
     const Login = async () => {
       try {
         const { data: usuario } = await userWhoami()
+        let Expiration = new Date(usuario.exp * 1000)
+        Difference = Expiration - Now;
+        setTimeout(() => alert("Le quedan 5 minutos a la sesión, salga y vuelva a entrar"), Difference - (5 * 60000))
+        console.log(Difference / 60000)
         setUser(usuario[0])
         setLoadingUser(false)
       } catch (e) {
@@ -55,53 +61,55 @@ function App() {
   }, []
   )
 
+
   return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {loadingUser === true &&
-          <div>Cargando</div>}
-        {loadingUser === false &&
-          <BrowserRouter>
-            <Routes>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {loadingUser === true &&
+        <div>Cargando</div>}
+      {loadingUser === false &&
+        <BrowserRouter>
+          <Routes>
 
-              {/* Dashboard */}
-              <Route path="/" element={<Private Component={Dashboard}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-              <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            {/* Dashboard */}
+            <Route path="/" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
-              {/* Users */}
-              <Route path="/users-account" element={<UsersAccount />} />
-              <Route path="/users-create" element={<UsersCreate />} />
-              <Route path="/users-edit/:id" element={<UsersEdit/>} />
-              <Route path="/users-list" element={<UsersList />} />
-              <Route path="/users-login" element={<UsersLogin />} />
-              <Route path="/users-register" element={<UsersRegister />} />
+            {/* Users */}
+            <Route path="/users-account" element={<UsersAccount />} />
+            <Route path="/users-create" element={<UsersCreate />} />
+            <Route path="/users-edit/:id" element={<UsersEdit />} />
+            <Route path="/users-list" element={<UsersList />} />
+            <Route path="/users-login" element={<UsersLogin />} />
+            <Route path="/users-register" element={<UsersRegister />} />
 
-              {/* Partes */}
-              <Route path="/partes-add" element={<Private Component={PartesAdd}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />}  />
-              {/* <Route path="/partes-table" element={<RemitosTable />} /> */}
+            {/* Partes */}
+            <Route path="/partes-add" element={<Private Component={PartesAdd} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/partes-list" element={<Private Component={PartesList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            {/* <Route path="/partes-table" element={<RemitosTable />} /> */}
 
-              {/* Contracts */}
-              <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-              <Route path="/contracts-list" element={<Private Component={ContractsList}  user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            {/* Contracts */}
+            <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/contracts-list" element={<Private Component={ContractsList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
-              {/* Clients */}
-              <Route path="/clients-edit/:id" element={<ClientsEdit />} />
-              <Route path="/clients-list" element={<ClientsList />} />
-              <Route path="/clients-create" element={<ClientsCreate />} />
+            {/* Clients */}
+            <Route path="/clients-edit/:id" element={<ClientsEdit />} />
+            <Route path="/clients-list" element={<ClientsList />} />
+            <Route path="/clients-create" element={<ClientsCreate />} />
 
-              {/* Remitos */}
-              <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]}/>} />
-              <Route path="/remitos-create" element={<RemitosCreate />} />
-              {/* <Route path="/remitos-table" element={<RemitosTable />} /> */}
-              <Route path="/remitos-edit/:id" element={<RemitosCreate />} />
+            {/* Remitos */}
+            <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]} />} />
+            <Route path="/remitos-create" element={<RemitosCreate />} />
+            {/* <Route path="/remitos-table" element={<RemitosTable />} /> */}
+            <Route path="/remitos-edit/:id" element={<RemitosCreate />} />
 
-              {/* Certificaciones */}
-              <Route path="/certif-create" element={<CertificacionesCreate />} />
-              <Route path="/certif-list" element={<CertificacionesList />} />
+            {/* Certificaciones */}
+            <Route path="/certif-create" element={<CertificacionesCreate />} />
+            <Route path="/certif-list" element={<CertificacionesList />} />
 
-            </Routes>
-          </BrowserRouter>}
-      </ThemeProvider>
+          </Routes>
+        </BrowserRouter>}
+    </ThemeProvider>
   );
 }
 

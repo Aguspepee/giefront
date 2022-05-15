@@ -1,23 +1,9 @@
 import instance from "../config/axios"
 
 //rutas Axios
-export function parteGetList() {
+export function parteGetAll() {
     let token = localStorage.getItem("token")
-    return instance.get(`partes/list`, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-}
-
-export function parteEmpty() {
-    let token = localStorage.getItem("token")
-    return instance.post(`partes/empty`, [],{
-        headers: { Authorization: `Bearer ${token}` }
-    })
-}
-
-export function parteOne(id) {
-    let token = localStorage.getItem("token")
-    return instance.get(`partes/one/${id}`,{
+    return instance.get(`partes/`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

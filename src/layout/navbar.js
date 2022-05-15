@@ -14,7 +14,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
-  const [user, setUser] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext); 
   const { onSidebarOpen, ...other } = props;
 
   return (

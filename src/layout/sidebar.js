@@ -4,6 +4,7 @@ import { Box, Divider, Drawer, useMediaQuery } from '@mui/material';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Users as UsersIcon } from '../icons/users';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Logo } from '../components/logo';
@@ -31,6 +32,14 @@ const items = [
     title: 'Cargar Parte',
     roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
   },
+  {
+    href: '/partes-list',
+    icon: (<ViewListIcon fontSize="small" />),
+    title: 'Parte Diario',
+    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
+  },
+
+
   {
     href: '/clients-list',
     icon: (<SupervisedUserCircleIcon fontSize="small" />),

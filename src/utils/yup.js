@@ -74,19 +74,26 @@ export const clientSchema = yup.object().shape({
 //PARTE DIARIO
 export const partesSchema = yup.object().shape({
   contrato: yup.string().required("El contrato es un campo requerido"),
+  unidad:  yup.string().required("La unidad es requerida"),
   descripcion_servicio: yup.string().required("First Name is required"),
   numero_reporte: yup.string(),
   numero_orden: yup.string(),
   tag: yup.string().required("El cliente es requerido"),
   tag_detalle: yup.string(),
-  cantidad: yup.number().required("La cantidad es requerida"),
+  cantidad: yup.number()
+  .typeError('La cantidad debe ser un número')
+  .positive('Debe ser un número positivo')
+  .required('La cantidad es requerida'),
   informe_realizado: yup.boolean(),
 
   detalles: yup.object().shape({
     diametro: yup.number(),
     espesor: yup.number(),
     numero_costuras: yup.number(),
-    cantidad_placas: yup.number(),
+    cantidad_placas: yup.number()
+    .typeError('La cantidad debe ser un número')
+    .positive('Debe ser un número positivo')
+    .required('La cantidad es requerida'),
     tipo: yup.string(),
   }),
 

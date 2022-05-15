@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Autocomplete, Grid } from '@mui/material';
+import { TextField, Autocomplete, Grid, Box } from '@mui/material';
 
 function AutocompleteContracts({ contract, setContract, control, name, description, errors, get, xs, md, ...props }) {
     const [contracts, setContracts] = useState([])
@@ -12,7 +12,6 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
             try {
                 const res = await get()
                 setContracts(res.data)
-
             } catch (e) {
                 console.log(e)
             }
@@ -48,11 +47,13 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
                                 }}
                                 onBlur={onBlur}
                                 clearOnBlur={true}
+                                
                             />
                         )
                     }}
                 />
             </Grid>
+           
         </>
     )
 }

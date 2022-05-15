@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 import { TextField, Autocomplete, Grid } from '@mui/material';
 
 function StyledAutocompleteList({md,xs, control,name,description,errors,list,show,...props}) {
-    useEffect(() => { }, [list])
+    /* useEffect(() => { }, [list]) */
     return (
         <>
             {

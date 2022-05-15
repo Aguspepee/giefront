@@ -6,7 +6,6 @@ import { DashboardLayout } from '../layout/layout';
 function PartesAdd() {
   return (
     <DashboardLayout>
-
       <Box
         component="main"
         sx={{
@@ -14,7 +13,7 @@ function PartesAdd() {
           py: 8
         }}
       >
-        <Container maxWidth={false}>
+        <Container maxWidth="lg">
           <Typography
             sx={{ mb: 3 }}
             variant="h4"
