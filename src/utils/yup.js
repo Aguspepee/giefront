@@ -92,8 +92,7 @@ export const partesSchema = yup.object().shape({
     numero_costuras: yup.number(),
     cantidad_placas: yup.number()
     .typeError('La cantidad debe ser un número')
-    .positive('Debe ser un número positivo')
-    .required('La cantidad es requerida'),
+    .positive('Debe ser un número positivo'),
     tipo: yup.string(),
   }),
 

@@ -73,7 +73,7 @@ export const ClientsListResults = (props) => {
                       }}
                     >
                       <Avatar
-                        src={client.image?`http://localhost:9000/${client.image}`:""}
+                        src={client.image?`${process.env.REACT_APP_BACKEND_URL}${client.image}`:""}
                         sx={{ mr: 2 }}
                       >
                         {getInitials(client?.nombre)}

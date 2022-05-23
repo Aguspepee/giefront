@@ -112,7 +112,7 @@ export const PartesAddForm = (props) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={() => console.log(getValues('contrato'))}
+              onClick={() => console.log(errors)}
             >
               Errores
             </Button>
