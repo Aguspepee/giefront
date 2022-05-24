@@ -35,6 +35,7 @@ import CertificacionesList from './pages/certif-list';
 import UsersCreate from './pages/users-create';
 import ClientsCreate from './pages/clients-create';
 import UsersEdit from './pages/users-edit';
+import Loading from './pages/loading';
 
 
 function App() {
@@ -66,7 +67,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {loadingUser === true &&
-        <div>Cargando</div>}
+        <Loading />}
       {loadingUser === false &&
         <BrowserRouter>
           <Routes>
@@ -106,6 +107,9 @@ function App() {
             {/* Certificaciones */}
             <Route path="/certif-create" element={<CertificacionesCreate />} />
             <Route path="/certif-list" element={<CertificacionesList />} />
+
+            {/* Loading */}
+            <Route path="/loading" element={<Loading />} />
 
           </Routes>
         </BrowserRouter>}

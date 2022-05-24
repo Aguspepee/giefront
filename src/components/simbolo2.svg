@@ -1,0 +1,37 @@
+  <Svg
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    id="Capa_1"
+    data-name="Capa 1"
+    viewBox="0 0 413.32986 444.59348"
+    sodipodi:docname="simbolo3.svg"
+    width={413.32986}
+    height={444.59348}
+    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+  >
+    <Defs id="defs9">
+      <LinearGradient
+        id="Degradado_sin_nombre_6"
+        x1={178.08}
+        y1={355.63}
+        x2={591.39001}
+        y2={355.63}
+        gradientUnits="userSpaceOnUse"
+      >
+        <Stop offset={0} stopColor="#04d8dc" id="stop4" />
+        <Stop offset={1} stopColor="#01f4a0" id="stop6" />
+      </LinearGradient>
+    </Defs>
+    <G id="custom-colored-content" transform="translate(-178.0775,-133.18903)">
+      <Path
+        className="cls-2"
+        d="m 273.51,211.86 -39.58,39.59 c -74.47,74.46 -74.47,196 0,270.48 74.47,74.48 196,74.46 270.48,0 L 557.29,469 C 630,396.39 579,270.27 474.94,270.27 a 116.23,116.23 0 0 0 -82.4,34 l -52.88,52.88 a 41.73,41.73 0 0 0 59,59 l 37.44,-37.44 -20.46,-20.47 105.2,-17.51 -17.55,105.21 -20.46,-20.47 -37.44,37.44 c -66.84,66.84 -183.95,20.7 -183.95,-76.26 a 107.43,107.43 0 0 1 31.43,-76.26 l 51.85,-51.85 -0.16,-0.15 53.77,-53.77 0.08,0.08 a 41.68,41.68 0 1 0 -58.94,-58.94 l -66,66.1 z"
+        id="path13"
+      />
+    </G>
+  </Svg>
