@@ -78,7 +78,7 @@ const items = [
     title: 'Certificaciones',
     roles: ["Administrador", "Supervisor"]
   },
-  {
+/*   {
     href: '/remitos-table',
     icon: (<TableRowsIcon fontSize="small" />),
     title: 'Tabla Remitos',
@@ -89,7 +89,7 @@ const items = [
     icon: (<TableRowsIcon fontSize="small" />),
     title: 'Tabla Parte Diario',
     roles: ["Administrador"]
-  },
+  }, */
 ];
 
 export const DashboardSidebar = (props) => {
