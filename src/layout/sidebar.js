@@ -14,10 +14,18 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidIcon from '@mui/icons-material/Paid';
 import UserContext from '../context/userContext';
 import { useContext } from 'react';
-
+import styled, { keyframes } from "styled-components";
+import { ReactComponent as GieLogo } from "../images/gie_blanco.svg";
 
 import { Typography } from '@mui/material';
 import { default as LinkMaterial } from '@mui/material/Link';
+
+const StyledLogo = styled(GieLogo)`
+  width: 12em;
+  display: block;
+  margin: auto;
+`;
+
 
 const items = [
   {
@@ -92,8 +100,8 @@ export const DashboardSidebar = (props) => {
     noSsr: false
   });
   //console.log(items[8].roles)
-  let items_filtrados = items.filter((items)=>{
-    return(items.roles?.includes(user.role))
+  let items_filtrados = items.filter((items) => {
+    return (items.roles?.includes(user.role))
   })
   useEffect(
     () => {
@@ -113,24 +121,14 @@ export const DashboardSidebar = (props) => {
           height: '100%'
         }}
       >
-        <div>
-          <Box >
-            <div style={{ padding: "1.5em 1.5em 0em 1.5em" }}>
-              <Logo
-                sx={{
-                  width: 30
-                }}
-              />
-            </div>
-          </Box>
-        </div>
+        <StyledLogo />
         <Divider
           sx={{
             borderColor: '#2D3748',
-            my: 3
+            my: 0
           }}
         />
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, my: 2 }} >
           {items_filtrados.map((item) => (
             <NavItem
               key={item.title}
