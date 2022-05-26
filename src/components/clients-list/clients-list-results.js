@@ -2,21 +2,30 @@ import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
-  Tooltip
+  Tooltip,
+  Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import { clientGetAll, clientDelete, clientEdit } from '../../services/clients';
 import { Link } from 'react-router-dom';
 import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'
 
+//Alerts y Notifications
+import Notification from '../../styled-components/alerts/notification';
+import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
+
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { HighlightOff } from "@mui/icons-material";
+
 
 export const ClientsListResults = (props) => {
   const setReload = props.setReload
   const reload = props.reload
   const [clients, setClients] = useState([])
+  const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   useEffect(() => {
     async function getList() {
       try {
@@ -32,88 +41,122 @@ export const ClientsListResults = (props) => {
   }, [reload])
 
 
-  function handleDelete(id) {
+  async function handleDelete(id) {
     clientDelete(id)
     setReload(true)
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false
+    })
+    setNotify({
+      isOpen: true,
+      message: 'El cliente se eliminó correctamente',
+      type: 'error'
+    })
   }
-  return (
-    <Card>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Cliente
-                </TableCell>
-                <TableCell>
-                  Abreviatura
-                </TableCell>
-                <TableCell>
-                  Email
-                </TableCell>
-                <TableCell>
-                  Activo
-                </TableCell>
-                <TableCell>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clients?.map((client) => (
-                <TableRow
-                  hover
-                  key={client._id}
-                >
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
-                    >
-                      <Avatar
-                        src={client.image?`${process.env.REACT_APP_BACKEND_URL}${client.image}`:""}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(client?.nombre)}
-                      </Avatar>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {client.nombre}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    {client.abreviatura}
-                  </TableCell>
-                  <TableCell>
-                    {client.email}
-                  </TableCell>
-                  <TableCell>
-                    <StyledCheckboxActive value={client.active} fieldFey="active" id={client._id} edit={clientEdit}/>
-                  </TableCell>
-                  <TableCell>
-                    <Tooltip title="Editar contrato">
-                      <IconButton sx={{ ml: 1 }} component={Link} to={`/clients-edit/${client._id}`}>
-                        <EditIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Eliminar contrato">
-                      <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(client._id) }}>
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                  </TableCell>
 
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
-      </PerfectScrollbar>
-    </Card>
+  return (
+    <>
+      <Card>
+        <Paper sx={{ overflowX: "auto", width: "100%", }}>
+
+          <PerfectScrollbar>
+            <Box >
+              <Table sx={{ minWidth: 700 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      Cliente
+                    </TableCell>
+                    <TableCell>
+                      Abreviatura
+                    </TableCell>
+                    <TableCell>
+                      Email
+                    </TableCell>
+                    <TableCell>
+                      Activo
+                    </TableCell>
+                    <TableCell>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {clients?.map((client) => (
+                    <TableRow
+                      hover
+                      key={client._id}
+                    >
+                      <TableCell>
+                        <Box
+                          sx={{
+                            alignItems: 'center',
+                            display: 'flex'
+                          }}
+                        >
+                          <Avatar
+                            src={client.image ? `${process.env.REACT_APP_BACKEND_URL}${client.image}` : ""}
+                            sx={{ mr: 2 }}
+                          >
+                            {getInitials(client?.nombre)}
+                          </Avatar>
+                          <Typography
+                            color="textPrimary"
+                            variant="body1"
+                          >
+                            {client.nombre}
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell>
+                        {client.abreviatura}
+                      </TableCell>
+                      <TableCell>
+                        {client.email}
+                      </TableCell>
+                      <TableCell>
+                        <StyledCheckboxActive value={client.active} fieldFey="active" id={client._id} edit={clientEdit} />
+                      </TableCell>
+                      <TableCell>
+                        <Tooltip title="Editar contrato">
+                          <IconButton sx={{ ml: 1 }} component={Link} to={`/clients-edit/${client._id}`}>
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Eliminar contrato">
+                          {/* <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(client._id) }}>
+                            <DeleteIcon fontSize="small" />
+                          </IconButton> */}
+                          <IconButton sx={{ ml: 1 }} onClick={() => {
+                            setConfirmDialog({
+                              isOpen: true,
+                              title: "¿Deseas eliminar este cliente?",
+                              subTitle: "La acción es irreversible y puede traer problemas en la aplicación",
+                              onConfirm: () => { handleDelete(client._id) },
+                              icon:<HighlightOff fontSize='inherit' color="error"/>
+                            })
+                          }}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Box>
+          </PerfectScrollbar>
+
+        </Paper>
+      </Card>
+      <Notification
+        notify={notify}
+        setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog} />
+    </>
   );
 };

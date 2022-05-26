@@ -31,8 +31,9 @@ function StyledAdicional({ control, name, list, description, adicional, adiciona
                             isOptionEqualToValue={(option, value) => option === value}
                             noOptionsText={"Sin opciones"}
                             renderInput={(params) => <TextField {...params} label={"Descripción del Adicional"}
-                                error={Boolean(errors[name])}
-                                helperText={errors[name] && errors[name]?.message} />}
+                                error={Boolean(errors?.adicionales && errors?.adicionales[index]?.descripcion_servicio)}
+                                helperText={errors?.adicionales && errors?.adicionales[index]?.descripcion_servicio?.message} 
+                                />}
                             value={value ? value : null}
                             onChange={(event, item) => {
                                 handleUnit(item)

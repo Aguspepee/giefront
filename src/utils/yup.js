@@ -79,7 +79,7 @@ export const partesSchema = yup.object().shape({
   numero_reporte: yup.string(),
   numero_orden: yup.string(),
   tag: yup.string().required("El cliente es requerido"),
-  tag_detalle: yup.string(),
+  tag_detalle: yup.string(), 
   cantidad: yup.number()
   .typeError('La cantidad debe ser un número')
   .positive('Debe ser un número positivo')

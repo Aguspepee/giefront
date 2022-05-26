@@ -1,7 +1,6 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography, Card } from '@mui/material';
 import { PartesAddForm} from '../components/partes-add/partes-add-form';
 import { DashboardLayout } from '../layout/layout';
-
 
 function PartesAdd() {
   return (
@@ -20,7 +19,9 @@ function PartesAdd() {
           >
             Cargar Parte Diario
           </Typography>
+          <Card> 
           <PartesAddForm />
+          </Card>
         </Container>
       </Box>
     </DashboardLayout>

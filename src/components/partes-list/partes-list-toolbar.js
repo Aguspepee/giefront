@@ -9,8 +9,7 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
 import { Link } from 'react-router-dom';
-import { Upload as UploadIcon } from '../../icons/upload';
-import { Download as DownloadIcon } from '../../icons/download';
+import PartesListAdd from './partes-list-add';
 
 export const PartesListToolbar = (props) => (
   <Box {...props}>
@@ -27,7 +26,7 @@ export const PartesListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Partes
+        Parte Diario
       </Typography>
       <Box sx={{ m: 1 }}>
 {/*         <Button
@@ -45,11 +44,12 @@ export const PartesListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
-          to= '/partes-create'
+          to= '/partes-add'
           component={Link}
         >
           Nuevo Parte
         </Button>
+        <PartesListAdd/>
       </Box>
     </Box>
     <Box sx={{ mt: 3 }}>

@@ -36,11 +36,14 @@ import UsersCreate from './pages/users-create';
 import ClientsCreate from './pages/clients-create';
 import UsersEdit from './pages/users-edit';
 import Loading from './pages/loading';
+import SessionTimeout from './styled-components/alerts/session-timeout';
+
 
 
 function App() {
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
+  const [expirationDialog, setExpirationDialog] = useState({ isOpen: false, title: "", subTitle: "", expired: false })
   let Now = new Date()
   let Difference = 100000000
   useEffect(() => {
@@ -49,7 +52,24 @@ function App() {
         const { data: usuario } = await userWhoami()
         let Expiration = new Date(usuario.exp * 1000)
         Difference = Expiration - Now;
-        setTimeout(() => alert("Le quedan 5 minutos a la sesión, salga y vuelva a entrar"), Difference - (5 * 60000))
+        setTimeout(() => {
+          setExpirationDialog({
+            title: "La sesión está por expirar",
+            subTitle: "Su sesión vence en 5 minutos, guarde su trabajo e inicie sesión nuevamente.",
+            isOpen: true,
+            expired: false
+          })
+        }, Difference - (5 * 60000))
+        setTimeout(() => {
+          setExpirationDialog({
+            title: "La sesión ha finalizado",
+            subTitle: "Debe volver a iniciar sesión nuevamente.",
+            isOpen: true,
+            expired: true
+          })
+        }, Difference)
+        //setTimeout(() => alert("Le quedan 5 minutos a la sesión, salga y vuelva a entrar"), Difference - (5 * 60000))
+        //setTimeout(() => alert("La sesión ha terminado"), Difference)
         console.log(Difference / 60000)
         setUser(usuario[0])
         setLoadingUser(false)
@@ -112,7 +132,9 @@ function App() {
             <Route path="/loading" element={<Loading />} />
 
           </Routes>
+          <SessionTimeout expirationDialog={expirationDialog} setExpirationDialog={setExpirationDialog} />
         </BrowserRouter>}
+
     </ThemeProvider>
   );
 }
