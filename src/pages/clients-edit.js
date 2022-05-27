@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { ClientsEditProfile } from '../components/clients-edit/clients-edit-profile';
-import {ClientsEditDetails} from '../components/clients-edit/clients-edit-details';
+import { ClientsEditDetails } from '../components/clients-edit/clients-edit-details';
 import { DashboardLayout } from '../layout/layout';
 import { useParams } from "react-router-dom";
-import { clientOne, clientEdit } from '../services/clients';
+import { clientOne } from '../services/clients';
 
 function ClientsEdit() {
   let { id } = useParams();
@@ -50,7 +50,7 @@ function ClientsEdit() {
               md={6}
               xs={12}
             >
-              <ClientsEditProfile reload={reload} setReload={setReload} client={client}/>
+              <ClientsEditProfile reload={reload} setReload={setReload} client={client} />
             </Grid>
             <Grid
               item
@@ -68,7 +68,7 @@ function ClientsEdit() {
                   md={12}
                   xs={12}
                 >
-                  <ClientsEditDetails reload={reload} setReload={setReload} client={client}/>
+                  <ClientsEditDetails reload={reload} setReload={setReload} client={client} />
                 </Grid>
               </Grid>
             </Grid>

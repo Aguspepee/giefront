@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
+  Box, Card, Table, TableBody, TableCell, TableHead, TableRow, IconButton,
   Tooltip
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
 import { parteGetAll, parteDelete, parteEdit } from '../../services/partes';
 import { Link } from 'react-router-dom';
 import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { ClientsListResults } from '../components/clients-list/clients-list-results';
 import ClientsListToolbar from '../components/clients-list/clients-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { clients } from '../__mocks__/clients';
 
 function ClientsList() {
   const [reload, setReload] = useState(false)

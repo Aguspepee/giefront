@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { ReactComponent as ReactLogo } from "../images/simbolo.svg";
 //import { Logo as ReactLogo } from '../components/logo-g';
 import styled, { keyframes } from "styled-components";

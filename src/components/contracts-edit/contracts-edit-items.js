@@ -32,7 +32,7 @@ function ContractsEditItems() {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [data, setData] = useState([])
-  const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
+  const { control, handleSubmit,  reset, formState: { errors} } = useForm({
     resolver: yupResolver(contractSchema),
   });
 
@@ -90,7 +90,7 @@ function ContractsEditItems() {
 
   async function editContract(contract) {
     try {
-      const res = await contractEdit(contract, id)
+      await contractEdit(contract, id)
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

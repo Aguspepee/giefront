@@ -5,22 +5,16 @@ import { Checkbox, Box } from '@mui/material';
 function StyledCheckboxActive(props) {
     const edit = props.edit
     const id = props.id
-    const name = props.name
     const fieldFey = props.fieldFey
     const [value, setValue] = useState(props.value)
-    const description = props.description
 
     async function onChange(value) {
         setValue(value)
         try {
             const res = await edit({ [fieldFey]: value }, id)
             console.log("Se modificó el usuario", res.data)
-            //setSuccess(true)
-            //setError(false)
         } catch (e) {
             console.log(e)
-            //setError(true)
-            //setSuccess(false)
         }
     }
 

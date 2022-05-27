@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Card, CardContent, Divider, Grid } from '@mui/material';
+import { Box, Button, CardContent, Divider, Grid } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { partesSchema } from '../../utils/yup';
@@ -52,7 +52,7 @@ export const PartesAddForm = (props) => {
 
   async function addParte(parte){
     try {
-      const res = await parteCreate({ ...parte, usuario: `${user.nombre} ${user.apellido}` })
+      await parteCreate({ ...parte, usuario: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

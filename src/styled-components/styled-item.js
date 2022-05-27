@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import {
-    Grid, IconButton, Tooltip, Typography
-} from '@mui/material';
+import React, { useState } from "react";
+import { Grid, IconButton, Tooltip } from '@mui/material';
 import { Controller } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import InputAdornment from '@mui/material/InputAdornment';
 
 function StyledItem({ control, name, list, description, errors, adicionales, ...rest }) {
 
@@ -41,7 +38,7 @@ function StyledItem({ control, name, list, description, errors, adicionales, ...
                             }}
                             onBlur={onBlur}
                             clearOnBlur={true}
-                            
+
                         />
                     }
                 />
@@ -54,7 +51,7 @@ function StyledItem({ control, name, list, description, errors, adicionales, ...
                             {...rest}
                             value={value ? value : ""}
                             error={Boolean(error)}
-                            helperText={error? error.message: unidad}
+                            helperText={error ? error.message : unidad}
                             label="Cantidad"
                             onChange={onChange}
                             onBlur={onBlur}

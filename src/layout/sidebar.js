@@ -9,12 +9,11 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Logo } from '../components/logo';
 import { NavItem } from './nav-item';
-import TableRowsIcon from '@mui/icons-material/TableRows';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaidIcon from '@mui/icons-material/Paid';
 import UserContext from '../context/userContext';
 import { useContext } from 'react';
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { ReactComponent as GieLogo } from "../images/gie_blanco.svg";
 
 import { Typography } from '@mui/material';

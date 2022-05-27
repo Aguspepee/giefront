@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { UsersListResults } from '../components/users-list/users-list-results';
 import UsersListToolbar from '../components/users-list/users-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { users } from '../__mocks__/users';
 
 function UsersList() {
   const [reload, setReload] = useState(false)

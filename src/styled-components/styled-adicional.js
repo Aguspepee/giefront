@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-    Grid, IconButton, Tooltip, Typography
+    Grid, IconButton, Tooltip
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Controller } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
-import InputAdornment from '@mui/material/InputAdornment';
 
 function StyledAdicional({ control, name, list, description, adicional, adicionales, index, errors, ...rest }) {
     const [unidad, setUnidad] = useState(null)

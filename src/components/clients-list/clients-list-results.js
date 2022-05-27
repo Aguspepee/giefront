@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
+  Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
   Tooltip,
   Paper
 } from '@mui/material';
@@ -58,8 +57,6 @@ export const ClientsListResults = (props) => {
     <>
       <Card>
         <Paper sx={{ overflowX: "auto", width: "100%", }}>
-
-          <PerfectScrollbar>
             <Box >
               <Table sx={{ minWidth: 700 }}>
                 <TableHead>
@@ -143,8 +140,6 @@ export const ClientsListResults = (props) => {
                 </TableBody>
               </Table>
             </Box>
-          </PerfectScrollbar>
-
         </Paper>
       </Card>
       <Notification

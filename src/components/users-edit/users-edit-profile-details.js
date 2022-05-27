@@ -30,13 +30,13 @@ export const UsersEditProfileDetails = (props) => {
   const user = props.user;
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
+  const { control, handleSubmit, reset, formState: { errors} } = useForm({
     resolver: yupResolver(userSchema),
   });
 
   async function editUser(user) {
     try {
-      const res = await userEdit(user, id)
+      await userEdit(user, id)
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

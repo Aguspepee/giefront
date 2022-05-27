@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import * as Yup from 'yup';
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -8,7 +8,6 @@ import { userLogin } from '../services/users';
 import { useNavigate } from "react-router-dom";
 import UserContext from '../context/userContext';
 import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
 
 
@@ -42,11 +41,8 @@ const UsersLogin = () => {
       try {
         const res = await userLogin(user)
         localStorage.setItem("token", res.data.token)
-        //console.log("inición sesión", res.data)
-        //console.log(res.data.user)
         setUser(res.data.user)
         res.data.token ? navigate("/") :
-          // console.log(res.data.message)
         setError(res.data.message)
         setSuccess(true)
       } catch (e) {

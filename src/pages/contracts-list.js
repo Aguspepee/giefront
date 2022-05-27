@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
 import ContractsListToolbar from '../components/contracts-list/contracts-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { contracts } from '../__mocks__/contracts';
 
 function ContractsList() {
   const [reload, setReload] = useState(false)
