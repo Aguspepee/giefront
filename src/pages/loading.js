@@ -36,7 +36,7 @@ const StyledLogo = styled(ReactLogo)`
 function Loading() {
   return (
     <React.Fragment>
-      <div style={{ paddingTop: "80px" }}>
+      <div style={{ paddingTop: "150px" }}>
         <StyledLogo />
       </div>
     </React.Fragment>
