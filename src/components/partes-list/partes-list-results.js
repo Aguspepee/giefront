@@ -33,7 +33,6 @@ export const PartesListResults = (props) => {
     }
     getList()
   }, [reload])
-  console.log(partes)
 
   function handleDelete(id) {
     parteDelete(id)

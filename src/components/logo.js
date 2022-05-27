@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 
 export const Logo = styled((props) => {
-  const { variant} = props;
 
   return (
 <svg

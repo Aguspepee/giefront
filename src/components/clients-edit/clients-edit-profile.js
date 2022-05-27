@@ -107,6 +107,7 @@ export const ClientsEditProfile = (props) => {
             color="primary"
             fullWidth
             variant="text"
+            component="label"
           >
             Cambiar foto de perfil
             <input
