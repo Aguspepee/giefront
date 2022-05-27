@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
+  Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
   Tooltip,
   Paper
 } from '@mui/material';
@@ -17,7 +17,7 @@ import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { HighlightOff } from "@mui/icons-material";
+import HighlightOff from "@mui/icons-material/HighlightOff";
 
 
 export const ClientsListResults = (props) => {
@@ -39,7 +39,6 @@ export const ClientsListResults = (props) => {
     }
     getList()
   }, [reload])
-
 
   async function handleDelete(id) {
     clientDelete(id)
@@ -83,7 +82,7 @@ export const ClientsListResults = (props) => {
                 </TableHead>
                 <TableBody>
                   {clients?.map((client) => (
-                    <TableRow
+                    <TableRow 
                       hover
                       key={client._id}
                     >
@@ -124,9 +123,6 @@ export const ClientsListResults = (props) => {
                           </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar contrato">
-                          {/* <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(client._id) }}>
-                            <DeleteIcon fontSize="small" />
-                          </IconButton> */}
                           <IconButton sx={{ ml: 1 }} onClick={() => {
                             setConfirmDialog({
                               isOpen: true,

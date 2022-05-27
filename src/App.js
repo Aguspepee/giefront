@@ -5,7 +5,6 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import UserContext from './context/userContext';
 
 //Private Routes
@@ -41,6 +40,7 @@ import SessionTimeout from './styled-components/alerts/session-timeout';
 
 
 function App() {
+  //console.log(process.env.REACT_APP_BACKEND_URL)
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
   const [expirationDialog, setExpirationDialog] = useState({ isOpen: false, title: "", subTitle: "", expired: false })
@@ -68,9 +68,6 @@ function App() {
             expired: true
           })
         }, Difference)
-        //setTimeout(() => alert("Le quedan 5 minutos a la sesión, salga y vuelva a entrar"), Difference - (5 * 60000))
-        //setTimeout(() => alert("La sesión ha terminado"), Difference)
-        console.log(Difference / 60000)
         setUser(usuario[0])
         setLoadingUser(false)
       } catch (e) {

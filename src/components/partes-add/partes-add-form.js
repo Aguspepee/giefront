@@ -53,7 +53,6 @@ export const PartesAddForm = (props) => {
   async function addParte(parte){
     try {
       const res = await parteCreate({ ...parte, usuario: `${user.nombre} ${user.apellido}` })
-      console.log("Se modificó el usuario", res.data)
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false
@@ -78,7 +77,6 @@ export const PartesAddForm = (props) => {
   }
 
   async function onSubmit(parte) {
-    console.log(parte.contrato)
     setConfirmDialog({
       isOpen: true,
       title: "¿Desea agregar el parte?",

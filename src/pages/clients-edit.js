@@ -9,19 +9,19 @@ import { clientOne, clientEdit } from '../services/clients';
 function ClientsEdit() {
   let { id } = useParams();
   const [client, setClient] = useState([])
+  const [reload, setReload] = useState(false)
 
   useEffect(() => {
     async function getClient() {
       try {
         const document = await clientOne(id)
         setClient(document.data)
-        console.log(document.data)
       } catch (e) {
         console.log(e)
       }
     }
     getClient()
-  }, [])
+  }, [reload])
 
   return (
     <DashboardLayout>
@@ -50,7 +50,7 @@ function ClientsEdit() {
               md={6}
               xs={12}
             >
-              <ClientsEditProfile client={client}/>
+              <ClientsEditProfile reload={reload} setReload={setReload} client={client}/>
             </Grid>
             <Grid
               item
@@ -68,7 +68,7 @@ function ClientsEdit() {
                   md={12}
                   xs={12}
                 >
-                  <ClientsEditDetails client={client}/>
+                  <ClientsEditDetails reload={reload} setReload={setReload} client={client}/>
                 </Grid>
               </Grid>
             </Grid>

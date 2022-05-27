@@ -15,7 +15,7 @@ export const UsersEditPassword = (props) => {
   };
 
   return (
-    <form {...props}>
+    <form>
       <Card>
         <CardHeader
           subheader="Escriba la nueva contraseña"
