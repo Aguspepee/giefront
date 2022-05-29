@@ -52,7 +52,7 @@ export const PartesAddForm = (props) => {
 
   async function addParte(parte){
     try {
-      await parteCreate({ ...parte, usuario: `${user.nombre} ${user.apellido}` })
+      await parteCreate({ ...parte, inspector: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

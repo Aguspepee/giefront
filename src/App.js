@@ -36,6 +36,7 @@ import ClientsCreate from './pages/clients-create';
 import UsersEdit from './pages/users-edit';
 import Loading from './pages/loading';
 import SessionTimeout from './styled-components/alerts/session-timeout';
+import Settings from './pages/settings';
 
 
 
@@ -127,6 +128,10 @@ function App() {
 
             {/* Loading */}
             <Route path="/loading" element={<Loading />} />
+
+            {/* Settings*/}
+            <Route path="/settings" element={<Private Component={Settings} user={user} roles={["Administrador"]} />} />
+            
 
           </Routes>
           <SessionTimeout expirationDialog={expirationDialog} setExpirationDialog={setExpirationDialog} />

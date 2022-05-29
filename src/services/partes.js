@@ -8,9 +8,9 @@ export function parteGetAll() {
     })
 }
 
-export function parteGetRestricted() {
+export function parteGetRestricted(page,rowsPerPage) {
     let token = localStorage.getItem("token")
-    return instance.get(`partes/restricted`, {
+    return instance.get(`partes/restricted?page=${page+1}&rowsPerPage=${rowsPerPage}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

@@ -15,6 +15,7 @@ import UserContext from '../context/userContext';
 import { useContext } from 'react';
 import styled from "styled-components";
 import { ReactComponent as GieLogo } from "../images/gie_blanco.svg";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import { Typography } from '@mui/material';
 import { default as LinkMaterial } from '@mui/material/Link';
@@ -76,6 +77,12 @@ const items = [
     icon: (<PaidIcon fontSize="small" />),
     title: 'Certificaciones',
     roles: ["Administrador", "Supervisor"]
+  },
+  {
+    href: '/settings',
+    icon: (<SettingsIcon fontSize="small" />),
+    title: 'Configuracion',
+    roles: ["Administrador"]
   },
 /*   {
     href: '/remitos-table',
