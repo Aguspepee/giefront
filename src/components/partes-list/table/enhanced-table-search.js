@@ -31,6 +31,8 @@ function EnhancedTableSearch(props) {
                             fullWidth
                             placeholder={headCell.placeHolder}
                             variant="outlined"
+                            //onChange={() => setConfirmDialog({ ...confirmDialog, isOpen: false })}
+                            onChange={(event) => console.log(event.target.value)}
                         />
                     }
                     {(headCell.show && headCell.type === "number") &&

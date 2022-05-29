@@ -1,21 +1,27 @@
 import { useState, useEffect } from 'react';
-import {
-  Box, Card, Table, TableBody, TableCell, TableRow, IconButton,
-  Paper,
-} from '@mui/material';
-import { parteGetRestricted, parteDelete, parteEdit } from '../../services/partes';
+import { Box, Card, Table, TableBody, Paper } from '@mui/material';
+import { parteGetRestricted } from '../../services/partes';
 import EnhancedTableHead from './table/enhanced-table-head';
 import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
+//Configuración de campos
+import { headCells } from './table/list';
 
-export const PartesListResults = (props) => {
+export const PartesListResults = () => {
   const [partes, setPartes] = useState([])
   const [reload, setReload] = useState(false)
 
+  //Search filers
+  const [search, setSearch] = useState(headCells.map((headCell) => {
+    let cond = {}
+    cond[headCell.id] = ""
+    return (cond)
+  }))
+
   //Sort states and functions
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('fecha_carga');
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -31,13 +37,13 @@ export const PartesListResults = (props) => {
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   };
-  
+
   useEffect(() => {
     async function getList() {
       try {
-        const res = await parteGetRestricted(page,rowsPerPage)
+        const res = await parteGetRestricted(page, rowsPerPage, order, orderBy, search)
         setPartes(res.data.docs)
         setRowsCount(res.data.totalDocs)
         setReload(!false)
@@ -46,7 +52,7 @@ export const PartesListResults = (props) => {
       }
     }
     getList()
-  }, [reload,page,rowsPerPage])
+  }, [reload, page, rowsPerPage, order, orderBy])
 
   return (
 
@@ -66,19 +72,20 @@ export const PartesListResults = (props) => {
               ))}
             </TableBody>
           </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25, 50, 100]}
-            component="div"
-            count={rowsCount}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-           // style={{ backgroundColor: "#F3F4F6" , width:"100%"}}
-            labelRowsPerPage={"Filas por página"}
-          />
+
         </Box>
       </Paper>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
+        component="div"
+        count={rowsCount}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        style={{ backgroundColor: "#F3F4F6" }}
+        labelRowsPerPage={"Filas por página"}
+      />
     </Card>
 
   );

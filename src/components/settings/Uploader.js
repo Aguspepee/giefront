@@ -12,10 +12,10 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import {parteCreate} from '../../services/partes';
+import {dateToJS} from '../../utils/date-format';
 
 function Uploader(props) {
     let json = [];
-    const dbSubBaseURL = props.dbSubBaseURL;
     const Titulo = props.Titulo;
     const Subtitulo = props.Subtitulo;
     const fileTypes = props.fileTypes;
@@ -33,10 +33,11 @@ function Uploader(props) {
             inspector: item["Operador"],
             unidad: item["Unidad"],
             adicionales: [],
+            fecha_inspeccion:dateToJS(item["Fecha de Ensayo"]),
 
             descripcion_servicio: item["Descripción"],
             clase: "Ítem",
-            cantidad: item["Cant."],
+            cantidad: Number(item["Cant."]),
         }]
         console.log(parte)
         return (parte)
