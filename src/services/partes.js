@@ -8,6 +8,20 @@ export function parteGetAll() {
     })
 }
 
+export function parteGetRestricted() {
+    let token = localStorage.getItem("token")
+    return instance.get(`partes/restricted`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function parteGetUnrestricted() {
+    let token = localStorage.getItem("token")
+    return instance.get(`partes/unrestricted`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function parteCreate(parte) {
     let token = localStorage.getItem("token")
     return instance.post(`partes/create`, parte, {

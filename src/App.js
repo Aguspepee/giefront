@@ -40,7 +40,7 @@ import SessionTimeout from './styled-components/alerts/session-timeout';
 
 
 function App() {
-  //console.log(process.env.REACT_APP_BACKEND_URL)
+  console.log(process.env.REACT_APP_BACKEND_URL)
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
   const [expirationDialog, setExpirationDialog] = useState({ isOpen: false, title: "", subTitle: "", expired: false })

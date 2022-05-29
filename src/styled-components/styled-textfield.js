@@ -21,6 +21,7 @@ function StyledTexfield({ show, control, name, description, type, md, xs, ...res
                                 onBlur={onBlur}
                                 //size="small"
                                 type={type}
+                                step={0.01}
                             />}
                         name={name}
                         control={control}

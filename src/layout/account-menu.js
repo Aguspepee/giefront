@@ -27,8 +27,9 @@ export default function AccountMenu() {
     setAnchorEl(null);
     userLogout();
     setUser([]);
-    navigate("/users-login");
+    //navigate("/users-login");
   };
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -96,10 +97,10 @@ export default function AccountMenu() {
           </ListItemIcon>
           Configuración
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        <MenuItem onClick={()=>{navigate("/users-login")}}>
+          <ListItemIcon >
             <Logout fontSize="small" />
-          </ListItemIcon>
+          </ListItemIcon >
           Cerrar sesión
         </MenuItem>
       </Menu>

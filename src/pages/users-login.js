@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Box, Button, Container, Link, TextField, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -43,13 +43,17 @@ const UsersLogin = () => {
         localStorage.setItem("token", res.data.token)
         setUser(res.data.user)
         res.data.token ? navigate("/") :
-        setError(res.data.message)
+          setError(res.data.message)
         setSuccess(true)
       } catch (e) {
         console.log(e)
       }
     }
   });
+
+  useEffect(() => {
+    localStorage.removeItem("token")
+  }, [])
 
   return (
     <>

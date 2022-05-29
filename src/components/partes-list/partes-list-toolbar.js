@@ -1,15 +1,9 @@
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon, Typography
+  Button, IconButton, Tooltip, Typography
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
 import { Link } from 'react-router-dom';
-import PartesListAdd from './partes-list-add';
+import { Settings } from '@mui/icons-material';
 
 export const PartesListToolbar = (props) => (
   <Box {...props}>
@@ -27,9 +21,15 @@ export const PartesListToolbar = (props) => (
         variant="h4"
       >
         Parte Diario
+        <Tooltip title="Editar campos">
+          <IconButton sx={{ ml: 1 }} >
+            <Settings fontSize="small" />
+          </IconButton>
+        </Tooltip>
       </Typography>
+
       <Box sx={{ m: 1 }}>
-{/*         <Button
+        {/*         <Button
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
@@ -44,15 +44,16 @@ export const PartesListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
-          to= '/partes-add'
+          to='/partes-add'
           component={Link}
         >
           Nuevo Parte
+
         </Button>
-        <PartesListAdd/>
+        {/* <PartesListAdd/> */}
       </Box>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    {/* <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
@@ -76,6 +77,6 @@ export const PartesListToolbar = (props) => (
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Box> */}
   </Box>
 );

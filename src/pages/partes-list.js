@@ -5,7 +5,7 @@ import { PartesListToolbar } from '../components/partes-list/partes-list-toolbar
 import { DashboardLayout } from '../layout/layout';
 
 function PartesList() {
-  const [reload, setReload] = useState(false)
+  
   return (
     <>
       <DashboardLayout>
@@ -13,13 +13,13 @@ function PartesList() {
         component="main" 
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 4
         }}
       >
         <Container maxWidth={false}>
-          <PartesListToolbar  setReload={setReload} reload={reload}  />
+          <PartesListToolbar   />
           <Box sx={{ mt: 3 }}>
-            <PartesListResults  setReload={setReload} reload={reload}  />
+            <PartesListResults  />
           </Box>
         </Container>
       </Box>
