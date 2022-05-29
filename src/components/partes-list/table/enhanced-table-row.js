@@ -11,7 +11,7 @@ import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { parteDelete } from '../../../services/partes';
-
+import { Button } from '@mui/material';
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -37,6 +37,7 @@ function EnhancedTableRow({ reload, setReload, parte, ...props }) {
                    onClick={() => setOpen(!open)}
                 >
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    
                 </IconButton>
             </TableCell>
             {headCells.map((headCell) => {

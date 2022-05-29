@@ -7,10 +7,11 @@ import { Search } from '@mui/icons-material';
 import { TextField } from '@mui/material';
 import { Chip } from '@mui/material';
 import { Stack } from '@mui/material';
+import { Button } from '@mui/material';
 import StyledDatepickerFilter from '../../../styled-components/styled-datepicker-filter';
 
-function EnhancedTableSearch(props) {
-
+function EnhancedTableSearch({search, ...props}) {
+    
     return (
         <TableRow style={{ height: "70px" }}>
             <TableCell style={{ backgroundColor: "#F3F4F6" }}>
@@ -20,7 +21,11 @@ function EnhancedTableSearch(props) {
                     </IconButton>
                 </Tooltip>
             </TableCell>
-            {headCells.map((headCell) => (
+            {headCells.map((headCell) =>{ 
+                function handleChange(event){
+                    props.onChange({...search,[headCell.id.replace("[", ".").replace("]", "")]:event.target.value})
+                }
+                return(
                 <TableCell
                     key={headCell.id}
                     padding={headCell.disablePadding ? 'none' : 'normal'}
@@ -31,8 +36,7 @@ function EnhancedTableSearch(props) {
                             fullWidth
                             placeholder={headCell.placeHolder}
                             variant="outlined"
-                            //onChange={() => setConfirmDialog({ ...confirmDialog, isOpen: false })}
-                            onChange={(event) => console.log(event.target.value)}
+                            onChange={handleChange}
                         />
                     }
                     {(headCell.show && headCell.type === "number") &&
@@ -42,6 +46,7 @@ function EnhancedTableSearch(props) {
                             placeholder={headCell.placeHolder}
                             variant="outlined"
                             type="number"
+                            onChange={handleChange}
                         />
                     }
                     {(headCell.show && headCell.type === "date") &&
@@ -58,7 +63,7 @@ function EnhancedTableSearch(props) {
                         </>
                     }
                 </TableCell>
-            ))}
+            )})}
             <TableCell style={{ backgroundColor: "#F3F4F6" }}>
             </TableCell>
         </TableRow>

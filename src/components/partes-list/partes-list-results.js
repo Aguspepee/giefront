@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Card, Table, TableBody, Paper } from '@mui/material';
+import { Box, Card, Table, TableBody, Paper, Button } from '@mui/material';
 import { parteGetRestricted } from '../../services/partes';
 import EnhancedTableHead from './table/enhanced-table-head';
 import EnhancedTableSearch from './table/enhanced-table-search';
@@ -13,12 +13,17 @@ export const PartesListResults = () => {
   const [reload, setReload] = useState(false)
 
   //Search filers
-  const [search, setSearch] = useState(headCells.map((headCell) => {
-    let cond = {}
-    cond[headCell.id] = ""
-    return (cond)
-  }))
+  let cond = {}
+  headCells.map((headCell) => {
+    cond[headCell.id.replace("[", ".").replace("]", "")] = ""
+  })
+  console.log("Cond",cond)
+  const [search, setSearch] = useState(cond)
+  const handleSearchChange = (newValue) =>{
+    setSearch(newValue)
+  }
 
+  console.log("SEARCH", search)
   //Sort states and functions
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('fecha_carga');
@@ -52,7 +57,8 @@ export const PartesListResults = () => {
       }
     }
     getList()
-  }, [reload, page, rowsPerPage, order, orderBy])
+  }, [reload, page, rowsPerPage, order, orderBy, search, setSearch])
+
 
   return (
 
@@ -66,7 +72,7 @@ export const PartesListResults = () => {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-              <EnhancedTableSearch />
+              <EnhancedTableSearch search={search} onChange={handleSearchChange} />
               {partes?.map((parte) => (
                 <EnhancedTableRow key={parte._id} parte={parte} reload={reload} setReload={() => setReload()} />
               ))}
