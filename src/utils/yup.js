@@ -6,8 +6,8 @@ export const contractSchema = yup.object().shape({
   descripcion: yup.string().required("La descripción del contrato es requerida"),
   area: yup.string().required("La descripción del contrato es requerida"),
   cliente: yup.string().required("El cliente es requerido"),
-  fecha_inicio: yup.date(),
-  fecha_fin: yup.date(),
+  fecha_inicio: yup.date("Debe ser una fecha válida").required("El campo fecha de inicio es requerido"),
+  fecha_fin: yup.date("Debe ser una fecha válida").required("El campo fecha de fin es requerido"),
   numero_reporte: yup.boolean(),
   activo: yup.boolean(),
 
@@ -75,6 +75,9 @@ export const clientSchema = yup.object().shape({
 export const partesSchema = yup.object().shape({
   contrato: yup.string().required("El contrato es un campo requerido"),
   unidad:  yup.string().required("La unidad es requerida"),
+  fecha_inspeccion: yup.date()
+  .typeError('Debe ser una fecha válida')
+  .required("El campo fecha de fin es requerido"),
   descripcion_servicio: yup.string().required("First Name is required"),
   numero_reporte: yup.string(),
   numero_orden: yup.string(),

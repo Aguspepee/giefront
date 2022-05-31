@@ -10,6 +10,7 @@ import InputCheckbox from "./components/contracts-edit-items-checkbox"
 import InputAutocompleteGet from "./components/contracts-edit-items-autocomplete-get";
 import InputAutocompleteList from "./components/contracts-edit-items-autocomplete-list";
 import { useParams } from "react-router-dom";
+import StyledDatepickerDesktop from "../../styled-components/styled-datepicker-desktop";
 //Icons
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -136,56 +137,8 @@ function ContractsEditItems() {
               <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} />
               <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} />
               <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
-              <Controller
-                name={`fecha_inicio`}
-                control={control}
-                defaultValue={null}
-                render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
-                  const handleDateChange = (newValue) => {
-                    onChange(newValue);
-                    // setFechaInicio(newValue);
-                  };
-                  return (
-                    <DesktopDatePicker
-                      error={Boolean(errors.fecha_inicio)}
-                      helperText={errors.fecha_inicio && errors.fecha_inicio.message}
-                      label="Fecha de Inicio"
-                      margin="normal"
-                      inputFormat="dd/MM/yyyy"
-                      value={value}
-                      onChange={(value) => handleDateChange(value)}
-                      onBlur={onBlur}
-                      renderInput={(params) =>
-                        <TextField size="small" {...params} />}
-                    />)
-                }}
-
-              />
-
-              <Controller
-                name={`fecha_fin`}
-                control={control}
-                defaultValue={null}
-                render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => {
-                  const handleDateChange = (newValue) => {
-                    onChange(newValue);
-                    // setFechaFin(newValue);
-                  };
-                  return (
-                    <DesktopDatePicker
-                      error={Boolean(errors.fecha_fin)}
-                      helperText={errors.fecha_fin && errors.fecha_fin.message}
-                      label="Fecha de Fin"
-                      margin="normal"
-                      inputFormat="dd/MM/yyyy"
-                      value={value}
-                      onChange={(value) => handleDateChange(value)}
-                      onBlur={true}
-                      renderInput={(params) =>
-                        <TextField size="small" {...params} />}
-                    />)
-                }}
-              />
+              <StyledDatepickerDesktop control={control} name="fecha_inicio" description="Fecha de Inicio" errors={errors} />
+              <StyledDatepickerDesktop control={control} name="fecha_fin" description="Fecha de Fin" errors={errors} />
               <InputCheckbox control={control} name="activo" defaultValue={false} description="Contrato Activo" />
               <Divider style={{ paddingTop: "1.5em" }} />
               <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>

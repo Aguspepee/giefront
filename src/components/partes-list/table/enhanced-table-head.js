@@ -5,11 +5,10 @@ import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TableCell from '@mui/material/TableCell';
-import { Tooltip } from '@mui/material';
-import { IconButton } from '@mui/material';
-import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+
 import { headCells } from './list';
 import { Fragment } from 'react';
+import ColumnsEdit from './columns-edit';
 
 
 function EnhancedTableHead(props) {
@@ -22,11 +21,7 @@ function EnhancedTableHead(props) {
         <TableHead>
             <TableRow style={{ height: "70px" }}>
                 <TableCell style={{ backgroundColor: "#F3F4F6" }}>
-                    <Tooltip title="Seleccionar columnas">
-                        <IconButton sx={{ ml: 1 }} onClick={() => console.log("columnas")} >
-                            <ViewColumnIcon disabled fontSize="small"  />
-                        </IconButton>
-                    </Tooltip>
+                   <ColumnsEdit/>
                 </TableCell>
                 {headCells.map((headCell) => (
                     <Fragment key={headCell.id}>

@@ -17,6 +17,7 @@ import { tipo_rx } from '../../utils/list';
 import UserContext from '../../context/userContext';
 import { useContext } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import StyledDatepickerDesktop from '../../styled-components/styled-datepicker-desktop';
 
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
@@ -96,9 +97,11 @@ export const PartesAddForm = (props) => {
               <Grid container spacing={3}>
                 <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} />
                 <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad" errors={errors} />
+                <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección" errors={errors} md={12} xs={12} />
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} />
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_orden} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={12} xs={12} />
                 <StyledTextfield control={control} name={`tag`} type="text" description="TAG del equipo" errors={errors} md={12} xs={12} />
+                
                 <StyledTextfield control={control} name={`tag_detalle`} type="text" description="Detalle del equipo" errors={errors} md={12} xs={12} />
                 <StyledItem name={`descripcion_servicio`} errors={errors} control={control} list={list ? list : []} adicionales={() => adicionales.append({})} />
                 {adicionales.fields.map((adicional, index) => (

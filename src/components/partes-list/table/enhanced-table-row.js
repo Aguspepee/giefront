@@ -51,8 +51,8 @@ function EnhancedTableRow({ reload, setReload, parte, ...props }) {
                         {(headCell.show && headCell.type !== "date") &&
                             resolvePath(parte, headCell.id)
                         }
-                        {(headCell.show && headCell.type === "date") &&
-                            format(new Date(resolvePath(parte, headCell.id)), 'dd/MM/yyyy')
+                        {(headCell.show && headCell.type === "date") &&  
+                        (resolvePath(parte, headCell.id)?  format(new Date(resolvePath(parte, headCell.id)), 'dd/MM/yyyy'):"-")
                         }
                     </>
 

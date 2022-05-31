@@ -17,13 +17,11 @@ export const PartesListResults = () => {
   headCells.map((headCell) => {
     cond[headCell.id.replace("[", ".").replace("]", "")] = ""
   })
-  console.log("Cond",cond)
   const [search, setSearch] = useState(cond)
   const handleSearchChange = (newValue) =>{
     setSearch(newValue)
   }
 
-  console.log("SEARCH", search)
   //Sort states and functions
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('fecha_carga');
@@ -58,7 +56,7 @@ export const PartesListResults = () => {
     }
     getList()
   }, [reload, page, rowsPerPage, order, orderBy, search, setSearch])
-
+console.log(partes)
 
   return (
 
