@@ -8,11 +8,11 @@ import TableCell from '@mui/material/TableCell';
 
 import { headCells } from './list';
 import { Fragment } from 'react';
-import ColumnsEdit from './columns-edit';
+import { Checkbox } from '@mui/material';
 
 
 function EnhancedTableHead(props) {
-    const { order, orderBy, onRequestSort } = props;
+    const { order, orderBy, onRequestSort, onSelectAllClick, numSelected, rowCount } = props;
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
@@ -20,8 +20,16 @@ function EnhancedTableHead(props) {
     return (
         <TableHead>
             <TableRow style={{ height: "70px" }}>
-                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
-                   <ColumnsEdit/>
+                <TableCell padding="checkbox" style={{ backgroundColor: "#F3F4F6"}}>
+                    <Checkbox
+                        color="primary"
+                        indeterminate={numSelected > 0 && numSelected < rowCount}
+                        checked={rowCount > 0 && numSelected === rowCount}
+                        onChange={onSelectAllClick}
+                        inputProps={{
+                            'aria-label': 'select all desserts',
+                        }}
+                    />
                 </TableCell>
                 {headCells.map((headCell) => (
                     <Fragment key={headCell.id}>

@@ -3,61 +3,78 @@ import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import { IconButton } from '@mui/material';
 import { headCells } from './list';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { resolvePath } from '../../../utils/path-resolvers';
 import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { parteDelete } from '../../../services/partes';
-import { Button } from '@mui/material';
+import { Checkbox } from '@mui/material';
+import StyledChipUpdate from '../../../styled-components/styled-chip-update'
+
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
-function EnhancedTableRow({ reload, setReload, parte, ...props }) {
+function EnhancedTableRow({ parte, selected, handleClick, index, handleReload, ...props }) {
     const [open, setOpen] = useState(true);
+    const isSelected = (name) => selected.indexOf(name) !== -1;
+    const isItemSelected = isSelected(parte._id);
+    const labelId = `enhanced-table-checkbox-${index}`;
+
 
     const handleDelete = (id) => {
         parteDelete(id)
-        setReload(!reload)
+        handleReload()
     }
-    return (
+    return (<>
         <TableRow
             hover
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            //onClick={(event) => handleClick(event, parte._id)}
+            role="checkbox"
+            aria-checked={isItemSelected}
+            tabIndex={-1}
+            key={parte._id}
+            selected={isItemSelected}
         >
-            <TableCell>
-                <IconButton
-                    aria-label="expand row"
-                    size="small"
-                   onClick={() => setOpen(!open)}
-                >
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    
-                </IconButton>
+            <TableCell padding="checkbox">
+                <Checkbox
+                    onClick={(event) => handleClick(event, parte._id)}
+                    color="primary"
+                    checked={isItemSelected}
+                    inputProps={{
+                        'aria-labelledby': labelId,
+                    }}
+                />
             </TableCell>
+
             {headCells.map((headCell) => {
                 //console.log("HEADDDD",headCell.id)
-                return(
-                <TableCell
-                    key={headCell.id}
-                    align={headCell.numeric ? 'right' : 'left'}
-                    padding={headCell.disablePadding ? 'none' : 'normal'}>
-                    <>
-                        {(headCell.show && headCell.type !== "date") &&
-                            resolvePath(parte, headCell.id)
-                        }
-                        {(headCell.show && headCell.type === "date") &&  
-                        (resolvePath(parte, headCell.id)?  format(new Date(resolvePath(parte, headCell.id)), 'dd/MM/yyyy'):"-")
-                        }
-                    </>
+                return (
+                    <TableCell
+                        key={headCell.id}
+                        align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}>
+                        <>
+                            {(headCell.show && headCell.type === "text") &&
+                                resolvePath(parte, headCell.id)
+                            }
+                            {(headCell.show && headCell.type === "number") &&
+                                resolvePath(parte, headCell.id)
+                            }
+                            {(headCell.show && headCell.type === "select") &&
+                                <StyledChipUpdate value={resolvePath(parte, headCell.id)} />
+                            }
+                            {(headCell.show && headCell.type === "date") &&
+                                (resolvePath(parte, headCell.id) ? format(new Date(resolvePath(parte, headCell.id)), 'dd/MM/yyyy') : "-")
+                            }
+                        </>
 
-                </TableCell>
-            )})}
+                    </TableCell>
+                )
+            })}
             <TableCell>
                 <Stack direction="row" spacing={2}>
                     <Tooltip title="Editar contrato">
@@ -74,6 +91,8 @@ function EnhancedTableRow({ reload, setReload, parte, ...props }) {
 
             </TableCell>
         </TableRow>
+
+    </>
     );
 }
 

@@ -16,7 +16,7 @@ import StyledItem from '../../styled-components/styled-item';
 import { tipo_rx } from '../../utils/list';
 import UserContext from '../../context/userContext';
 import { useContext } from 'react';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+//import EditCircleOutlineIcon from '@mui/icons-material/EditCircleOutline';
 import StyledDatepickerDesktop from '../../styled-components/styled-datepicker-desktop';
 
 //Alerts y Notifications
@@ -24,7 +24,7 @@ import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 
-export const PartesAddForm = (props) => {
+export const PartesEditForm = (props) => {
   //let { id } = useParams();
   const [user, setUser] = useContext(UserContext);
   const [contract, setContract] = useState([])
@@ -51,7 +51,7 @@ export const PartesAddForm = (props) => {
     name: "adicionales"
   });
 
-  async function addParte(parte){
+  async function editParte(parte){
     try {
       const doc=await parteCreate({ ...parte, inspector: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({
@@ -83,8 +83,8 @@ export const PartesAddForm = (props) => {
       isOpen: true,
       title: "¿Desea agregar el parte?",
       subTitle: "Datos del parte" ,
-      onConfirm: () => { addParte(parte) },
-      icon:<AddCircleOutlineIcon fontSize='inherit' color="success"/>
+      onConfirm: () => { editParte(parte) },
+      //icon:<EditCircleOutlineIcon fontSize='inherit' color="success"/>
     })
     
   }
