@@ -181,7 +181,7 @@ const UsersRegister = () => {
                 >
                   {option.label}
                 </option>
-              ))}
+              ))} 
             </TextField>
             <TextField
               error={Boolean(formik.touched.password && formik.errors.password)}
