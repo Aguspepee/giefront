@@ -6,10 +6,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Controller } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
 
-function StyledAdicional({ control, name, list, description, adicional, adicionales, index, errors, ...rest }) {
+function StyledAdicional({ control, name, list, description, items, index, errors, ...rest }) {
     const [unidad, setUnidad] = useState(null)
-    let items = list?.filter((dato) => dato.clase === "Subítem").map((dato) => dato.descripcion_servicio)
-    items = items ? items : []
+    let items_list = list?.filter((dato) => dato.clase === "Subítem").map((dato) => dato.descripcion_servicio)
+    items_list = items_list ? items_list : []
     const handleUnit = (item) => {
         setUnidad(list?.filter((list) => list.descripcion_servicio === item)[0]?.unidad_medida)
     }
@@ -19,19 +19,19 @@ function StyledAdicional({ control, name, list, description, adicional, adiciona
 
             <Grid item md={9} xs={12}>
                 <Controller
-                    name={`adicionales.${index}.descripcion_servicio`}
+                    name={`items.${index}.descripcion_servicio`}
                     control={control}
                     render={({ field: { onChange, onBlur, value, ref, ...field } }) =>
                         <Autocomplete
                             defaultValue={value}
                             disablePortal
-                            getOptionLabel={(items) => `${items}`}
-                            options={items}
+                            getOptionLabel={(items_list) => `${items_list}`}
+                            options={items_list}
                             isOptionEqualToValue={(option, value) => option === value}
                             noOptionsText={"Sin opciones"}
                             renderInput={(params) => <TextField {...params} label={"Descripción del Adicional"}
-                                error={Boolean(errors?.adicionales && errors?.adicionales[index]?.descripcion_servicio)}
-                                helperText={errors?.adicionales && errors?.adicionales[index]?.descripcion_servicio?.message} 
+                                error={Boolean(errors?.items && errors?.items[index]?.descripcion_servicio)}
+                                helperText={errors?.items && errors?.items[index]?.descripcion_servicio?.message} 
                                 />}
                             value={value ? value : null}
                             onChange={(event, item) => {
@@ -49,7 +49,9 @@ function StyledAdicional({ control, name, list, description, adicional, adiciona
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                         <TextField
                             fullWidth
+                            //disabled={unidad==="Porcentaje adicional"}
                             {...rest}
+                            //value={value ? value : (unidad==="Porcentaje adicional"? 1 :"")}
                             value={value ? value : ""}
                             error={Boolean(error)}
                             helperText={error ? error.message : unidad}
@@ -58,13 +60,13 @@ function StyledAdicional({ control, name, list, description, adicional, adiciona
                             onBlur={onBlur}
                             type="number"
                         />}
-                    name={`adicionales.${index}.cantidad`}
+                    name={`items.${index}.cantidad`}
                     control={control}
                 />
             </Grid>
             <Grid item md={1} xs={3}>
                 <Tooltip title="Eliminar Adicional">
-                    <IconButton color="primary" size="large" onClick={() => adicionales.remove(index)}>
+                    <IconButton color="primary" size="large" onClick={() => items.remove(index)}>
                         <DeleteIcon fontSize="inherit" />
                     </IconButton>
                 </Tooltip>

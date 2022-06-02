@@ -3,12 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete } from '@mui/material';
 
-function InputAutocompleteGet(props) {
-    const control = props.control
-    const name = props.name
-    const description = props.description
-    const errors = props.errors
-    const get = props.get
+function InputAutocompleteGet({control,name,description,errors,get,...rest}) {
     const [jsonResults, setJsonResults] = useState([])
 
     useEffect(() => {
@@ -36,15 +31,12 @@ function InputAutocompleteGet(props) {
                         options={jsonResults}
                         isOptionEqualToValue={(option, value) => option === value}
                         noOptionsText={"Sin opciones"}
-                        renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
-                        size="small"
-                        margin="none"
+                        renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} {...rest}/>}
                         value={value? value : null}
                         onChange={(event, item) => {
                             onChange(item? item : null)
                         }}
                         onBlur={onBlur}
-                        style={{ width: "10em" }}
                         clearOnBlur = {true}
 
                     />

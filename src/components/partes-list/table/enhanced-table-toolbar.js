@@ -7,63 +7,71 @@ import { alpha } from '@mui/material/styles';
 import { Tooltip } from "@mui/material";
 import ColumnsEdit from './columns-edit'
 import { parteDeleteMany } from "../../../services/partes";
+import { Receipt } from "@mui/icons-material";
 
 
-export default function EnhancedTableToolbar ({numSelected, selected, handleReload, ...props}) {
+export default function EnhancedTableToolbar({ numSelected, selected, handleReload, ...props }) {
 
-    const handleDelete = () =>{
-        console.log("borró")
-        parteDeleteMany(selected)
-        handleReload()
-    }
-  
-    return (
-      <Toolbar
-        sx={{
-          pl: { sm: 2 },
-          pr: { xs: 1, sm: 1 },
-          //bgcolor:"#F3F4F6",
-          ...(numSelected > 0 && {
-            bgcolor: (theme) =>
-              alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-          }),
-          
-        }}
+  const handleDelete = () => {
+    console.log("borró")
+    parteDeleteMany(selected)
+    handleReload()
+  }
 
-      >
-        {numSelected > 0 ? (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            color="inherit"
-            variant="subtitle1"
-            component="div"
-          >
-            {numSelected} selected
-          </Typography>
-        ) : (
-          <Typography
-            sx={{ flex: '1 1 100%' }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-          >
-            Parte Diario
-          </Typography>
-        )}
-  
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton onClick={()=>handleDelete()} >
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+        //bgcolor:"#F3F4F6",
+        ...(numSelected > 0 && {
+          bgcolor: (theme) =>
+            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+        }),
+
+      }}
+
+    >
+      {numSelected > 0 ? (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          color="inherit"
+          variant="subtitle1"
+          component="div"
+        >
+          {numSelected} seleccionados
+        </Typography>
+      ) : (
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          Parte Diario
+        </Typography>
+      )}
+
+      {numSelected > 0 ? (
+        <>
+          <Tooltip title="Elaborar Remito">
+            <IconButton  >
+              <Receipt />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Borrar ítems">
+            <IconButton onClick={() => handleDelete()} >
               <Delete />
             </IconButton>
           </Tooltip>
-        ) : (
-              <ColumnsEdit />
-        )}
-      </Toolbar>
-    );
-  };
-  
-  EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
-  };
+        </>
+      ) : (
+        <ColumnsEdit />
+      )}
+    </Toolbar>
+  );
+};
+
+EnhancedTableToolbar.propTypes = {
+  numSelected: PropTypes.number.isRequired,
+};

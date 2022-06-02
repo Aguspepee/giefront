@@ -1,10 +1,9 @@
 import { React, useEffect, useState } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { Box, Card, CardContent, Button, Divider, TextField, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Card, CardContent, Button, Divider, TextField, IconButton, Tooltip, Typography, Paper, Grid } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { contractEdit, contractOne } from "../../services/contracts";
 import InputCheckbox from "./components/contracts-edit-items-checkbox"
 import InputAutocompleteGet from "./components/contracts-edit-items-autocomplete-get";
@@ -27,13 +26,16 @@ import EditIcon from '@mui/icons-material/Edit';
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
+import { TableContainer } from "@mui/material";
+import { Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { Stack } from "@mui/material";
 
 function ContractsEditItems() {
   let { id } = useParams();
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [data, setData] = useState([])
-  const { control, handleSubmit,  reset, formState: { errors} } = useForm({
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(contractSchema),
   });
 
@@ -133,95 +135,173 @@ function ContractsEditItems() {
               <Typography variant="h6" gutterBottom component="div">
                 Datos generales
               </Typography>
-              <InputTexfield control={control} disabled name={`nombre`} type="text" description="Nombre del Contrato" errors={errors} />
-              <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} />
-              <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} />
-              <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} />
-              <StyledDatepickerDesktop control={control} name="fecha_inicio" description="Fecha de Inicio" errors={errors} />
-              <StyledDatepickerDesktop control={control} name="fecha_fin" description="Fecha de Fin" errors={errors} />
+              <InputTexfield control={control} name={`nombre`} type="text" description="Nombre del Contrato" errors={errors} fullWidth margin="normal" />
+              <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} fullWidth margin="normal" />
+              <Grid container spacing={3}    >
+                <Grid item lg={6} sm={6} xl={6} xs={12} >
+                  <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} fullWidth margin="normal" />
+                </Grid>
+                <Grid item lg={6} sm={6} xl={6} xs={12} >
+                  <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} fullWidth margin="normal" />
+                </Grid>
+                <Grid item lg={6} sm={6} xl={6} xs={12} >
+                  <StyledDatepickerDesktop control={control} name="fecha_inicio" description="Fecha de Inicio" errors={errors} fullWidth margin="normal" />
+                </Grid>
+                <Grid item lg={6} sm={6} xl={6} xs={12} >
+                  <StyledDatepickerDesktop control={control} name="fecha_fin" description="Fecha de Fin" errors={errors} fullWidth margin="normal" />
+                </Grid>
+              </Grid>
               <InputCheckbox control={control} name="activo" defaultValue={false} description="Contrato Activo" />
               <Divider style={{ paddingTop: "1.5em" }} />
               <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>
                 Ítems del contrato
               </Typography>
-              {items.fields.map((item, index) => (
-                <Box key={item.id} style={{ padding: "18px 0px 15px 0px" }}>
-                  {index + 1}-
-                  <InputTexfield control={control} name={`items.${index}.descripcion_servicio`} type="text" description="Descripción" errors={errors} />
-                  <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="Código de Servicio" errors={errors} />
-                  <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="Tipo de Actividad" errors={errors} />
-                  <InputAutocompleteList control={control} name={`items.${index}.clase`} list={subtipos_actividad} description="Subtipo de Actividad" errors={errors} />
-                  <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="Valor" errors={errors} />
-                  <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="Unidad de Medida" errors={errors} />
-                  <Tooltip title="Subir un nivel">
-                    <IconButton sx={{ ml: 1 }} onClick={() => items.move(index, index !== 0 ? index - 1 : index)}>
-                      <ArrowUpwardIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Bajar un nivel">
-                    <IconButton sx={{ ml: 1 }} onClick={() => items.move(index, index + 1)}>
-                      <ArrowDownwardIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Eliminar Item">
-                    <IconButton sx={{ ml: 1 }} onClick={() => items.remove(index)}>
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                </Box>
-              ))}
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => items.append({})}
-              >
-                Agregar Ítems
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => { for (let i = 1; i < 10; i++) { items.append({}) } }}
-              >
-                Agregar Ítem x10
-              </Button>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+                  <TableHead style={{ height: "50px" }}>
+                    <TableRow>
+                      <TableCell>#</TableCell>
+                      <TableCell>Descripción del Servicio</TableCell>
+                      <TableCell align="right">Código del Servicio</TableCell>
+                      <TableCell align="right">Tipo de Actividad</TableCell>
+                      <TableCell align="right">Subtipo de Actividad</TableCell>
+                      <TableCell align="right">Valor</TableCell>
+                      <TableCell align="right">Unidad de Medida</TableCell>
+                      <TableCell align="right"></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {items.fields.map((item, index) => (
+                      <TableRow
+                        key={item.id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell component="th" scope="row">{index + 1}</TableCell>
+                        <TableCell align="left" style={{ minWidth: "500px" }}>
+                          <InputTexfield control={control} name={`items.${index}.descripcion_servicio`} type="text" description="Descripción" errors={errors} multiline maxRows={4} fullWidth />
+                        </TableCell>
+                        <TableCell align="right">
+                          <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="Código de Servicio" errors={errors} />
+                        </TableCell>
+                        <TableCell align="right">
+                          <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="Tipo de Actividad" errors={errors} />
+                        </TableCell>
+                        <TableCell align="right">
+                          <InputAutocompleteList control={control} name={`items.${index}.clase`} list={subtipos_actividad} description="Subtipo de Actividad" errors={errors} />
+                        </TableCell>
+                        <TableCell align="right">
+                          <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="Valor" errors={errors} />
+                        </TableCell>
+                        <TableCell align="right">
+                          <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="Unidad de Medida" errors={errors} />
+                        </TableCell>
+                        <TableCell align="right">
+                          <Stack direction="row">
+                            <Tooltip title="Subir un nivel">
+                              <IconButton sx={{ ml: 1 }} onClick={() => items.move(index, index !== 0 ? index - 1 : index)}>
+                                <ArrowUpwardIcon fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Bajar un nivel">
+                              <IconButton sx={{ ml: 1 }} onClick={() => items.move(index, index + 1)}>
+                                <ArrowDownwardIcon fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Eliminar Item">
+                              <IconButton sx={{ ml: 1 }} onClick={() => items.remove(index)}>
+                                <DeleteIcon fontSize="small" />
+                              </IconButton>
+                            </Tooltip>
+                          </Stack>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => items.append({})}
+                >
+                  Agregar Ítems
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={() => { for (let i = 1; i < 10; i++) { items.append({}) } }}
+                >
+                  Agregar Ítem x10
+                </Button>
+              </Stack>
               <Divider style={{ paddingTop: "1.5em" }} />
               <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>
                 Unidades
               </Typography>
-              {unidades.fields.map((unidad, index) => (
-                <Box key={unidad.id} style={{ padding: "18px 0px 15px 0px" }}>
-                  {index + 1}-
-                  <Controller
-                    render={({ field: { onChange, onBlur, ref, value } }) =>
-                      <TextField
-                        defaultValue={value}
-                        error={Boolean(errors.unidades?.[index]?.nombre)}
-                        helperText={errors.unidades?.[index]?.nombre && errors.unidades?.[index]?.nombre?.message}
-                        label="Nombre"
-                        margin="none"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        size="small"
-                      />}
-                    name={`unidades.${index}.nombre`}
-                    control={control}
-                  />
-                  <Controller
-                    render={({ field: { onChange, onBlur, ref, value } }) =>
-                      <TextField
-                        defaultValue={value}
-                        error={Boolean(errors.unidades?.[index]?.abreviatura)}
-                        helperText={errors.unidades?.[index]?.abreviatura && errors.unidades?.[index]?.abreviatura?.message}
-                        label="Abreviatura"
-                        margin="none"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        size="small"
-                      />}
-                    name={`unidades.${index}.abreviatura`}
-                    control={control}
-                  />
-                </Box>))}
+              <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+                <TableHead style={{ height: "50px" }}>
+                  <TableRow>
+                    <TableCell>
+                      #
+                    </TableCell>
+                    <TableCell>
+                      Nombre de la Unidad
+                    </TableCell>
+                    <TableCell>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {unidades.fields.map((unidad, index) => (
+
+                    <TableRow
+                      key={unidad.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell align="left">
+                        <Controller
+                          render={({ field: { onChange, onBlur, ref, value } }) =>
+                            <TextField
+                              defaultValue={value}
+                              error={Boolean(errors.unidades?.[index]?.nombre)}
+                              helperText={errors.unidades?.[index]?.nombre && errors.unidades?.[index]?.nombre?.message}
+                              label="Nombre"
+                              margin="none"
+                              onChange={onChange}
+                              onBlur={onBlur}
+                              size="small"
+                              fullWidth
+                            />}
+                          name={`unidades.${index}.nombre`}
+                          control={control}
+                        />
+                      </TableCell>
+                      <TableCell align="right">
+                        <Stack direction="row">
+                          <Tooltip title="Subir un nivel">
+                            <IconButton sx={{ ml: 1 }} onClick={() => unidades.move(index, index !== 0 ? index - 1 : index)}>
+                              <ArrowUpwardIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Bajar un nivel">
+                            <IconButton sx={{ ml: 1 }} onClick={() => unidades.move(index, index + 1)}>
+                              <ArrowDownwardIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Eliminar Item">
+                            <IconButton sx={{ ml: 1 }} onClick={() => unidades.remove(index)}>
+                              <DeleteIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </Stack>
+                      </TableCell>
+                    </TableRow>))}
+                </TableBody>
+              </Table>
               <Button
                 color="primary"
                 variant="contained"
@@ -233,40 +313,62 @@ function ContractsEditItems() {
               <Typography variant="h6" gutterBottom component="div" style={{ paddingTop: "1em" }}>
                 Certificantes
               </Typography>
-              {certificantes.fields.map((certificante, index) => (
-                <Box key={certificante.id} style={{ padding: "18px 0px 15px 0px" }}>
-                  {index + 1}-
-                  <Controller
-                    render={({ field: { onChange, onBlur, ref, value } }) =>
-                      <TextField
-                        defaultValue={value}
-                        error={Boolean(errors.certificantes?.[index]?.nombre)}
-                        helperText={errors.certificantes?.[index]?.nombre && errors.certificantes?.[index]?.nombre?.message}
-                        label="Nombre"
-                        margin="none"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        size="small"
-                      />}
-                    name={`certificantes.${index}.nombre`}
-                    control={control}
-                  />
-                  <Controller
-                    render={({ field: { onChange, onBlur, ref, value } }) =>
-                      <TextField
-                        defaultValue={value}
-                        error={Boolean(errors.certificantes?.[index]?.apellido)}
-                        helperText={errors.certificantes?.[index]?.apellido && errors.certificantes?.[index]?.apellido?.message}
-                        label="Apellido"
-                        margin="none"
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        size="small"
-                      />}
-                    name={`certificantes.${index}.apellido`}
-                    control={control}
-                  />
-                </Box>))}
+              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow style={{ height: "50px" }}>
+                    <TableCell></TableCell>
+                    <TableCell align="left">Nombre del certificante</TableCell>
+                    <TableCell align="right"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                {certificantes.fields.map((certificante, index) => (
+                   <TableRow
+                   key={certificante.id}
+                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                 >
+                   <TableCell>
+                    {index + 1}
+                    </TableCell>
+                    <TableCell>
+                    <Controller
+                      render={({ field: { onChange, onBlur, ref, value } }) =>
+                        <TextField
+                          defaultValue={value}
+                          error={Boolean(errors.certificantes?.[index]?.nombre)}
+                          helperText={errors.certificantes?.[index]?.nombre && errors.certificantes?.[index]?.nombre?.message}
+                          label="Nombre"
+                          margin="none"
+                          onChange={onChange}
+                          onBlur={onBlur}
+                          size="small"
+                        />}
+                      name={`certificantes.${index}.nombre`}
+                      control={control}
+                    />
+                    </TableCell>
+                    <TableCell align="right">
+                        <Stack direction="row">
+                          <Tooltip title="Subir un nivel">
+                            <IconButton sx={{ ml: 1 }} onClick={() => certificantes.move(index, index !== 0 ? index - 1 : index)}>
+                              <ArrowUpwardIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Bajar un nivel">
+                            <IconButton sx={{ ml: 1 }} onClick={() => certificantes.move(index, index + 1)}>
+                              <ArrowDownwardIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Eliminar Item">
+                            <IconButton sx={{ ml: 1 }} onClick={() => certificantes.remove(index)}>
+                              <DeleteIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </Stack>
+                      </TableCell>
+                   </TableRow>))}
+                  </TableBody>
+              </Table>
               <Button
                 color="primary"
                 variant="contained"

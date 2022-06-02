@@ -3,7 +3,10 @@ import * as Yup from 'yup';
 import {
   Box,
   Button,
+  Checkbox,
   Container,
+  FormHelperText,
+  Link,
   TextField,
   Typography
 } from '@mui/material';
@@ -60,13 +63,13 @@ const UsersCreate = () => {
         ),
     }),
     onSubmit: async (user) => {
-      console.log("Usuario", user)
+      console.log("Usuario",user)
       try {
         const res = await userRegister(user)
         console.log("Inició registró", res.data)
-        res.data ? navigate("/login") : console.log(res.data)
+        res.data?navigate("/users-login"):console.log(res.data)
       } catch (e) {
-        console.log("Hubo un error aqui", e)
+        console.log("Hubo un error aqui",e)
         alert("error")
       }
     }
@@ -94,122 +97,156 @@ const UsersCreate = () => {
   return (
     <>
       <DashboardLayout>
-        <Box
-          component="main"
-          sx={{
-            marginTop: 5,
-            alignItems: 'center',
-            display: 'flex',
-            flexGrow: 1,
-            minHeight: '100%'
-          }}
-        >
-          <Container maxWidth="sm">
+      <Box
+        component="main"
+        sx={{
+          marginTop: 5,
+          alignItems: 'center',
+          display: 'flex',
+          flexGrow: 1,
+          minHeight: '100%'
+        }}
+      >
+        
+        <Container maxWidth="sm">
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <PersonAddIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Crear una cuenta
+            </Typography>
+          </Box>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              error={Boolean(formik.touched.nombre && formik.errors.nombre)}
+              fullWidth
+              helperText={formik.touched.nombre && formik.errors.nombre}
+              label="Nombre"
+              margin="normal"
+              name="nombre"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.nombre}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.apellido && formik.errors.apellido)}
+              fullWidth
+              helperText={formik.touched.apellido && formik.errors.apellido}
+              label="Apellido"
+              margin="normal"
+              name="apellido"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.apellido}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.email && formik.errors.email)}
+              fullWidth
+              helperText={formik.touched.email && formik.errors.email}
+              label="Email"
+              margin="normal"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="email"
+              value={formik.values.email}
+              variant="outlined"
+            />
+            <TextField
+              error={Boolean(formik.touched.roles && formik.errors.roles)}
+              fullWidth
+              helperText={formik.touched.roles && formik.errors.roles}
+              label="Posición"
+              margin="normal"
+              name="roles"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              required
+              select
+              SelectProps={{ native: true }}
+              value={formik.values.roles}
+              variant="outlined"
+            >
+              {roles.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                >
+                  {option.label}
+                </option>
+              ))} 
+            </TextField>
+            <TextField
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              fullWidth
+              helperText={formik.touched.password && formik.errors.password}
+              label="Contraseña"
+              margin="normal"
+              name="password"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              type="password"
+              value={formik.values.password}
+              variant="outlined"
+            />
             <Box
               sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
+                display: 'flex',
+                ml: -1
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <PersonAddIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Crear una cuenta
+              <Checkbox
+                checked={formik.values.policy}
+                name="policy"
+                onChange={formik.handleChange}
+              />
+              <Typography
+                color="textSecondary"
+                variant="body2"
+              >
+                He leido los
+                {' '}
+                <Link
+                  color="primary"
+                  underline="always"
+                  variant="subtitle2"
+                >
+                  Terminos y Condiciones
+                </Link>
               </Typography>
             </Box>
-            <form onSubmit={formik.handleSubmit}>
-              <TextField
-                error={Boolean(formik.touched.nombre && formik.errors.nombre)}
+            {Boolean(formik.touched.policy && formik.errors.policy) && (
+              <FormHelperText error>
+                {formik.errors.policy}
+              </FormHelperText>
+            )}
+            <Box sx={{ py: 2 }}>
+              <Button
+                color="primary"
+               // disabled={formik.isSubmitting}
                 fullWidth
-                helperText={formik.touched.nombre && formik.errors.nombre}
-                label="Nombre"
-                margin="normal"
-                name="nombre"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.nombre}
-                variant="outlined"
-              />
-              <TextField
-                error={Boolean(formik.touched.apellido && formik.errors.apellido)}
-                fullWidth
-                helperText={formik.touched.apellido && formik.errors.apellido}
-                label="Apellido"
-                margin="normal"
-                name="apellido"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.apellido}
-                variant="outlined"
-              />
-              <TextField
-                error={Boolean(formik.touched.email && formik.errors.email)}
-                fullWidth
-                helperText={formik.touched.email && formik.errors.email}
-                label="Email"
-                margin="normal"
-                name="email"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                type="email"
-                value={formik.values.email}
-                variant="outlined"
-              />
-              <TextField
-                error={Boolean(formik.touched.roles && formik.errors.roles)}
-                fullWidth
-                helperText={formik.touched.roles && formik.errors.roles}
-                label="Posición"
-                margin="normal"
-                name="roles"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={formik.values.roles}
-                variant="outlined"
+                size="large"
+                type="submit"
+                variant="contained"
               >
-                {roles.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-              <TextField
-                error={Boolean(formik.touched.password && formik.errors.password)}
-                fullWidth
-                helperText={formik.touched.password && formik.errors.password}
-                label="Contraseña"
-                margin="normal"
-                name="password"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                type="password"
-                value={formik.values.password}
-                variant="outlined"
-              />
-              <Box sx={{ py: 2 }}>
-                <Button
-                  color="primary"
-                  // disabled={formik.isSubmitting}
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                >
-                  Registrarse
-                </Button>
-              </Box>
-            </form>
-          </Container>
-        </Box>
+                Registrarse
+              </Button>
+            </Box>
+           
+          </form>
+        </Container>
+      </Box>
       </DashboardLayout>
     </>
   );

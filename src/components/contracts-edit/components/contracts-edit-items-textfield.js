@@ -11,10 +11,8 @@ function InputTexfield({ control, name, description, type, ...rest }) {
                     error={Boolean(error)}
                     helperText={error && error.message}
                     label={description}
-                    margin="normal"
                     onChange={onChange}
                     onBlur={onBlur}
-                    size="small"
                     type={type}
                 />}
             name={name}

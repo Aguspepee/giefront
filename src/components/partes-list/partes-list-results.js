@@ -16,7 +16,7 @@ export const PartesListResults = () => {
   const [data, setData] = useState([])
   const partes = data?.docs || []
 
-
+console.log(partes)
   const handleReload = () => {
     setReload(!reload)
   }

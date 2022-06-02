@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete, Grid, Box } from '@mui/material';
 
-function AutocompleteContracts({ contract, setContract, control, name, description, errors, get, xs, md, ...props }) {
+function AutocompleteContracts({handleContractChange, control, name, description, errors, get, xs, md, ...props }) {
     const [contracts, setContracts] = useState([])
     const listOfContracts = contracts.map((contracts) => contracts.nombre)
 
@@ -12,15 +12,17 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
             try {
                 const res = await get()
                 setContracts(res.data)
+                
             } catch (e) {
                 console.log(e)
             }
         }
         onSubmit()
-    }, [contract])
+    }, [])
 
     const findContract = (item) => {
-        setContract(contracts.filter((contracts) => contracts.nombre === item))
+        //setContract(contracts.filter((contracts) => contracts.nombre === item))
+        handleContractChange(contracts.filter((contracts) => contracts.nombre === item))
     }
     return (
         <>

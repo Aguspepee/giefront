@@ -40,14 +40,12 @@ export const contractSchema = yup.object().shape({
   unidades: yup.array().of(
     yup.object().shape({
       nombre: yup.string().required("El nombre de la unidad es requerido"),
-      abreviatura: yup.string().length(3, "Debe tener 3 caracteres").required("Se debe colocar una abreviatura")
     })
   ),
 
   certificantes: yup.array().of(
     yup.object().shape({
       nombre: yup.string().required("El nombre de la unidad es requerido"),
-      apellido: yup.string().required("El nombre de la unidad es requerido"),
     })
   ),
 })
@@ -74,19 +72,14 @@ export const clientSchema = yup.object().shape({
 //PARTE DIARIO
 export const partesSchema = yup.object().shape({
   contrato: yup.string().required("El contrato es un campo requerido"),
-  unidad:  yup.string().required("La unidad es requerida"),
+  unidad: yup.string().required("La unidad es requerida"),
   fecha_inspeccion: yup.date()
-  .typeError('Debe ser una fecha válida')
-  .required("El campo fecha de fin es requerido"),
-  descripcion_servicio: yup.string().required("First Name is required"),
+    .typeError('Debe ser una fecha válida')
+    .required("El campo fecha de fin es requerido"),
   numero_reporte: yup.string(),
   numero_orden: yup.string(),
   tag: yup.string().required("El cliente es requerido"),
-  tag_detalle: yup.string(), 
-  cantidad: yup.number()
-  .typeError('La cantidad debe ser un número')
-  .positive('Debe ser un número positivo')
-  .required('La cantidad es requerida'),
+  tag_detalle: yup.string(),
   informe_realizado: yup.boolean(),
 
   detalles: yup.object().shape({
@@ -94,15 +87,18 @@ export const partesSchema = yup.object().shape({
     espesor: yup.number(),
     numero_costuras: yup.number(),
     cantidad_placas: yup.number()
-    .typeError('La cantidad debe ser un número')
-    .positive('Debe ser un número positivo'),
+      .typeError('La cantidad debe ser un número')
+      .positive('Debe ser un número positivo'),
     tipo: yup.string(),
   }),
 
-  adicionales: yup.array().of(
+  items: yup.array().of(
     yup.object().shape({
       descripcion_servicio: yup.string().required("First Name is required"),
-      cantidad: yup.string().required("First Name is required"),
+      cantidad: yup.number()
+        .typeError('La cantidad debe ser un número')
+        .positive('Debe ser un número positivo')
+        .required('La cantidad es requerida'),
     })
   ),
 })

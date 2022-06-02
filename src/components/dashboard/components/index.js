@@ -1,19 +1,37 @@
+import Head from 'next/head';
+import { useState } from 'react';
 import { Box, Container, Grid } from '@mui/material';
-import { Budget } from './components/budget';
-import { TasksProgress } from './components/tasks-progress';
-import { TotalCustomers } from './components/total-customers';
-import { TotalProfit } from './components/total-profit';
-import { Sales } from './components/sales';
+import { Budget } from '../components/dashboard/budget';
+import { LatestOrders } from '../components/dashboard/latest-orders';
+import { LatestProducts } from '../components/dashboard/latest-products';
+import { Sales } from '../components/dashboard/sales';
+import { TasksProgress } from '../components/dashboard/tasks-progress';
+import { TotalCustomers } from '../components/dashboard/total-customers';
+import { TotalProfit } from '../components/dashboard/total-profit';
+import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
+import { DashboardLayout } from '../components/dashboard-layout';
+//import { SpreadsheetComponent } from '@syncfusion/ej2-react-spreadsheet';
 
 
-function DashboardAdministrador() {
-  return (
-    <>
-      <Box
+
+
+
+function Dashboard () {
+
+
+  return(
+  <>
+  <DashboardLayout>
+    <Head>
+      <title>
+        Dashboard | Material Kit
+      </title>
+    </Head>
+    <Box
       component="main"
       sx={{
         flexGrow: 1,
-        py: 2
+        py: 8
       }}
     >
       <Container maxWidth={false}>
@@ -61,10 +79,10 @@ function DashboardAdministrador() {
             item
             lg={8}
             md={12}
-            xl={6}
+            xl={9}
             xs={12}
           >
-             <Sales /> 
+            <Sales />
           </Grid>
           <Grid
             item
@@ -73,7 +91,7 @@ function DashboardAdministrador() {
             xl={3}
             xs={12}
           >
-            {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
+            <TrafficByDevice sx={{ height: '100%' }} />
           </Grid>
 {/*           <Grid
             item
@@ -91,13 +109,14 @@ function DashboardAdministrador() {
             xl={12}
             xs={12}
           >
-           {/*  <LatestOrders /> */}
+            <LatestOrders />
           </Grid>
         </Grid>
       </Container>
     </Box>
-        </>
-        )
-}
+  {/*   <SpreadsheetComponent/> */}
+    </DashboardLayout>
+  </>
+)}
 
-        export default DashboardAdministrador;
+export default Dashboard;
