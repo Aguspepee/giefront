@@ -190,6 +190,16 @@ export const headCells = [
         type: "select", 
     },
     {
+        id: 'trabajo_terminado_fecha',
+        numeric: false,
+        disablePadding: false,
+        label: 'Fecha Trabajo Terminado',
+        width: null,
+        show: true,
+        placeHolder: "-",
+        type: "date", 
+    },
+    {
         id: 'informe_realizado',
         numeric: false,
         disablePadding: false,

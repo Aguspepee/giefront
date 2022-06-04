@@ -25,9 +25,7 @@ export default function AccountMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    userLogout();
-    setUser([]);
-    //navigate("/users-login");
+
   };
 
   return (
@@ -81,23 +79,32 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => {
+          navigate(`/users-edit/${user._id}`)
+        }}>
           <Avatar /> Mi perfil
         </MenuItem>
         <Divider />
-        <MenuItem>
+        {/*         <MenuItem>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Añadir nuevo usuario
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        </MenuItem> 
+        <MenuItem onClick={() => {
+          navigate(`/users-edit/${user._id}`)
+        }}>
+          <ListItemIcon >
             <Settings fontSize="small" />
           </ListItemIcon>
           Configuración
-        </MenuItem>
-        <MenuItem onClick={()=>{navigate("/users-login")}}>
+        </MenuItem>*/}
+        <MenuItem onClick={() => {
+          navigate("/users-login")
+          setUser([]);
+          //userLogout();
+          navigate("/users-login");
+        }}>
           <ListItemIcon >
             <Logout fontSize="small" />
           </ListItemIcon >

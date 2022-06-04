@@ -7,6 +7,7 @@ import { Search } from '@mui/icons-material';
 import { TextField } from '@mui/material';
 import { Chip } from '@mui/material';
 import { Stack } from '@mui/material';
+import StyledChipFilter from '../../../styled-components/styled-chip-filter'
 import { Button } from '@mui/material';
 import StyledDatepickerFilter from '../../../styled-components/styled-datepicker-filter';
 
@@ -50,13 +51,10 @@ function EnhancedTableSearch({search, ...props}) {
                         />
                     }
                     {(headCell.show && headCell.type === "date") &&
-                        <StyledDatepickerFilter />
+                        <StyledDatepickerFilter onChange={handleChange}/>
                     }
                     {(headCell.show && headCell.type === "select") &&
-                        <Stack direction="column" spacing={1}>
-                            <Chip label="Small" size="small" />
-                            <Chip label="Small" size="small" variant="outlined" />
-                        </Stack>
+                        <StyledChipFilter onChange={handleChange}/>
                     }
                     {(headCell.show && headCell.type === "none") &&
                         <>

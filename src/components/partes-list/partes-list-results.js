@@ -11,12 +11,13 @@ import { headCells } from './table/list';
 import { TableCell } from '@mui/material';
 import { TableRow } from '@mui/material';
 
+
 export const PartesListResults = () => {
   const [reload, setReload] = useState(false)
   const [data, setData] = useState([])
   const partes = data?.docs || []
 
-console.log(partes)
+  console.log(partes)
   const handleReload = () => {
     setReload(!reload)
   }
@@ -87,8 +88,6 @@ console.log(partes)
       try {
         const res = await parteGetRestricted(page, rowsPerPage, order, orderBy, search)
         setData(res.data)
-        console.log(res.data.docs)
-        // setRowsCount(res.data.totalDocs)
       } catch (error) {
         console.log(error)
       }
@@ -97,7 +96,7 @@ console.log(partes)
   }, [reload, page, rowsPerPage, order, orderBy, search])
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length);
+ /*  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length); */
 
 
   return (
@@ -125,10 +124,9 @@ console.log(partes)
                   handleClick={handleClick}
                   index={index}
                   selected={selected}
-                  emptyRows={emptyRows}
                 />
               ))}
-              {emptyRows > 0 && (
+             {/*  {emptyRows > 0 && (
                 <TableRow
                   style={{
                     height: 53 * emptyRows,
@@ -136,7 +134,7 @@ console.log(partes)
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
-              )}
+              )} */}
             </TableBody>
           </Table>
 

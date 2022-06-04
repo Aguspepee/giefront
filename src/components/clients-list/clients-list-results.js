@@ -111,7 +111,7 @@ export const ClientsListResults = (props) => {
                         {client.email}
                       </TableCell>
                       <TableCell>
-                        <StyledCheckboxActive value={client.active} fieldFey="active" id={client._id} edit={clientEdit} />
+                        <StyledCheckboxActive value={client.active} field="active" id={client._id} edit={clientEdit} />
                       </TableCell>
                       <TableCell>
                         <Tooltip title="Editar contrato">

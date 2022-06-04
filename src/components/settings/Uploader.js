@@ -11,8 +11,8 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import {parteCreate} from '../../services/partes';
-import {dateToJS} from '../../utils/date-format';
+import { parteCreate } from '../../services/partes';
+import { dateToJS } from '../../utils/date-format';
 
 function Uploader(props) {
     let json = [];
@@ -22,47 +22,67 @@ function Uploader(props) {
     const [open, setOpen] = React.useState(false);
     const [succes, setSucces] = React.useState(false);
 
-    const convertToSchema = (item) => {
+    const convertToSchema = (item, adic) => {
+        console.log(item, adic)
         let parte = [{
-            contrato:"Contrato de Radiografía",
+            contrato: "Contrato de Radiografía",
             numero_reporte: item["Nº Rep."],
             numero_orden: item["Nº Rep."],
             tag: item["TAG"],
             tag_detalle: "",
-            informe_realizado: item["Informe Realizado"] === "NO" ? false : true ,
+            items:[],
+            informe_realizado: item["Informe Realizado"] === "NO" ? false : true,
             inspector: item["Operador"],
             unidad: item["Unidad"],
-            adicionales: [],
-            fecha_inspeccion:dateToJS(item["Fecha de Ensayo"]),
-
-            descripcion_servicio: item["Descripción"],
-            clase: "Ítem",
-            cantidad: Number(item["Cant."]),
+            //Campos Booleano/Fecha
+            fecha_inspeccion: dateToJS(item["Fecha de Ensayo"]),
+            trabajo_terminado_fecha: dateToJS(item["Fecha de Ensayo"]),
+            informe_realizado_fecha: dateToJS(item["Fecha Informe"]),
+            remito_realizado_fecha: dateToJS(item["Fecha Remito"]),
         }]
+
+        if (adic) {
+            parte[0].items = [{
+                descripcion_servicio: item["Descripción"],
+                cantidad: Number(item["Cant."])
+            }, {
+                descripcion_servicio: adic["Descripción"],
+                cantidad: Number(adic["Cant."])
+            }]
+        }else{
+            parte[0].items = [{
+                descripcion_servicio: item["Descripción"],
+                cantidad: Number(item["Cant."])
+            }]
+        }
+
+
+
         console.log(parte)
         return (parte)
     }
 
-
-
     function uploadFiles(json) {
-            json.map(async (json)=>{
+        json.map(async (item, index) => {
+            if (item["Tipo Ensayo"] !== "ADICIONAL") {
+                let json_item = item;
+                let json_adic = json[index - 1] ? json[index - 1]["Tipo Ensayo"] === "ADICIONAL" ? json[index - 1] : null : null;
                 try {
-                    await parteCreate( convertToSchema(json)[0] )
-                  } catch (e) {
+                    await parteCreate(convertToSchema(json_item, json_adic)[0])
+                } catch (e) {
                     console.log(e)
-                  }
-
+                }
+            }
+        })
+        /* deleteAll(dbSubBaseURL).then(createAll(dbSubBaseURL, json)
+            .then((res) => {
+                setOpen(false)
+                setSucces(true)
+                const ots = res.data;
+                console.log("Se cargaron los archivos", ots);
             })
-            /* deleteAll(dbSubBaseURL).then(createAll(dbSubBaseURL, json)
-                .then((res) => {
-                    setOpen(false)
-                    setSucces(true)
-                    const ots = res.data;
-                    console.log("Se cargaron los archivos", ots);
-                })
-            ); */
-        } 
+        ); */
+    }
 
     const readUploadFile = (e) => {
         e.preventDefault();
@@ -102,7 +122,7 @@ function Uploader(props) {
                                 accept={fileTypes}
                             />
                             <div style={{ padding: "1em 1em 1em 1em" }}>
-                                 <Button variant="contained" onClick={() => uploadFiles(json)}>
+                                <Button variant="contained" onClick={() => uploadFiles(json)}>
                                     Guardar
                                 </Button>
                             </div>

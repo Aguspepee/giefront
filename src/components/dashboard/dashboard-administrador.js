@@ -61,7 +61,7 @@ function DashboardAdministrador() {
             item
             lg={8}
             md={12}
-            xl={6}
+            xl={12}
             xs={12}
           >
              <Sales /> 

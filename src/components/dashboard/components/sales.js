@@ -16,7 +16,7 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 22, 25, 33, 31, 30, 20],
+        data: [18, 22, 25, 33, 31, 30, 20,18, 22, 25, 33, 31],
         label: 'Inspecciones',
         maxBarThickness: 10
       },
@@ -26,12 +26,12 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
+        data: [11, 20, 12, 29, 30, 25, 13,12, 15, 25, 13,12],
         label: 'Informes',
         maxBarThickness: 10
       }
     ],
-    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Ago']
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
   };
 
   const options = {

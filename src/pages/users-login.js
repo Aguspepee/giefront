@@ -9,7 +9,15 @@ import { useNavigate } from "react-router-dom";
 import UserContext from '../context/userContext';
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
+import styled from "styled-components";
+import { ReactComponent as GieLogo } from "../images/gie_blanco.svg";
 
+const StyledLogo = styled(GieLogo)`
+  width: 30em;
+  display: block;
+  margin: auto;
+  padding-top: 3em;
+`;
 
 
 const UsersLogin = () => {
@@ -77,6 +85,7 @@ const UsersLogin = () => {
               alignItems: 'center',
             }}
           >
+             
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
@@ -84,6 +93,7 @@ const UsersLogin = () => {
               Iniciar sesión
             </Typography>
           </Box>
+         
           <form onSubmit={formik.handleSubmit}>
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
@@ -127,9 +137,10 @@ const UsersLogin = () => {
               >
                 Iniciar sesión
               </Button>
+              <StyledLogo />
             </Box>
 
-            <Typography
+{/*             <Typography
               color="textSecondary"
               variant="body2"
             >
@@ -145,7 +156,7 @@ const UsersLogin = () => {
               >
                 Registrate!
               </Link>
-            </Typography>
+            </Typography> */}
           </form>
 
           {/* Footer */}

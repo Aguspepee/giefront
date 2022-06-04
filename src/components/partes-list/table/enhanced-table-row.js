@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { parteDelete } from '../../../services/partes';
 import { Checkbox } from '@mui/material';
 import StyledChipUpdate from '../../../styled-components/styled-chip-update'
+import {parteEdit} from '../../../services/partes';
 
 //icons
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,7 +24,6 @@ function EnhancedTableRow({ parte, selected, handleClick, index, handleReload, .
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(parte._id);
     const labelId = `enhanced-table-checkbox-${index}`;
-
 
     const handleDelete = (id) => {
         parteDelete(id)
@@ -65,7 +65,13 @@ function EnhancedTableRow({ parte, selected, handleClick, index, handleReload, .
                                 resolvePath(parte, headCell.id)
                             }
                             {(headCell.show && headCell.type === "select") &&
-                                <StyledChipUpdate value={resolvePath(parte, headCell.id)} />
+                                <StyledChipUpdate 
+                                value={resolvePath(parte, headCell.id)} 
+                                edit={parteEdit} 
+                                field={headCell.id} 
+                                label={headCell.label}
+                                id={parte._id} 
+                                handleReload={handleReload}/>
                             }
                             {(headCell.show && headCell.type === "date") &&
                                 (resolvePath(parte, headCell.id) ? format(new Date(resolvePath(parte, headCell.id)), 'dd/MM/yyyy') : "-")
