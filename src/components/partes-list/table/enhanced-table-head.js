@@ -5,22 +5,20 @@ import Box from '@mui/material/Box';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import TableCell from '@mui/material/TableCell';
-
-import { headCells } from './list';
 import { Fragment } from 'react';
 import { Checkbox } from '@mui/material';
 
 
-function EnhancedTableHead(props) {
-    const { order, orderBy, onRequestSort, onSelectAllClick, numSelected, rowCount } = props;
+function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAllClick, numSelected, rowCount, ...props }) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
 
     return (
         <TableHead>
-            <TableRow style={{ height: "70px" }}>
-                <TableCell padding="checkbox" style={{ backgroundColor: "#F3F4F6"}}>
+            <TableRow style={{ height: "50px" }}>
+
+                <TableCell padding="checkbox" style={{ backgroundColor: "#F3F4F6" }}>
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -31,24 +29,27 @@ function EnhancedTableHead(props) {
                         }}
                     />
                 </TableCell>
-                {headCells.map((headCell) => (
-                    <Fragment key={headCell.id}>
-                        {headCell.show &&
+                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
+
+                </TableCell>
+                {columns.map((column) => (
+                    <Fragment key={column.id}>
+                        {column.show &&
                             <TableCell
-                                key={headCell.id}
-                                align={headCell.numeric ? 'right' : 'left'}
-                                padding={headCell.disablePadding ? 'none' : 'normal'}
-                                sortDirection={orderBy === headCell.id ? order : false}
-                                style={{ backgroundColor: "#F3F4F6", minWidth: headCell.width }}
+                                key={column.id}
+                                align={column.numeric ? 'right' : 'left'}
+                                padding={column.disablePadding ? 'none' : 'normal'}
+                                sortDirection={orderBy === column.id ? order : false}
+                                style={{ backgroundColor: "#F3F4F6", minWidth: `${column.width}px` }}
 
                             >
                                 <TableSortLabel
-                                    active={orderBy === headCell.id}
-                                    direction={orderBy === headCell.id ? order : 'asc'}
-                                    onClick={createSortHandler(headCell.id)}
+                                    active={orderBy === column.id}
+                                    direction={orderBy === column.id ? order : 'asc'}
+                                    onClick={createSortHandler(column.id)}
                                 >
-                                    {headCell.label}
-                                    {orderBy === headCell.id ? (
+                                    {column.label}
+                                    {orderBy === column.id ? (
                                         <Box component="span" sx={visuallyHidden}>
                                             {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                         </Box>

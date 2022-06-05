@@ -6,6 +6,9 @@ import EnhancedTableHead from './table/enhanced-table-head';
 import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
+import UserContext from '../../context/userContext';
+import { useContext } from 'react';
+
 //Configuración de campos
 import { headCells } from './table/list';
 import { TableCell } from '@mui/material';
@@ -13,11 +16,10 @@ import { TableRow } from '@mui/material';
 
 
 export const PartesListResults = () => {
+  const [user, setUser] = useContext(UserContext);
   const [reload, setReload] = useState(false)
   const [data, setData] = useState([])
   const partes = data?.docs || []
-
-  console.log(partes)
   const handleReload = () => {
     setReload(!reload)
   }
@@ -96,15 +98,18 @@ export const PartesListResults = () => {
   }, [reload, page, rowsPerPage, order, orderBy, search])
 
   // Avoid a layout jump when reaching the last page with empty rows.
- /*  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length); */
+  /*  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length); */
 
 
   return (
     <Card>
-      <EnhancedTableToolbar numSelected={selected.length} selected={selected} handleReload={handleReload} />
+      <EnhancedTableToolbar 
+      numSelected={selected.length} 
+      selected={selected} 
+      handleReload={handleReload} />
       <Paper sx={{ overflowX: "auto", width: "100%" }}>
         <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
-          
+
           <Table stickyHeader size="small" >
             <EnhancedTableHead
               order={order}
@@ -113,9 +118,13 @@ export const PartesListResults = () => {
               numSelected={selected.length}
               rowCount={partes.length}
               onSelectAllClick={handleSelectAllClick}
+              columns={user.parteColumns}
             />
             <TableBody>
-              <EnhancedTableSearch search={search} onChange={handleSearchChange} />
+              <EnhancedTableSearch
+                columns={user.parteColumns}
+                search={search}
+                onChange={handleSearchChange} />
               {partes?.map((parte, index) => (
                 <EnhancedTableRow
                   key={parte._id}
@@ -124,9 +133,10 @@ export const PartesListResults = () => {
                   handleClick={handleClick}
                   index={index}
                   selected={selected}
+                  columns={user.parteColumns}
                 />
               ))}
-             {/*  {emptyRows > 0 && (
+              {/*  {emptyRows > 0 && (
                 <TableRow
                   style={{
                     height: 53 * emptyRows,

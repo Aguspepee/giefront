@@ -1,60 +1,107 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-import { Tooltip } from '@mui/material';
-import { IconButton } from '@mui/material';
-import ViewColumnIcon from '@mui/icons-material/ViewColumn';
+import { useState } from 'react'
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import UserContext from '../../../context/userContext';
+import { useContext } from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import { userEdit } from '../../../services/users';
+
+const ITEM_HEIGHT = 48;
 
 export default function ColumnsEdit() {
-    const [open, setOpen] = React.useState(false);
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-    const handleClickOpen = () => {
-        setOpen(true);
+    const [user, setUser] = useContext(UserContext);
+    const [anchorEl, setAnchorEl] = useState(null);
+    let columns = user.parteColumns;
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const onChangeShow = async (id) => {
+        columns = columns.map((column) => {
+            column._id === id ? (column.show = !column.show) : (column.show = column.show)
+            return ({ ...column })
+        })
+        let document = await userEdit({ parteColumns: columns }, user._id)
+        setUser(document.data)
+    };
+
+    const onChangeWidth = async (id, event) => {
+        console.log(event.target.value)
+        columns = columns.map((column) => {
+            column._id === id ? column.width = Number(event.target.value) : (column.width = column.width)
+            return ({ ...column })
+        })
+        let document = await userEdit({ parteColumns: columns }, user._id)
+        setUser(document.data)
     };
 
     return (
         <div>
-            <Tooltip title="Seleccionar columnas">
-                <IconButton sx={{ ml: 1 }} onClick={() => handleClickOpen()} >
-                    <ViewColumnIcon disabled fontSize="small" />
-                </IconButton>
-            </Tooltip>
-            <Dialog
-                fullScreen={fullScreen}
+            <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-controls={open ? 'long-menu' : undefined}
+                aria-expanded={open ? 'true' : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+            >
+                <MoreVertIcon />
+            </IconButton>
+            <Menu
+                id="long-menu"
+                MenuListProps={{
+                    'aria-labelledby': 'long-button',
+                }}
+                anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
+                PaperProps={{
+                    style: {
+                        maxHeight: ITEM_HEIGHT * 7,
+                    },
+                }}
             >
-                <DialogTitle id="responsive-dialog-title">
-                    {"Use Google's location service?"}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Disagree
-                    </Button>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                <Box sx={{ width: '100%', backgroundColor: "#F3F4F6", padding: "1em 1em 1em 1em" }}>
+                    <Typography variant="body2" gutterBottom>
+                        Seleccione las columnas que desea ver en la tabla.
+                    </Typography>
+                </Box>
+                {columns.map((option) => (
+                    <MenuItem key={option._id}>
+                        <Checkbox
+                            checked={option.show}
+                            inputProps={{ 'aria-label': 'controlled' }}
+                            onChange={() => onChangeShow(option._id)}
+                        />
+                        <Input
+                            value={Number(option.width) || 0}
+                            style={{ width: "80px", paddingRight: "5px" }}
+                            endAdornment={<InputAdornment position="end">px</InputAdornment>}
+                            aria-describedby="standard-weight-helper-text"
+                            type="number"
+                            onChange={(event) => onChangeWidth(option._id, event)}
+                        />
+                        <Typography
+                            style={{ paddingLeft: "15px" }}
+                            variant="body1"
+                        >
+                            {option.label}
+                        </Typography>
+                    </MenuItem>
+                ))}
+
+
+            </Menu>
         </div>
     );
 }
