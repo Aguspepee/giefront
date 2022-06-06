@@ -19,19 +19,29 @@ import RowDetails from './row-details';
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import HighlightOff from "@mui/icons-material/HighlightOff";
 
-
-
-function EnhancedTableRow({ columns, parte, selected, handleClick, index, handleReload, ...props }) {
+function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, parte, selected, handleClick, index, handleReload, ...props }) {
     const [open, setOpen] = useState(false);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(parte._id);
     const labelId = `enhanced-table-checkbox-${index}`;
+
     //Cantidad de columnas mostradas
     const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
         parteDelete(id)
+        handleConfirmDialogChange({
+            isOpen: false,
+            title: "",
+            subTitle: ""
+        })
+        handleNotifyChange({
+            isOpen: true,
+            message: 'El parte se eliminó correctamente',
+            type: 'error'
+        })
         handleReload()
     }
     return (
@@ -39,7 +49,6 @@ function EnhancedTableRow({ columns, parte, selected, handleClick, index, handle
             <TableRow
                 hover
                 //onClick={(event) => handleClick(event, parte._id)}
-
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
@@ -109,17 +118,24 @@ function EnhancedTableRow({ columns, parte, selected, handleClick, index, handle
                                 <EditIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Eliminar contrato">
-                            <IconButton sx={{ ml: 1 }} onClick={() => { handleDelete(parte._id) }}>
+                        <Tooltip title="Eliminar parte">
+                            <IconButton sx={{ ml: 1 }} onClick={() => {
+                                handleConfirmDialogChange({
+                                    isOpen: true,
+                                    title: "¿Deseas eliminar este parte?",
+                                    subTitle: "Luego de eliminarlo, no podrás recuperar la información.",
+                                    onConfirm: () => { handleDelete(parte._id) },
+                                    icon: <HighlightOff fontSize='inherit' color="error" />
+                                })
+                            }}>
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
                     </Stack>
-
                 </TableCell>
             </TableRow >
-            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload}/>
-            
+            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} />
+
         </>
     );
 }

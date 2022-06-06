@@ -22,6 +22,7 @@ import { useParams } from "react-router-dom";
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 export const PartesEditForm = (props) => {
@@ -92,7 +93,7 @@ const handleContractChange =(data)=>{
       })
       setNotify({
         isOpen: true,
-        message: 'El parte de agregó correctamente',
+        message: 'El parte se editó correctamente',
         type: 'success'
       })
       console.log(doc)
@@ -113,10 +114,10 @@ const handleContractChange =(data)=>{
   async function onSubmit(parte) {
     setConfirmDialog({
       isOpen: true,
-      title: "¿Desea agregar el parte?",
+      title: "¿Desea editar el parte?",
       subTitle: "Datos del parte",
       onConfirm: () => { editParte(parte) },
-      //icon:<EditCircleOutlineIcon fontSize='inherit' color="success"/>
+      icon:<EditIcon fontSize='inherit' color="success"/>
     })
 
   }

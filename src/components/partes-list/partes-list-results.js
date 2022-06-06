@@ -9,6 +9,10 @@ import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../context/userContext';
 import { useContext } from 'react';
 
+//Alerts y Notifications
+import Notification from '../../styled-components/alerts/notification';
+import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
+
 //Configuración de campos
 import { headCells } from './table/list';
 import { TableCell } from '@mui/material';
@@ -20,6 +24,21 @@ export const PartesListResults = () => {
   const [reload, setReload] = useState(false)
   const [data, setData] = useState([])
   const partes = data?.docs || []
+  const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
+
+  const handleConfirmDialogChange = (value) => {
+    console.log("confirm", value)
+    setConfirmDialog({
+      ...confirmDialog,
+      ...value
+    })
+  }
+
+  const handleNotifyChange = (value) => {
+    setNotify(value)
+  }
+
   const handleReload = () => {
     setReload(!reload)
   }
@@ -102,41 +121,44 @@ export const PartesListResults = () => {
 
 
   return (
-    <Card>
-      <EnhancedTableToolbar 
-      numSelected={selected.length} 
-      selected={selected} 
-      handleReload={handleReload} />
-      <Paper sx={{ overflowX: "auto", width: "100%" }}>
-        <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
+    <>
+      <Card sx={{}}>
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          selected={selected}
+          handleReload={handleReload} />
+        <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
+          <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
 
-          <Table stickyHeader size="small" >
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              numSelected={selected.length}
-              rowCount={partes.length}
-              onSelectAllClick={handleSelectAllClick}
-              columns={user.parteColumns}
-            />
-            <TableBody>
-              <EnhancedTableSearch
+            <Table stickyHeader size="small" >
+              <EnhancedTableHead
+                order={order}
+                orderBy={orderBy}
+                onRequestSort={handleRequestSort}
+                numSelected={selected.length}
+                rowCount={partes.length}
+                onSelectAllClick={handleSelectAllClick}
                 columns={user.parteColumns}
-                search={search}
-                onChange={handleSearchChange} />
-              {partes?.map((parte, index) => (
-                <EnhancedTableRow
-                  key={parte._id}
-                  parte={parte}
-                  handleReload={handleReload}
-                  handleClick={handleClick}
-                  index={index}
-                  selected={selected}
+              />
+              <TableBody>
+                <EnhancedTableSearch
                   columns={user.parteColumns}
-                />
-              ))}
-              {/*  {emptyRows > 0 && (
+                  search={search}
+                  onChange={handleSearchChange} />
+                {partes?.map((parte, index) => (
+                  <EnhancedTableRow
+                    key={parte._id}
+                    parte={parte}
+                    handleReload={handleReload}
+                    handleClick={handleClick}
+                    index={index}
+                    selected={selected}
+                    columns={user.parteColumns}
+                    handleConfirmDialogChange={handleConfirmDialogChange}
+                    handleNotifyChange={handleNotifyChange}
+                  />
+                ))}
+                {/*  {emptyRows > 0 && (
                 <TableRow
                   style={{
                     height: 53 * emptyRows,
@@ -145,24 +167,30 @@ export const PartesListResults = () => {
                   <TableCell colSpan={6} />
                 </TableRow>
               )} */}
-            </TableBody>
-          </Table>
+              </TableBody>
+            </Table>
 
-        </Box>
-      </Paper>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25, 50, 100]}
-        component="div"
-        count={rowsCount}
-        page={page}
-        onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        style={{ backgroundColor: "#F3F4F6" }}
-        labelRowsPerPage={"Filas por página"}
+          </Box>
+        </Paper>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={rowsCount}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          style={{ backgroundColor: "#F3F4F6" }}
+          labelRowsPerPage={"Filas por página"}
 
-      />
-    </Card>
-
+        />
+      </Card>
+      <Notification
+        notify={notify}
+        setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog} />
+    </>
   );
 };
