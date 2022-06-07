@@ -5,7 +5,6 @@ import React from "react";
 export default function ConfirmDialog(props) {
     
     const { confirmDialog, setConfirmDialog } = props;
-    console.log(confirmDialog)
     const Icon = confirmDialog.icon;
     return (
         <Dialog open={confirmDialog.isOpen} >

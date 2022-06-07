@@ -27,6 +27,8 @@ export const PartesListResults = () => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
 
+
+  console.log(partes) 
   const handleConfirmDialogChange = (value) => {
     console.log("confirm", value)
     setConfirmDialog({
@@ -118,8 +120,6 @@ export const PartesListResults = () => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   /*  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length); */
-
-
   return (
     <>
       <Card sx={{}}>

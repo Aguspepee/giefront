@@ -1,11 +1,8 @@
 import { Box, Container } from '@mui/material';
 import { PartesListResults } from '../components/partes-list/partes-list-results';
-import { PartesListToolbar } from '../components/partes-list/partes-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
 
-
 function PartesList() {
-
   return (
     <>
       <DashboardLayout>
@@ -13,20 +10,16 @@ function PartesList() {
           component="main"
           sx={{
             flexGrow: 1,
-            py: 4
+            py: 3
           }}
         >
           <Container maxWidth={false}>
-            <PartesListToolbar />
-            <Box sx={{ mt: 3 }}>
-              <PartesListResults />
-            </Box>
+            <PartesListResults />
           </Container>
         </Box>
       </DashboardLayout>
     </>
   )
 }
-
 
 export default PartesList;

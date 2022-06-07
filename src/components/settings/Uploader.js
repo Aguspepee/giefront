@@ -34,6 +34,8 @@ function Uploader(props) {
             informe_realizado: item["Informe Realizado"] === "NO" ? false : true,
             inspector: item["Operador"],
             unidad: item["Unidad"],
+            remito_numero: item["N° Remito"],
+            remito_realizado: item["Fecha Remito"]? true : false,
             //Campos Booleano/Fecha
             fecha_inspeccion: dateToJS(item["Fecha de Ensayo"]),
             trabajo_terminado_fecha: dateToJS(item["Fecha de Ensayo"]),

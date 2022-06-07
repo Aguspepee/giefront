@@ -2,33 +2,34 @@ import { useEffect, useState } from 'react';
 import { Box, Button, CardContent, Divider, Grid } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { partesSchema } from '../../utils/yup';
-import { parteCreate, parteOne } from '../../services/partes';
+import { partesSchema } from '../../../utils/yup';
+import { parteCreate } from '../../../services/partes';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import StyledTextfield from '../../styled-components/styled-textfield';
-import StyledCheckbox from '../../styled-components/styled-checkbox';
-import { contractGetList } from '../../services/contracts';
+import StyledTextfield from '../../../styled-components/styled-textfield';
+import StyledCheckbox from '../../../styled-components/styled-checkbox';
+import { contractGetList } from '../../../services/contracts';
 import AutocompleteContracts from './components/autocomplete-contracts'
-import StyledAutocompleteList from '../../styled-components/styled-autocomplete-list';
-import StyledAdicional from '../../styled-components/styled-adicional';
-import StyledItem from '../../styled-components/styled-item';
-import { tipo_rx } from '../../utils/list';
-import UserContext from '../../context/userContext';
+import StyledAutocompleteList from '../../../styled-components/styled-autocomplete-list';
+import StyledAdicional from '../../../styled-components/styled-adicional';
+import StyledItem from '../../../styled-components/styled-item';
+import { tipo_rx } from '../../../utils/list';
+import UserContext from '../../../context/userContext';
 import { useContext } from 'react';
-import StyledDatepickerDesktop from '../../styled-components/styled-datepicker-desktop';
-import { useParams } from "react-router-dom";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import StyledDatepickerDesktop from '../../../styled-components/styled-datepicker-desktop';
+import StyledAutocompleteGet from '../../../styled-components/styled-autocomplete-get';
+import { userGetNames } from '../../../services/users';
 
 //Alerts y Notifications
-import Notification from '../../styled-components/alerts/notification';
-import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
-import EditIcon from '@mui/icons-material/Edit';
+import Notification from '../../../styled-components/alerts/notification';
+import ConfirmDialog from '../../../styled-components/alerts/confirm-dialog';
 
 
-export const PartesEditForm = (props) => {
-  let { id } = useParams();
+export const PartesAddForm = ({ handleReload }) => {
+  //let { id } = useParams();
+
   const [user, setUser] = useContext(UserContext);
-  const [parte, setParte] = useState([])
   const [contract, setContract] = useState([])
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
@@ -38,52 +39,20 @@ export const PartesEditForm = (props) => {
   let list = contract[0]?.items
   let unidades = contract[0]?.unidades.map((unidad) => unidad.nombre)
 
-
-const handleContractChange =(data)=>{
-  setContract(data)
-}
-
- /* useEffect(()=>{
-  list = contract[0]?.items
-  unidades = contract[0]?.unidades.map((unidad) => unidad.nombre)
-
- },[contract]) */
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const document = await parteOne(id)
-        setParte(document.data)
-
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    getData()
-  }, [])
-
+  //Setea el usuario como operador
   useEffect(() => {
     reset({
-      contrato: parte.contrato,
-      unidad: parte.unidad,
-      fecha_inspeccion: parte.fecha_inspeccion,
-      numero_reporte: parte.numero_reporte,
-      numero_orden: parte.numero_orden,
-      tag: parte.tag,
-      tag_detalle: parte.tag_detalle,
-      items: parte?.items,
-      detalles: parte.detalles,
+      operador: { _id: user._id, nombre: user.nombre, apellido: user.apellido },
     });
 
-  }, [parte]);
-
+  }, [user, setUser]);
 
   const items = useFieldArray({
     control,
     name: "items"
   });
 
-  async function editParte(parte) {
+  async function addParte(parte) {
     try {
       const doc = await parteCreate({ ...parte, inspector: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({
@@ -92,7 +61,7 @@ const handleContractChange =(data)=>{
       })
       setNotify({
         isOpen: true,
-        message: 'El parte se editó correctamente',
+        message: 'El parte de agregó correctamente',
         type: 'success'
       })
       console.log(doc)
@@ -113,10 +82,10 @@ const handleContractChange =(data)=>{
   async function onSubmit(parte) {
     setConfirmDialog({
       isOpen: true,
-      title: "¿Desea editar el parte?",
+      title: "¿Desea agregar el parte?",
       subTitle: "Datos del parte",
-      onConfirm: () => { editParte(parte) },
-      icon:<EditIcon fontSize='inherit' color="success"/>
+      onConfirm: () => { addParte(parte) },
+      icon: <AddCircleOutlineIcon fontSize='inherit' color="success" />
     })
 
   }
@@ -128,7 +97,8 @@ const handleContractChange =(data)=>{
 
           <CardContent>
             <Grid container spacing={3}>
-              <AutocompleteContracts control={control} name="contrato" get={contractGetList}  handleContractChange={ handleContractChange} description="Contrato" errors={errors} md={12} xs={12} />
+              <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} />
+              <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a" errors={errors} fullWidth margin="normal" md={12} xs={12} />
               <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad" errors={errors} />
               <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección" errors={errors} md={12} xs={12} />
               <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} />
@@ -154,13 +124,13 @@ const handleContractChange =(data)=>{
             }>
               Guardar Cambios
             </Button>
-            {/*               <Button
-                color="primary"
-                variant="contained"
-                onClick={() => console.log(errors)}
-              >
-                Errores
-              </Button> */}
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => console.log(errors)}
+            >
+              Errores
+            </Button>
           </Box>
 
         </form>

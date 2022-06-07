@@ -15,6 +15,14 @@ export function userGetAll(user) {
     })
 }
 
+//Get Names 
+export function userGetNames() {
+    let token = localStorage.getItem("token")
+    return instance.get(`users/names`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function userLogin(user) {
     return instance.post(`users/login`, user)
 }
@@ -39,13 +47,6 @@ export function userEdit(user, id) {
     })
 }
 
-export function userGetList() {
-    let token = localStorage.getItem("token")
-    return instance.get(`users/list`, {
-        headers: { Authorization: `Bearer ${token}` }
-    })
-}
-
 export function userDelete(id) {
     let token = localStorage.getItem("token")
     return instance.delete(`users/${id}`, {
@@ -55,15 +56,16 @@ export function userDelete(id) {
 
 export function userOne(id) {
     let token = localStorage.getItem("token")
-    return instance.get(`users/one/${id}`,{
+    return instance.get(`users/one/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
 
-    export function userImage(id, formData) {
-        let token = localStorage.getItem("token")
-        return instance.put(`users/image/${id}`,{data: formData,
-            headers: { Authorization: `Bearer ${token}` }
-        })
+export function userImage(id, formData) {
+    let token = localStorage.getItem("token")
+    return instance.put(`users/image/${id}`, {
+        data: formData,
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
 

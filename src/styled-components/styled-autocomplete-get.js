@@ -1,14 +1,11 @@
 
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Autocomplete } from '@mui/material';
- 
-function StyledAutocompleteGet(props) {
-    const control = props.control
-    const name = props.name
-    const description = props.description
-    const errors = props.errors
-    const get = props.get
+import { TextField, Autocomplete, Grid } from '@mui/material';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import { InputAdornment } from '@mui/material';
+
+function StyledAutocompleteGet({ md, xs, control, name, description, errors, get, show, ...props }) {
     const [jsonResults, setJsonResults] = useState([])
 
     useEffect(() => {
@@ -25,34 +22,48 @@ function StyledAutocompleteGet(props) {
     }, [])
 
     return (
-        <Controller
-            name={name}
-            control={control}
-            render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
-                return (
-                    <Autocomplete
-                        defaultValue={value }
-                        disablePortal
-                        getOptionLabel={(jsonResults) => `${jsonResults}`}
-                        options={jsonResults}
-                        isOptionEqualToValue={(option, value) => option === value}
-                        noOptionsText={"Sin opciones"}
-                        renderInput={(params) => <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
-                        //size="small"
-                        //margin="none"
-                        value={value? value : null}
-                        onChange={(event, item) => {
-                            console.log()
-                            onChange(item? item : null)
-                        }}
-                        onBlur={onBlur}
-                        //style={{ width: "10em" }}
-                        clearOnBlur = {true}
+        <Grid item md={md} xs={xs}>
+            <Controller
+                name={name}
+                control={control}
+                render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
+                    return (
+                        <Autocomplete
+                            defaultValue={value}
+                            disablePortal
+                            getOptionLabel={(jsonResults) => `${jsonResults?.apellido?.toUpperCase()}, ${jsonResults.nombre}`}
+                            options={jsonResults}
+                            isOptionEqualToValue={(option, value) => {
+                                return (option._id === value._id)
+                            }}
+                            noOptionsText={"Sin opciones"}
+                            renderInput={(params) => <TextField
+                                {...params}
+                                label={description}
+                                placeholder={description}
+                                error={Boolean(errors[name])}
+                                helperText={errors[name] && errors[name]?.message}
+                                InputProps={{
+                                    ...params.InputProps,
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <EngineeringIcon />
+                                        </InputAdornment>
+                                    )
+                                }} />}
+                            value={value ? value : null}
+                            onChange={(event, item) => {
+                                onChange(item ? item : null)
+                            }}
+                            onBlur={onBlur}
+                            clearOnBlur={true}
 
-                    />
-                )
-            }}
-        />
+                        />
+
+                    )
+                }}
+            />
+        </Grid>
     )
 }
 
