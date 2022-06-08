@@ -30,6 +30,7 @@ export const ContractsListResults = (props) => {
     async function getList() {
       try {
         const contracts = await contractGetList()
+        console.log(contracts)
         setContracts(contracts.data)
         setReload(false)
       } catch (error) {

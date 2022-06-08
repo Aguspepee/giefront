@@ -72,13 +72,6 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
         <>
 
           <ColumnsEdit handleReload={handleReload} />
-          <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <Tooltip title="Nuevo Parte Diario">
-              <Fab size="small" color="primary" aria-label="add" to='/partes-add' component={Link}>
-                <NoteAddIcon />
-              </Fab>
-            </Tooltip>
-          </Box>
           <PartesListAdd handleReload={handleReload}/>
         </>
       )

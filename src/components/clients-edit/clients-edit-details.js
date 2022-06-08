@@ -102,7 +102,7 @@ export const ClientsEditDetails = (props) => {
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} disabled name={`nombre`} type="text" description="Nombre" errors={errors} />
+                  <StyledTextfield control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
                 </Grid>
                 <Grid
                   item

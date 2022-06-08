@@ -53,6 +53,7 @@ export const PartesAddForm = ({ handleReload }) => {
   });
 
   async function addParte(parte) {
+    console.log("parte",parte)
     try {
       const doc = await parteCreate({ ...parte, inspector: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({

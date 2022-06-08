@@ -5,7 +5,7 @@ import { TextField, Autocomplete, Grid } from '@mui/material';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { InputAdornment } from '@mui/material';
 
-function StyledAutocompleteGet({ md, xs, control, name, description, errors, get, show, ...props }) {
+function StyledAutocompleteClients({ md, xs, control, name, description, errors, get, show, ...props }) {
     const [jsonResults, setJsonResults] = useState([])
 
     useEffect(() => {
@@ -31,7 +31,7 @@ function StyledAutocompleteGet({ md, xs, control, name, description, errors, get
                         <Autocomplete
                             defaultValue={value}
                             disablePortal
-                            getOptionLabel={(jsonResults) => `${jsonResults?.apellido?.toUpperCase()}, ${jsonResults.nombre}`}
+                            getOptionLabel={(jsonResults) => `${jsonResults.nombre}`}
                             options={jsonResults}
                             isOptionEqualToValue={(option, value) => {
                                 return (option._id === value._id)
@@ -67,4 +67,4 @@ function StyledAutocompleteGet({ md, xs, control, name, description, errors, get
     )
 }
 
-export default StyledAutocompleteGet
+export default StyledAutocompleteClients

@@ -10,12 +10,13 @@ import InputAutocompleteGet from "./components/contracts-edit-items-autocomplete
 import InputAutocompleteList from "./components/contracts-edit-items-autocomplete-list";
 import { useParams } from "react-router-dom";
 import StyledDatepickerDesktop from "../../styled-components/styled-datepicker-desktop";
+import StyledAutocompleteClients from "../../styled-components/styled-autocomplete-clients";
 //Icons
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
 //GET listas
-import { clientGetNames } from '../../services/clients'
+import { clientGetAll } from '../../services/clients'
 //Listados
 import { unidades_medida, tipos_actividad, subtipos_actividad, area } from "../../utils/list";
 //YUP Schema
@@ -43,7 +44,8 @@ function ContractsEditItems() {
     async function getData() {
       try {
         const document = await contractOne(id)
-        setData(document.data)
+        console.log(document)
+        setData(document.data[0])
       } catch (e) {
         console.log(e)
       }
@@ -56,7 +58,7 @@ function ContractsEditItems() {
       nombre: data.nombre,
       descripcion: data.descripcion,
       area: data.area,
-      cliente: data.cliente,
+      cliente: data.cliente? data.cliente[0] : null,
       fecha_inicio: data.fecha_inicio,
       fecha_fin: data.fecha_fin,
       activo: data.activo,
@@ -93,8 +95,8 @@ function ContractsEditItems() {
 
   async function editContract(contract) {
     try {
-      await contractEdit(contract, id)
-      setConfirmDialog({
+     const hola = await contractEdit(contract, id)
+     setConfirmDialog({
         ...confirmDialog,
         isOpen: false
       })
@@ -141,8 +143,12 @@ function ContractsEditItems() {
                 <Grid item lg={6} sm={6} xl={6} xs={12} >
                   <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} fullWidth margin="normal" />
                 </Grid>
-                <Grid item lg={6} sm={6} xl={6} xs={12} >
+              {/*   <Grid item lg={6} sm={6} xl={6} xs={12} >
                   <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} fullWidth margin="normal" />
+                </Grid> */}
+                
+                <Grid item lg={6} sm={6} xl={6} xs={12} >
+                  <StyledAutocompleteClients control={control} name="cliente" get={clientGetAll} description="Cliente" errors={errors} fullWidth margin="normal" />
                 </Grid>
                 <Grid item lg={6} sm={6} xl={6} xs={12} >
                   <StyledDatepickerDesktop control={control} name="fecha_inicio" description="Fecha de Inicio" errors={errors} fullWidth margin="normal" />

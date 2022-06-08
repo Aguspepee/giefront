@@ -5,7 +5,7 @@ import { TextField, Autocomplete, Grid, Box } from '@mui/material';
 
 function AutocompleteContracts({ contract, setContract, control, name, description, errors, get, xs, md, ...props }) {
     const [contracts, setContracts] = useState([])
-    const listOfContracts = contracts.map((contracts) => contracts.nombre)
+    const listOfContracts = contracts.map((contracts) => {return({_id:contracts._id, nombre:contracts.nombre})})
 
     useEffect(() => {
         async function onSubmit() {
@@ -19,8 +19,9 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
         onSubmit()
     }, [contract])
 
+
     const findContract = (item) => {
-        setContract(contracts.filter((contracts) => contracts.nombre === item))
+        setContract(contracts.filter((contracts) => contracts.nombre === item.nombre))
     }
     return (
         <>
@@ -33,12 +34,18 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
                             <Autocomplete
                                 defaultValue={value}
                                 disablePortal
-                                getOptionLabel={(listOfContracts) => `${listOfContracts}`}
+                                getOptionLabel={(listOfContracts) => `${listOfContracts.nombre}`}
                                 options={listOfContracts}
-                                isOptionEqualToValue={(option, value) => option === value}
+                                //isOptionEqualToValue={(option, value) => option === value}
+                                isOptionEqualToValue={(option, value) => {
+                                    return (option._id === value._id)
+                                }}
                                 noOptionsText={"Sin opciones"}
-                                renderInput={(params) =>
-                                    <TextField {...params} label={description} error={Boolean(errors[name])} helperText={errors[name] && errors[name]?.message} />}
+                                renderInput={(params) => <TextField
+                                    {...params} 
+                                    label={description} 
+                                    error={Boolean(errors[name])} 
+                                    helperText={errors[name] && errors[name]?.message} />}
 
                                 value={value ? value : null}
                                 onChange={(event, item) => {
@@ -47,13 +54,13 @@ function AutocompleteContracts({ contract, setContract, control, name, descripti
                                 }}
                                 onBlur={onBlur}
                                 clearOnBlur={true}
-                                
+
                             />
                         )
                     }}
                 />
             </Grid>
-           
+
         </>
     )
 }
