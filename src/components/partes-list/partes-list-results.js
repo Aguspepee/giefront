@@ -87,7 +87,7 @@ export const PartesListResults = () => {
 
   //Sort states and functions
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('fecha_carga');
+  const [orderBy, setOrderBy] = useState('Id');
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');

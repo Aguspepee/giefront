@@ -134,7 +134,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                     </Stack>
                 </TableCell>
             </TableRow >
-            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} />
+             <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} /> 
 
         </>
     );

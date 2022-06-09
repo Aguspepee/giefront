@@ -26,19 +26,19 @@ function RowDetails({open, parte, colums_quantity, handleReload, ...props}) {
                                     Operador/a
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte?.inspector}
+                                    {parte?.operador[0].nombre}
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
                                     Cliente
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte?.cliente}
+                                    {parte?.cliente[0].nombre}
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
                                     Contrato
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte?.contrato}
+                                    {parte?.contrato[0].nombre}
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
                                     Numero de Reporte

@@ -65,6 +65,7 @@ export const PartesAddForm = ({ handleReload }) => {
         message: 'El parte de agregó correctamente',
         type: 'success'
       })
+      handleReload()
       console.log(doc)
     } catch (e) {
       setConfirmDialog({
