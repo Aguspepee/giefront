@@ -17,7 +17,7 @@ function StyledAdicional({ control, name, list, description, items, index, error
     return (
         <>
 
-            <Grid item md={9} xs={12}>
+            <Grid item md={8} xs={12}>
                 <Controller
                     name={`items.${index}.descripcion_servicio`}
                     control={control}
@@ -44,7 +44,7 @@ function StyledAdicional({ control, name, list, description, items, index, error
                     }
                 />
             </Grid>
-            <Grid item md={2} xs={9}>
+            <Grid item md={2.5} xs={9}>
                 <Controller
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                         <TextField

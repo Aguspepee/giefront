@@ -3,6 +3,7 @@ import { Grid, IconButton, Tooltip } from '@mui/material';
 import { Controller } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import { Typography } from "@mui/material";
 
 function StyledItem({ control, name, list, description, errors, items, ...rest }) {
 
@@ -15,8 +16,13 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
 
     return (
         <>
+            <Grid item md={8} xs={12} style={{padding:"1.5em 0em 0em 1em"}}>
+                <Typography variant="overline" display="block" gutterBottom>
+                    Items del contrato
+                </Typography>
+            </Grid>
+            <Grid item md={8} xs={12} style={{paddingTop:"0em"}}>
 
-            <Grid item md={9} xs={12}>
                 <Controller
                     name={`items.0.descripcion_servicio`}
                     control={control}
@@ -43,7 +49,7 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
                     }
                 />
             </Grid>
-            <Grid item md={2} xs={9}>
+            <Grid item md={2.5} xs={9} style={{paddingTop:"0em"}}>
                 <Controller
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                         <TextField
@@ -61,7 +67,7 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
                     control={control}
                 />
             </Grid>
-            <Grid item md={1} xs={3}>
+            <Grid item md={1} xs={3} style={{paddingTop:"0em"}}>
                 <Tooltip title="Añadir Adicional">
                     <IconButton color="primary" size="large" onClick={() => items({})}>
                         <AddIcon fontSize="inherit" />

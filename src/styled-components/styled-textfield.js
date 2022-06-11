@@ -32,6 +32,6 @@ function StyledTexfield({ show, control, name, description, type, md, xs, ...res
 }
 
 StyledTexfield.defaultProps = {
-    show: true
+    show: false
 }
 export default StyledTexfield

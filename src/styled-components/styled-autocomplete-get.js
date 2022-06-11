@@ -5,7 +5,7 @@ import { TextField, Autocomplete, Grid } from '@mui/material';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { InputAdornment } from '@mui/material';
 
-function StyledAutocompleteGet({ md, xs, control, name, description, errors, get, show, ...props }) {
+function StyledAutocompleteGet({ Icon, md, xs, control, name, description, errors, get, show, ...props }) {
     const [jsonResults, setJsonResults] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function StyledAutocompleteGet({ md, xs, control, name, description, errors, get
                 const res = await get()
                 setJsonResults(res.data)
             } catch (e) {
-                console.log(e) 
+                console.log(e)
             }
         }
         onSubmit()
@@ -47,7 +47,8 @@ function StyledAutocompleteGet({ md, xs, control, name, description, errors, get
                                     ...params.InputProps,
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <EngineeringIcon />
+                                            {/* <EngineeringIcon /> */}
+                                             <Icon/>
                                         </InputAdornment>
                                     )
                                 }} />}

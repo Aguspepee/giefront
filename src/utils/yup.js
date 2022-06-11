@@ -14,13 +14,14 @@ export const contractSchema = yup.object().shape({
   campos: yup.object().shape({
     numero_reporte: yup.boolean().nullable(),
     numero_orden: yup.boolean().nullable(),
-    adicionales: yup.boolean().nullable(),
+    unidad: yup.boolean().nullable(),
     equipo_completo: yup.boolean().nullable(),
     diametro: yup.boolean().nullable(),
     espesor: yup.boolean().nullable(),
     numero_costuras: yup.boolean().nullable(),
     cantidad_placas: yup.boolean().nullable(),
     tipo_rx: yup.boolean().nullable(),
+    paga: yup.boolean().nullable(),
   }),
 
   items: yup.array().of(

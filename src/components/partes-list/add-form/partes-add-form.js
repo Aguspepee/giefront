@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, CardContent, Divider, Grid } from '@mui/material';
+import { Box, Button, CardContent, Divider, Grid, Typography } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { partesSchema } from '../../../utils/yup';
@@ -25,6 +25,10 @@ import { userGetNames } from '../../../services/users';
 import Notification from '../../../styled-components/alerts/notification';
 import ConfirmDialog from '../../../styled-components/alerts/confirm-dialog';
 
+//Icons
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import FactoryIcon from '@mui/icons-material/Factory';
 
 export const PartesAddForm = ({ handleReload }) => {
   //let { id } = useParams();
@@ -53,7 +57,7 @@ export const PartesAddForm = ({ handleReload }) => {
   });
 
   async function addParte(parte) {
-    console.log("parte",parte)
+    console.log("parte", parte)
     try {
       const doc = await parteCreate({ ...parte, inspector: `${user.nombre} ${user.apellido}` })
       setConfirmDialog({
@@ -97,26 +101,26 @@ export const PartesAddForm = ({ handleReload }) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <form onSubmit={handleSubmit(data => onSubmit(data))}>
 
-          <CardContent>
-            <Grid container spacing={3}>
-              <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} />
-              <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a" errors={errors} fullWidth margin="normal" md={12} xs={12} />
-              <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad" errors={errors} />
+          <CardContent >
+            <Grid container spacing={1.5}>
+              <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} Icon={() => <HistoryEduIcon />} small/>
+              <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a" errors={errors} fullWidth margin="normal" md={12} xs={12} Icon={() => <EngineeringIcon />} />
+              <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad" errors={errors} Icon={() => <FactoryIcon />} />
               <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección" errors={errors} md={12} xs={12} />
-              <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} />
-              <StyledTextfield show={contract[0]?.campos[0]?.numero_orden} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={12} xs={12} />
-              <StyledTextfield control={control} name={`tag`} type="text" description="TAG del equipo" errors={errors} md={12} xs={12} />
+              <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={6} xs={6} />
+              <StyledTextfield show={contract[0]?.campos[0]?.numero_orden} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={6} xs={6} />
+              <StyledTextfield show={true} control={control} name={`tag`} type="text" description="TAG del equipo" errors={errors} md={12} xs={12} />
 
               <StyledTextfield control={control} name={`tag_detalle`} type="text" description="Detalle del equipo" errors={errors} md={12} xs={12} />
               <StyledItem name={`items.0.descripcion_servicio`} errors={errors} control={control} list={list ? list : []} items={() => items.append({})} />
               {items.fields.slice(1).map((item, index) => (
                 < StyledAdicional name={`items.${index + 1}.descripcion_servicio`} key={item.id} item={item} items={items} errors={errors} index={index + 1} control={control} list={list ? list : []} />
               ))}
-              <StyledTextfield show={contract[0]?.campos[0]?.diametro} control={control} name={`detalles.diametro`} type="number" description="Diámetro" errors={errors} md={2} xs={6} />
-              <StyledTextfield show={contract[0]?.campos[0]?.espesor} control={control} name={`detalles.espesor`} type="number" description="Espesor" errors={errors} md={2} xs={6} />
-              <StyledTextfield show={contract[0]?.campos[0]?.numero_costuras} control={control} name={`detalles.numero_costuras`} type="number" description="Número de costuras" errors={errors} md={2} xs={6} />
-              <StyledTextfield show={contract[0]?.campos[0]?.cantidad_placas} control={control} name={`detalles.cantidad_placas`} type="number" description="Cantidad de Placas" errors={errors} md={2} xs={6} />
-              <StyledAutocompleteList show={contract[0]?.campos[0]?.tipo_rx} md={4} xs={12} control={control} name={`detalles.tipo`} list={tipo_rx} description="Tipo" errors={errors} />
+              <StyledTextfield show={contract[0]?.campos[0]?.diametro} control={control} name={`detalles.diametro`} type="number" description="Diámetro" errors={errors} md={6} xs={6} />
+              <StyledTextfield show={contract[0]?.campos[0]?.espesor} control={control} name={`detalles.espesor`} type="number" description="Espesor" errors={errors} md={6} xs={6} />
+              <StyledTextfield show={contract[0]?.campos[0]?.numero_costuras} control={control} name={`detalles.numero_costuras`} type="number" description="Número de costuras" errors={errors} md={6} xs={6} />
+              <StyledTextfield show={contract[0]?.campos[0]?.cantidad_placas} control={control} name={`detalles.cantidad_placas`} type="number" description="Cantidad de Placas" errors={errors} md={6} xs={6} />
+              <StyledAutocompleteList show={contract[0]?.campos[0]?.tipo_rx} md={12} xs={12} control={control} name={`detalles.tipo`} list={tipo_rx} description="Tipo" errors={errors} />
               <StyledCheckbox show={true} control={control} name="informe_realizado" defaultValue={false} description="Informe realizado" md={12} xs={12} />
             </Grid>
           </CardContent>

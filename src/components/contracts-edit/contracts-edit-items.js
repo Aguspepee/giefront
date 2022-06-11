@@ -68,13 +68,13 @@ function ContractsEditItems() {
       campos: {
         numero_reporte: data.campos ? data.campos[0].numero_reporte : false,
         numero_orden: data.campos ? data.campos[0].numero_orden : false,
-        adicionales: data.campos ? data.campos[0].adicionales : false,
         equipo_completo: data.campos ? data.campos[0].equipo_completo : false,
         diametro: data.campos ? data.campos[0].diametro : false,
         espesor: data.campos ? data.campos[0].espesor : false,
         numero_costuras: data.campos ? data.campos[0].numero_costuras : false,
         cantidad_placas: data.campos ? data.campos[0].cantidad_placas : false,
         tipo_rx: data.campos ? data.campos[0].tipo_rx : false,
+        unidad: data.campos ? data.campos[0].unidad : false,
       }
     });
   }, [data]);
@@ -389,13 +389,14 @@ function ContractsEditItems() {
               <Box style={{ padding: "18px 0px 15px 0px" }}>
                 <InputCheckbox control={control} name="campos.numero_reporte" description="Numero de Reporte" />
                 <InputCheckbox control={control} name="campos.numero_orden" description="Numero de Orden" />
-                <InputCheckbox control={control} name="campos.adicionales" description="Adicionales" />
+                <InputCheckbox control={control} name="campos.unidad" description="Unidad" />
                 <InputCheckbox control={control} name="campos.equipo_completo" description="Equipo Completo" />
                 <InputCheckbox control={control} name="campos.diametro" description="Diámetro" />
                 <InputCheckbox control={control} name="campos.espesor" description="Espesor" />
                 <InputCheckbox control={control} name="campos.numero_costuras" description="Número de Costuras" />
                 <InputCheckbox control={control} name="campos.cantidad_placas" description="Cantidad de Placas" />
                 <InputCheckbox control={control} name="campos.tipo_rx" description="Tipo de Ensayo RX" />
+                <InputCheckbox control={control} name="campos.paga" description="Paga" />
               </Box>
               <Divider style={{ marginTop: 20, marginBottom: 20 }} />
               <Button
