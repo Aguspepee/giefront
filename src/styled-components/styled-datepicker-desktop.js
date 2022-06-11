@@ -5,14 +5,12 @@ import { TextField } from "@mui/material";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 
-function StyledDatepickerDesktop({ control, name, list, description, errors, md, xs, ...rest }) {
-
+function StyledDatepickerDesktop({ control, name, list, description, errors, md, xs, ...props }) {
 
     return (
         <>
             <Grid item md={md} xs={xs}>
                 <Controller
-
                     name={name}
                     control={control}
                     defaultValue={null}
@@ -22,6 +20,7 @@ function StyledDatepickerDesktop({ control, name, list, description, errors, md,
                         };
                         return (
                             <DesktopDatePicker
+                                {...props}
                                 label={description}
                                 margin="normal"
                                 inputFormat="dd/MM/yyyy"
@@ -29,7 +28,11 @@ function StyledDatepickerDesktop({ control, name, list, description, errors, md,
                                 onChange={(value) => handleDateChange(value)}
                                 onBlur={onBlur}
                                 renderInput={(params) =>
-                                    <TextField fullWidth {...params} error={Boolean(error)} helperText={errors[name] && errors[name].message} />}
+                                    <TextField fullWidth 
+                                    {...params} 
+                                    error={Boolean(error)} 
+                                    helperText={errors[name] && errors[name].message} 
+                                    {...props} />}
                             />)
                     }}
                 />

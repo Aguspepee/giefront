@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import { Checkbox, Box, Typography, Grid } from '@mui/material';
 
-function StyledCheckbox({ control, name, description, show, md, xs, ...props }) {
+function StyledCheckbox({ defaultValue, control, name, description, show, md, xs, ...props }) {
 
     return (
         <>
@@ -17,6 +17,7 @@ function StyledCheckbox({ control, name, description, show, md, xs, ...props }) 
                         <Controller
                             name={name}
                             control={control}
+                            defaultValue={defaultValue}
                             render={({ field: { value, ref, onChange } }) => {
                                 return (
                                     <Checkbox

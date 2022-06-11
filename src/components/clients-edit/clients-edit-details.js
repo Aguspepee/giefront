@@ -102,35 +102,35 @@ export const ClientsEditDetails = (props) => {
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`abreviatura`} type="text" description="Abreviatura" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`abreviatura`} type="text" description="Abreviatura" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={12}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`email`} type="email" description="Email" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`email`} type="email" description="Email" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`telefono`} type="text" description="Teléfono" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`telefono`} type="text" description="Teléfono" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`direccion`} type="text" description="Dirección" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`direccion`} type="text" description="Dirección" errors={errors} />
                 </Grid>
 
                 <Grid
@@ -138,7 +138,7 @@ export const ClientsEditDetails = (props) => {
                   md={12}
                   xs={12}
                 >
-                  <StyledCheckbox control={control} name="active" defaultValue={false} description="Cliente activo" />
+                  <StyledCheckbox show={true} control={control} name="active" defaultValue={false} description="Cliente activo" />
                 </Grid>
               </Grid>
             </CardContent>

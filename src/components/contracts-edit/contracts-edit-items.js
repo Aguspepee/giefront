@@ -142,11 +142,7 @@ function ContractsEditItems() {
               <Grid container spacing={3}    >
                 <Grid item lg={6} sm={6} xl={6} xs={12} >
                   <InputAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} fullWidth margin="normal" />
-                </Grid>
-              {/*   <Grid item lg={6} sm={6} xl={6} xs={12} >
-                  <InputAutocompleteGet control={control} name="cliente" get={clientGetNames} description="Cliente" errors={errors} fullWidth margin="normal" />
-                </Grid> */}
-                
+                </Grid>       
                 <Grid item lg={6} sm={6} xl={6} xs={12} >
                   <StyledAutocompleteClients control={control} name="cliente" get={clientGetAll} description="Cliente" errors={errors} fullWidth margin="normal" />
                 </Grid>
@@ -260,7 +256,6 @@ function ContractsEditItems() {
                 </TableHead>
                 <TableBody>
                   {unidades.fields.map((unidad, index) => (
-
                     <TableRow
                       key={unidad.id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

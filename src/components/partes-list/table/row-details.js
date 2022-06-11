@@ -1,4 +1,4 @@
-import { Collapse } from '@mui/material';
+import { Collapse, Table, TableBody, TableHead } from '@mui/material';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/material';
 import { Grid } from '@mui/material';
@@ -10,8 +10,8 @@ import StyledChipUpdate from '../../../styled-components/styled-chip-update';
 import format from 'date-fns/format';
 
 
-function RowDetails({open, parte, colums_quantity, handleReload, ...props}) {
-
+function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
+    console.log(parte)
     return (
         <TableRow style={{ backgroundColor: "#F3F4F6" }}>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colums_quantity}>
@@ -77,37 +77,27 @@ function RowDetails({open, parte, colums_quantity, handleReload, ...props}) {
                                 <Typography variant="body2" gutterBottom component="div">
                                     {parte.tag_detalle !== "" ? parte.tag_detalle : "-"}
                                 </Typography>
-                                <Typography variant="h6" gutterBottom component="div">
-                                    Actividad
+                                <Typography variant="h6" gutterBottom component="div" >
+                                    Modificado
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
-                                    Descripción del servicio
+                                    Fue modificado
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte.items[0].descripcion_servicio}
+                                    {parte.modificado ? "SI" : "NO"}
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
-                                    Cantidad
+                                    Fecha
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte.items[0].cantidad}
-                                </Typography>
-                                <Typography variant="h6" gutterBottom component="div">
-                                    Adicionales
+                                    {parte.modificado_fecha ? parte.modificado_fecha : "-"}
                                 </Typography>
                                 <Typography variant="subtitle2" gutterBottom component="div">
-                                    Descripción del servicio
+                                    Usuario
                                 </Typography>
                                 <Typography variant="body2" gutterBottom component="div">
-                                    {parte.items[0].descripcion_servicio}
+                                    {parte.modificado_nombre ? parte.modificado_nombre : "-"}
                                 </Typography>
-                                <Typography variant="subtitle2" gutterBottom component="div">
-                                    Cantidad
-                                </Typography>
-                                <Typography variant="body2" gutterBottom component="div">
-                                    {parte.items[0].cantidad}
-                                </Typography>
-
                             </Box>
                         </Grid>
                         <Grid item>
@@ -202,21 +192,47 @@ function RowDetails({open, parte, colums_quantity, handleReload, ...props}) {
                                         </Box>
                                     </Stack>
                                 </Stack>
-                                <Typography variant="h6" gutterBottom component="div" >
-                                    Modificado
+                            </Box>
+                        </Grid>
+                        <Grid item>
+                            <Box style={{width:"700px", paddingBottom: "1em" }}>
+                                <Typography variant="h6" gutterBottom component="div">
+                                    Ítems y Adicionales
                                 </Typography>
-                                <Typography variant="subtitle2" gutterBottom component="div">
-                                    Fecha
-                                </Typography>
-                                <Typography variant="body2" gutterBottom component="div">
-                                    {parte.tag}
-                                </Typography>
-                                <Typography variant="subtitle2" gutterBottom component="div">
-                                    Usuario
-                                </Typography>
-                                <Typography variant="body2" gutterBottom component="div">
-                                    {parte.tag}
-                                </Typography>
+                                <Table >
+                                    <TableHead>
+                                        <TableRow style={{ backgroundColor: "#d8d8d8" }}>
+                                            <TableCell>
+                                                CÓDIGO
+                                            </TableCell>
+                                            <TableCell style={{ minWidth: "350px" }}>
+                                                DESCRIPCIÓN
+                                            </TableCell>
+                                            <TableCell>
+                                                TIPO
+                                            </TableCell>
+                                            <TableCell>
+                                                CLASE
+                                            </TableCell>
+                                            <TableCell>
+                                                CANTIDAD
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {parte.items.map((item) => {
+                                            return (
+                                                <TableRow style={{ backgroundColor: "#f0f0f0" }}>
+                                                    <TableCell>{item.codigo_servicio}</TableCell>
+                                                    <TableCell>{item.descripcion_servicio}</TableCell>
+                                                    <TableCell>{item.tipo_actividad}</TableCell>
+                                                    <TableCell>{item.clase}</TableCell>
+                                                    <TableCell>{item.cantidad}</TableCell>
+                                                </TableRow>
+                                            )
+                                        })}
+                                    </TableBody>
+                                </Table>
                             </Box>
                         </Grid>
                     </Grid>

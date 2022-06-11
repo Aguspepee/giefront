@@ -16,25 +16,22 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
 
     return (
         <>
-            <Grid item md={8} xs={12} style={{padding:"1.5em 0em 0em 1em"}}>
-                <Typography variant="overline" display="block" gutterBottom>
-                    Items del contrato
-                </Typography>
-            </Grid>
-            <Grid item md={8} xs={12} style={{paddingTop:"0em"}}>
+            <Grid item md={8} xs={12} >
 
                 <Controller
+                    
                     name={`items.0.descripcion_servicio`}
                     control={control}
                     render={({ field: { onChange, onBlur, value, ref, ...field } }) =>
                         <Autocomplete
+                        {...rest}
                             defaultValue={value}
                             disablePortal
                             getOptionLabel={(items_list) => `${items_list}`}
                             options={items_list}
                             isOptionEqualToValue={(option, value) => option === value}
                             noOptionsText={"Sin opciones"}
-                            renderInput={(params) => <TextField {...params} label={"Descripción del Servicio"}
+                            renderInput={(params) => <TextField {...params} label={"Descripción del Servicio*"}
                                 error={Boolean(errors?.items && errors?.items[0]?.descripcion_servicio)}
                                 helperText={errors?.items && errors?.items[0]?.descripcion_servicio?.message} />}
                             value={value ? value : null}
@@ -49,7 +46,7 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
                     }
                 />
             </Grid>
-            <Grid item md={2.5} xs={9} style={{paddingTop:"0em"}}>
+            <Grid item md={2.5} xs={9} >
                 <Controller
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) =>
                         <TextField
@@ -58,7 +55,7 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
                             value={value ? value : ""}
                             error={Boolean(error)}
                             helperText={error ? error.message : unidad}
-                            label="Cantidad"
+                            label="Cantidad*"
                             onChange={onChange}
                             onBlur={onBlur}
                             type="number"
@@ -67,9 +64,9 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
                     control={control}
                 />
             </Grid>
-            <Grid item md={1} xs={3} style={{paddingTop:"0em"}}>
+            <Grid item md={1} xs={3} >
                 <Tooltip title="Añadir Adicional">
-                    <IconButton color="primary" size="large" onClick={() => items({})}>
+                    <IconButton color="primary" onClick={() => items({})}>
                         <AddIcon fontSize="inherit" />
                     </IconButton>
                 </Tooltip>

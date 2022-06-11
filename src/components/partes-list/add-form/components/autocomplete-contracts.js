@@ -33,6 +33,8 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
                     render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
                         return (
                             <Autocomplete
+                                
+                                {...props}
                                 defaultValue={value}
                                 disablePortal
                                 getOptionLabel={(listOfContracts) => `${listOfContracts.nombre}`}
@@ -42,21 +44,23 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
                                     return (option._id === value._id)
                                 }}
                                 noOptionsText={"Sin opciones"}
-                                renderInput={(params) => <TextField
-                                    {...params}
-                                    label={description}
-                                    placeholder={description}
-                                    error={Boolean(errors[name])}
-                                    helperText={errors[name] && errors[name]?.message}
-                                    InputProps={{
-                                        ...params.InputProps,
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                {/* <EngineeringIcon /> */}
-                                                <Icon />
-                                            </InputAdornment>
-                                        )
-                                    }} />}
+                                renderInput={(params) =>
+                                    <TextField
+
+                                        {...params}
+                                        label={description}
+                                        placeholder={description}
+                                        error={Boolean(errors[name])}
+                                        helperText={errors[name] && errors[name]?.message}
+                                        InputProps={{
+                                            ...params.InputProps,
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/* <EngineeringIcon /> */}
+                                                    <Icon />
+                                                </InputAdornment>
+                                            )
+                                        }} />}
                                 value={value ? value : null}
                                 onChange={(event, item) => {
                                     findContract(item)

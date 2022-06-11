@@ -17,6 +17,7 @@ function StyledAutocompleteList({ Icon, md, xs, control, name, description, erro
                             return (
                                 <>
                                     <Autocomplete
+                                        {...props}
                                         defaultValue={value}
                                         disablePortal
                                         getOptionLabel={(list) => `${list}`}

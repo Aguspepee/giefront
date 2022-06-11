@@ -29,6 +29,7 @@ function StyledAutocompleteGet({ Icon, md, xs, control, name, description, error
                 render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
                     return (
                         <Autocomplete
+                        {...props}
                             defaultValue={value}
                             disablePortal
                             getOptionLabel={(jsonResults) => `${jsonResults?.apellido?.toUpperCase()}, ${jsonResults.nombre}`}
