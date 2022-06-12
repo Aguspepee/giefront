@@ -16,7 +16,6 @@ import { userWhoami } from './services/users';
 //Páginas
 import Dashboard from "./pages/dashboard";
 import UsersLogin from './pages/users-login';
-import UsersRegister from './pages/users-register';
 import UsersAccount from './pages/users-account';
 import PartesAdd from './pages/partes-add';
 import PartesList from './pages/partes-list';
@@ -101,7 +100,7 @@ function App() {
             <Route path="/users-edit/:id" element={<UsersEdit />} />
             <Route path="/users-list" element={<UsersList />} />
             <Route path="/users-login" element={<UsersLogin />} />
-            <Route path="/users-register" element={<UsersRegister />} />
+
 
             {/* Partes */}
             <Route path="/partes-add" element={<Private Component={PartesAdd} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
@@ -125,7 +124,7 @@ function App() {
             <Route path="/remitos-edit/:id" element={<RemitosCreate />} />
 
             {/* Certificaciones */}
-            <Route path="/certif-create" element={<CertificacionesCreate />} />
+           <Route path="/certif-create" element={<CertificacionesCreate />} />
             <Route path="/certif-list" element={<CertificacionesList />} />
 
             {/* Loading */}

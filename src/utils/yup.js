@@ -57,7 +57,15 @@ export const userSchema = yup.object().shape({
   apellido: yup.string().required("La descripción del contrato es requerida"),
   area: yup.string().required("La descripción del contrato es requerida"),
   role: yup.string().required("El cliente es requerido"),
-  active: yup.boolean(),
+  email: yup.string().required("La descripción del contrato es requerida"),
+  numero_orden: yup.string().required("El cliente es requerido"),
+  password: yup.string()
+    .required('Password is mendatory')
+    .min(3, 'Password must be at 3 char long'),
+/*   confirmPwd: Yup.string()
+    .required('Password is mendatory')
+    .oneOf([Yup.ref('password')], 'Passwords does not match'), */
+  //active: yup.boolean(),
 })
 
 //CLIENTES

@@ -2,7 +2,6 @@ import { Box, Container } from '@mui/material';
 import { RemitosListResults } from '../components/remitos-list/remitos-list-results';
 import { RemitosListToolbar } from '../components/remitos-list/remitos-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { remitos } from '../__mocks__/remitos';
 
 function RemitosList() {
   return (
@@ -18,7 +17,7 @@ function RemitosList() {
         <Container maxWidth={false}>
           <RemitosListToolbar />
           <Box sx={{ mt: 3 }}>
-            <RemitosListResults remitos={remitos} />
+            <RemitosListResults />
           </Box>
         </Container>
       </Box>

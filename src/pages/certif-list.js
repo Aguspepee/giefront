@@ -2,7 +2,6 @@ import { Box, Container } from '@mui/material';
 import { CertificacionesListResults } from '../components/certif-list/certif-list-results';
 import { CertificacionesListToolbar } from '../components/certif-list/certif-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { certificaciones } from '../__mocks__/certificaciones';
 
 function CertificacionessList() {
   return (
@@ -18,7 +17,7 @@ function CertificacionessList() {
         <Container maxWidth={false}>
           <CertificacionesListToolbar />
           <Box sx={{ mt: 3 }}>
-            <CertificacionesListResults certificaciones={certificaciones} />
+            <CertificacionesListResults />
           </Box>
         </Container>
       </Box>

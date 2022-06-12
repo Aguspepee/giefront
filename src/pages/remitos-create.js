@@ -2,7 +2,6 @@ import { Box, Container } from '@mui/material';
 import { RemitosCreatePartes } from '../components/remitos-create/remitos-create-partes';
 import { RemitosCreateFilters } from '../components/remitos-create/remitos-create-filters';
 import { DashboardLayout } from '../layout/layout';
-import { partes } from '../__mocks__/partes';
 
 function RemitosCreate() {
   return (
@@ -18,7 +17,7 @@ function RemitosCreate() {
         <Container maxWidth={false}>
           <RemitosCreateFilters />
           <Box sx={{ mt: 3 }}>
-            <RemitosCreatePartes partes={partes} />
+            <RemitosCreatePartes  />
           </Box>
         </Container>
       </Box>

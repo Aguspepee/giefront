@@ -11,7 +11,6 @@ import format from 'date-fns/format';
 
 
 function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
-    console.log(parte)
     return (
         <TableRow style={{ backgroundColor: "#F3F4F6" }}>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colums_quantity}>
@@ -222,7 +221,7 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                     <TableBody>
                                         {parte.items.map((item) => {
                                             return (
-                                                <TableRow style={{ backgroundColor: "#f0f0f0" }}>
+                                                <TableRow key={item._id} style={{ backgroundColor: "#f0f0f0" }}>
                                                     <TableCell>{item.codigo_servicio}</TableCell>
                                                     <TableCell>{item.descripcion_servicio}</TableCell>
                                                     <TableCell>{item.tipo_actividad}</TableCell>

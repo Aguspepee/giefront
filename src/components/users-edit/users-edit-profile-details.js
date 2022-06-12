@@ -102,42 +102,42 @@ export const UsersEditProfileDetails = (props) => {
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`apellido`} type="text" description="Apellido" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`apellido`} type="text" description="Apellido" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledAutocompleteList control={control} name={`area`} list={area} description="Área" errors={errors} />
+                  <StyledAutocompleteList show={true} control={control} name={`area`} list={area} description="Área" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={6}
                   xs={12}
                 >
-                  <StyledAutocompleteList control={control} name={`role`} list={role} description="Rol" errors={errors} />
+                  <StyledAutocompleteList show={true} control={control} name={`role`} list={role} description="Rol" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={12}
                   xs={12}
                 >
-                  <StyledTextfield control={control} name={`email`} type="email" description="Email" errors={errors} />
+                  <StyledTextfield show={true} control={control} name={`email`} type="email" description="Email" errors={errors} />
                 </Grid>
                 <Grid
                   item
                   md={12}
                   xs={12}
                 >
-                  <StyledCheckbox control={control} name="active" defaultValue={false} description="Usuario activo" />
+                  <StyledCheckbox show={true} control={control} name="active" defaultValue={false} description="Usuario activo" />
                 </Grid>
               </Grid>
             </CardContent>

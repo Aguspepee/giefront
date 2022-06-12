@@ -14,6 +14,7 @@ function EnhancedTableSearch({ search, columns, ...props }) {
             </TableCell>
             {columns.map((column) => {
                 function handleChange(event) {
+                     console.log("funcion")
                     props.onChange({ ...search, [column.id.replace("[", ".").replace("]", "")]: event.target.value })
                 }
                 return (

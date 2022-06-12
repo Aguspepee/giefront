@@ -1,253 +1,189 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
-  Checkbox,
   Container,
-  FormHelperText,
-  Link,
+  Grid,
   TextField,
   Typography
 } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { userRegister } from '../services/users';
-import { useNavigate } from "react-router-dom";
-import { DashboardLayout } from '../layout/layout'; 
+import { userSchema } from '../utils/yup';
+import { useForm } from "react-hook-form";
+import { DashboardLayout } from '../layout/layout';
+import { Card, CardContent, CardHeader, Divider } from '@mui/material';
+import { area, role } from '../utils/list';
+import StyledTextfield from '../styled-components/styled-textfield';
+import StyledAutocompleteList from '../styled-components/styled-autocomplete-list';
+import EditIcon from '@mui/icons-material/Edit';
+import StyledPassword from '../styled-components/styled-password';
 
-const UsersCreate = () => {
-  const navigate = useNavigate();
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      nombre: '',
-      apellido: '',
-      password: '',
-      roles: "Administrador",
-      policy: false
-    },
-    validationSchema: Yup.object({
-      nombre: Yup
-        .string()
-        .max(255)
-        .required(
-          'El nombre es un campo requerido'),
-      apellido: Yup
-        .string()
-        .max(255)
-        .required(
-          'El apellido en un campo requerido'),
-      email: Yup
-        .string()
-        .email(
-          'Debe ser un email válido')
-        .max(255)
-        .required(
-          'El email es un campo requerido'),
-      roles: Yup
-        .string()
-        .max(255)
-        .required(
-          'El rol en un campo requerido'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          'La contraseña es un campo requerido'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'Se deben aceptar los Términos y Condiciones'
-        ),
-    }),
-    onSubmit: async (user) => {
-      console.log("Usuario",user)
-      try {
-        const res = await userRegister(user)
-        console.log("Inició registró", res.data)
-        res.data?navigate("/users-login"):console.log(res.data)
-      } catch (e) {
-        console.log("Hubo un error aqui",e)
-        alert("error")
-      }
-    }
+//Alerts y Notifications
+import Notification from '../styled-components/alerts/notification';
+import ConfirmDialog from '../styled-components/alerts/confirm-dialog';
+
+
+const UsersCreate = (props) => {
+  const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(userSchema),
   });
 
-  const roles = [
-    {
-      value: 'Administrador',
-      label: 'Administrador'
-    },
-    {
-      value: 'Supervisor',
-      label: 'Supervisor'
-    },
-    {
-      value: 'Inspector',
-      label: 'Inspector'
-    },
-    {
-      value: 'Asistente',
-      label: 'Asistente'
+  async function createUser(user) {
+
+    try {
+      const usuario = await userRegister(user)
+      console.log(usuario)
+      setConfirmDialog({
+        ...confirmDialog,
+        isOpen: false
+      })
+      setNotify({
+        isOpen: true,
+        message: `El perfil de ${user.nombre} se modificó correctamente`,
+        type: 'success'
+      })
+    } catch (e) {
+      setConfirmDialog({
+        ...confirmDialog,
+        isOpen: false
+      })
+      setNotify({
+        isOpen: true,
+        message: 'Ha habido un error, intente nuevamente',
+        type: 'error'
+      })
+      console.log(e)
     }
-  ];
+  }
+
+  async function onSubmit(user) {
+    console.log(user)
+    setConfirmDialog({
+      isOpen: true,
+      title: `¿Desea crear el perfil de ${user.nombre}?`,
+      subTitle: "",
+      onConfirm: () => { createUser(user) },
+      icon: <EditIcon fontSize='inherit' color="success" />
+    })
+  }
 
   return (
     <>
       <DashboardLayout>
-      <Box
-        component="main"
-        sx={{
-          marginTop: 5,
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '100%'
-        }}
-      >
-        
-        <Container maxWidth="sm">
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <PersonAddIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Crear una cuenta
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            py: 4
+          }}
+        >
+
+          <Container maxWidth="md">
+            <Typography
+              sx={{ mb: 3 }}
+              variant="h4"
+            >
+              Registrar Usuario
             </Typography>
-          </Box>
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              error={Boolean(formik.touched.nombre && formik.errors.nombre)}
-              fullWidth
-              helperText={formik.touched.nombre && formik.errors.nombre}
-              label="Nombre"
-              margin="normal"
-              name="nombre"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.nombre}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.apellido && formik.errors.apellido)}
-              fullWidth
-              helperText={formik.touched.apellido && formik.errors.apellido}
-              label="Apellido"
-              margin="normal"
-              name="apellido"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.apellido}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
-              fullWidth
-              helperText={formik.touched.email && formik.errors.email}
-              label="Email"
-              margin="normal"
-              name="email"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.roles && formik.errors.roles)}
-              fullWidth
-              helperText={formik.touched.roles && formik.errors.roles}
-              label="Posición"
-              margin="normal"
-              name="roles"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              required
-              select
-              SelectProps={{ native: true }}
-              value={formik.values.roles}
-              variant="outlined"
-            >
-              {roles.map((option) => (
-                <option
-                  key={option.value}
-                  value={option.value}
-                >
-                  {option.label}
-                </option>
-              ))} 
-            </TextField>
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="Contraseña"
-              margin="normal"
-              name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="password"
-              value={formik.values.password}
-              variant="outlined"
-            />
-            <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                ml: -1
-              }}
-            >
-              <Checkbox
-                checked={formik.values.policy}
-                name="policy"
-                onChange={formik.handleChange}
+            <Card>
+              <CardHeader
+                subheader="Edite la información y registre el usuario"
+                title="Usuario"
               />
-              <Typography
-                color="textSecondary"
-                variant="body2"
-              >
-                He leido los
-                {' '}
-                <Link
-                  color="primary"
-                  underline="always"
-                  variant="subtitle2"
+              <Divider />
+
+              <form onSubmit={handleSubmit(user => onSubmit(user))}>
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                  >
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledTextfield show={true} control={control} name={`nombre`} type="text" description="Nombre" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledTextfield show={true} control={control} name={`apellido`} type="text" description="Apellido" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledAutocompleteList show={true} control={control} name={`area`} list={area} description="Área" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledAutocompleteList show={true} control={control} name={`role`} list={role} description="Rol" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={12}
+                      xs={12}
+                    >
+                      <StyledTextfield show={true} control={control} name={`email`} type="email" description="Email" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledTextfield show={true} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} />
+                    </Grid>
+                    <Grid
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <StyledPassword show={true} control={control} name={`password`} type="text" description="Contraseña" errors={errors} />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+
+                <Divider />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    p: 2
+                  }}
                 >
-                  Terminos y Condiciones
-                </Link>
-              </Typography>
-            </Box>
-            {Boolean(formik.touched.policy && formik.errors.policy) && (
-              <FormHelperText error>
-                {formik.errors.policy}
-              </FormHelperText>
-            )}
-            <Box sx={{ py: 2 }}>
-              <Button
-                color="primary"
-               // disabled={formik.isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Registrarse
-              </Button>
-            </Box>
-           
-          </form>
-        </Container>
-      </Box>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                  >
+                    Registrar Usuario
+                  </Button>
+                </Box>
+
+              </form>
+
+            </Card>
+          </Container>
+
+        </Box>
       </DashboardLayout>
+      <Notification
+        notify={notify}
+        setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };
