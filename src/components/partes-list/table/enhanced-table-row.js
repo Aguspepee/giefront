@@ -15,6 +15,8 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RowDetails from './row-details';
+import PartesListEdit from '../partes-list-edit';
+
 
 //icons
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,7 +28,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(parte._id);
     const labelId = `enhanced-table-checkbox-${index}`;
-
+   
     //Cantidad de columnas mostradas
     const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
@@ -131,6 +133,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
+                        <PartesListEdit id={parte._id}/>
                     </Stack>
                 </TableCell>
             </TableRow >
@@ -138,7 +141,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
 
         </>
     );
-}
+} 
 
 
 export default EnhancedTableRow

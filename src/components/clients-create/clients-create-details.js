@@ -69,14 +69,14 @@ export const ClientCreateDetails = (props) => {
     <form onSubmit={formik.handleSubmit} >
       <Card>
         <CardHeader
-          subheader="Edite la información y guarde los cambios"
+          subheader="Edite la información y guarde los cambios. Al finalizar, podrá ir a editar el cliente y cargarle una foto de perfil."
           title="Perfil"
         />
         <Divider />
         <CardContent>
           <Grid
             container
-            spacing={3}
+            spacing={2}
           >
             <Grid
               item
@@ -88,7 +88,6 @@ export const ClientCreateDetails = (props) => {
                 fullWidth
                 helperText={formik.touched.nombre && formik.errors.nombre}
                 label="Nombre"
-                margin="normal"
                 name="nombre"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -107,7 +106,6 @@ export const ClientCreateDetails = (props) => {
                 fullWidth
                 helperText={formik.touched.abreviatura && formik.errors.abreviatura}
                 label="Abreviatura"
-                margin="normal"
                 name="abreviatura"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -128,7 +126,6 @@ export const ClientCreateDetails = (props) => {
                 fullWidth
                 helperText={formik.touched.email && formik.errors.email}
                 label="Email"
-                margin="normal"
                 name="email"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -147,7 +144,6 @@ export const ClientCreateDetails = (props) => {
                 fullWidth
                 helperText={formik.touched.telefono && formik.errors.telefono}
                 label="Teléfono"
-                margin="normal"
                 name="telefono"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -166,7 +162,6 @@ export const ClientCreateDetails = (props) => {
                 fullWidth
                 helperText={formik.touched.direccion && formik.errors.direccion}
                 label="Dirección"
-                margin="normal"
                 name="direccion"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}

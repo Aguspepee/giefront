@@ -6,7 +6,7 @@ import { DashboardLayout } from '../layout/layout';
 function ClientsEdit() {
 
 
-  
+
   return (
     <DashboardLayout>
 
@@ -14,47 +14,38 @@ function ClientsEdit() {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8
+          py: 3
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <Typography
             sx={{ mb: 3 }}
             variant="h4"
           >
             Crear Cliente
           </Typography>
-          <Grid
-            container
-            spacing={3}
-          >
-            <Grid
+
+          {/* <Grid
               item
               lg={4}
               md={6}
               xs={12}
             >
               <ClientCreateProfile />
-            </Grid>
+            </Grid> */}
+
+          <Grid
+            container
+            spacing={2}
+          >
             <Grid
               item
-              lg={8}
-              md={6}
+              lg={12}
+              md={12}
               xs={12}
             >
-              <Grid
-                container
-                spacing={3}
-              >
-                <Grid
-                  item
-                  lg={12}
-                  md={12}
-                  xs={12}
-                >
-                  <ClientCreateDetails />
-                </Grid>
-              </Grid>
+              <ClientCreateDetails />
+
             </Grid>
           </Grid>
         </Container>
