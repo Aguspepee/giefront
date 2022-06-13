@@ -13,6 +13,14 @@ export function userGetAll(user) {
     return instance.get(`users/`, {
         headers: { Authorization: `Bearer ${token}` }
     })
+} 
+
+//Search
+export function userSearch(nombre) {
+    let token = localStorage.getItem("token")
+    return instance.get(`users/search?nombre=${nombre}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 //Get Names 
@@ -63,8 +71,7 @@ export function userOne(id) {
 
 export function userImage(id, formData) {
     let token = localStorage.getItem("token")
-    return instance.put(`users/image/${id}`, {
-        data: formData,
+    return instance.put(`users/image/${id}-users`, formData, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

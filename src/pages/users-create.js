@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userRegister } from '../services/users';
-import { userSchema } from '../utils/yup';
+import { userAddSchema } from '../utils/yup';
 import { useForm } from "react-hook-form";
 import { DashboardLayout } from '../layout/layout';
 import { Card, CardContent, CardHeader, Divider } from '@mui/material';
@@ -28,7 +28,7 @@ const UsersCreate = (props) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const { control, handleSubmit, reset, formState: { errors } } = useForm({
-    resolver: yupResolver(userSchema),
+    resolver: yupResolver(userAddSchema),
   });
 
   async function createUser(user) {

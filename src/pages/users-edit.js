@@ -24,6 +24,9 @@ function UsersEdit() {
     getUser()
   }, [reload])
 
+  const handleReload = () => {
+    setReload(!reload)
+  }
   return (
 
     <DashboardLayout>
@@ -52,7 +55,7 @@ function UsersEdit() {
               md={6}
               xs={12}
             >
-              <UsersEditProfile reload={reload} setReload={setReload} user={user}/>
+              <UsersEditProfile handleReload={handleReload} user={user}/>
             </Grid>
             <Grid
               item
@@ -70,7 +73,7 @@ function UsersEdit() {
                   md={12}
                   xs={12}
                 >
-                  <UsersEditProfileDetails reload={reload} setReload={setReload} user={user}/>
+                  <UsersEditProfileDetails handleReload={handleReload} user={user}/>
                 </Grid>
                 <Grid
                   item

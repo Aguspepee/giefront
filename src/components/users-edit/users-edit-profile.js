@@ -9,27 +9,55 @@ import {
   Divider,
   Typography
 } from '@mui/material';
+import { userImage } from '../../services/users';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
-
-export const UsersEditProfile = (props) => {
-  const user = props.user;
+export const UsersEditProfile = ({handleReload,user,...props}) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
 
-  useEffect(() => {
+  async function changePicture(event) {
+    const formData = new FormData();
+    formData.append("userImage", event.target.files[0]);
+    try {
+      await userImage(user._id, formData)
+      setConfirmDialog({
+        ...confirmDialog,
+        isOpen: false
+      })
+      setNotify({
+        isOpen: true,
+        message: `El perfil de ${user.nombre} se modificó correctamente`,
+        type: 'success'
+      })
+      handleReload()
+    } catch (e) {
+      setConfirmDialog({
+        ...confirmDialog,
+        isOpen: false
+      })
+      setNotify({
+        isOpen: true,
+        message: 'Ha habido un error, intente nuevamente',
+        type: 'error'
+      })
+      console.log(e)
+    }
+  }
 
-  }, [user])
+  async function handleFileSelect(event) {
+    setConfirmDialog({
+      isOpen: true,
+      title: `¿Desea modificar el perfil de ${user.nombre}?`,
+      subTitle: "",
+      onConfirm: () => { changePicture(event) },
+      icon: <InsertPhotoIcon fontSize='inherit' color="success" />
+    })
+  }
 
   return (
     <>
@@ -43,12 +71,13 @@ export const UsersEditProfile = (props) => {
             }}
           >
             <Avatar
-              src={user.avatar}
+              src={user.image ? `${process.env.REACT_APP_BACKEND_URL}${user.image}` : ""}
               sx={{
-                height: 64,
-                mb: 2,
-                width: 64
+                height: 200,
+                mb: 0,
+                width: 200
               }}
+              user={user}
             />
             <Typography
               color="textPrimary"
@@ -67,12 +96,19 @@ export const UsersEditProfile = (props) => {
         </CardContent>
         <Divider />
         <CardActions>
-          <Button
+        <Button
             color="primary"
             fullWidth
             variant="text"
+            component="label"
           >
             Cambiar foto de perfil
+            <input
+              type="file"
+              hidden
+
+              onChange={handleFileSelect}
+            />
           </Button>
         </CardActions>
       </Card>

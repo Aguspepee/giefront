@@ -1,6 +1,6 @@
 import {
   Box,
-  Button,
+  Button, 
   Card,
   CardContent,
   TextField,
@@ -8,19 +8,11 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-function ClientsListToolbar(props) {
+function ClientsListToolbar({handleReload, handleSearchChange,...props}) {
   const navigate = useNavigate();
-  const setReload = props.setReload
-  const reload = props.reload
 
-  useEffect(
-    () => {
-        
-    }, [reload]
-)
   function handleNewClient() {
     navigate("/clients-create")
   }
@@ -70,6 +62,7 @@ function ClientsListToolbar(props) {
                     </InputAdornment>
                   )
                 }}
+                onChange={(e)=>handleSearchChange(e.target.value)}
                 placeholder="Buscar cliente"
                 variant="outlined"
               />

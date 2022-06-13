@@ -18,13 +18,12 @@ export const ClientCreateDetails = (props) => {
 
   const formik = useFormik({
     initialValues: {
-       nombre: '',
+      nombre: '',
       direccion: '',
       email: '',
       telefono: '',
       abreviatura: '',
-      //deleted: '',
-      image: '' 
+      image: ''
     },
     validationSchema: Yup.object({
       nombre: Yup
@@ -52,11 +51,10 @@ export const ClientCreateDetails = (props) => {
         .string()
         .max(255)
         .required(
-          'El email es un campo requerido'), 
-
+          'El email es un campo requerido'),
     }),
 
-     onSubmit: async (client) => {
+    onSubmit: async (client) => {
       console.log("contrato", client)
       try {
         const res = await clientCreate(client)
@@ -64,12 +62,12 @@ export const ClientCreateDetails = (props) => {
       } catch (e) {
         console.log(e)
       }
-    } 
+    }
   });
 
   return (
-   <form onSubmit={formik.handleSubmit} >
-     <Card>
+    <form onSubmit={formik.handleSubmit} >
+      <Card>
         <CardHeader
           subheader="Edite la información y guarde los cambios"
           title="Perfil"
@@ -80,7 +78,7 @@ export const ClientCreateDetails = (props) => {
             container
             spacing={3}
           >
-           <Grid
+            <Grid
               item
               md={6}
               xs={12}
@@ -105,19 +103,21 @@ export const ClientCreateDetails = (props) => {
               xs={12}
             >
               <TextField
-                error={Boolean(formik.touched.direccion && formik.errors.direccion)}
+                error={Boolean(formik.touched.abreviatura && formik.errors.abreviatura)}
                 fullWidth
-                helperText={formik.touched.direccion && formik.errors.direccion}
-                label="Dirección"
+                helperText={formik.touched.abreviatura && formik.errors.abreviatura}
+                label="Abreviatura"
                 margin="normal"
-                name="direccion"
+                name="abreviatura"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                type="direccion"
-                value={formik.values.direccion}
+                type="abreviatura"
+                value={formik.values.abreviatura}
                 variant="outlined"
+                inputProps={{ maxLength: 3, style: { textTransform: "uppercase" } }}
               />
             </Grid>
+
             <Grid
               item
               md={12}
@@ -137,7 +137,7 @@ export const ClientCreateDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-             <Grid
+            <Grid
               item
               md={6}
               xs={12}
@@ -162,19 +162,19 @@ export const ClientCreateDetails = (props) => {
               xs={12}
             >
               <TextField
-                error={Boolean(formik.touched.abreviatura && formik.errors.abreviatura)}
+                error={Boolean(formik.touched.direccion && formik.errors.direccion)}
                 fullWidth
-                helperText={formik.touched.abreviatura && formik.errors.abreviatura}
-                label="Abreviatura"
+                helperText={formik.touched.direccion && formik.errors.direccion}
+                label="Dirección"
                 margin="normal"
-                name="abreviatura"
+                name="direccion"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                type="abreviatura"
-                value={formik.values.abreviatura}
+                type="direccion"
+                value={formik.values.direccion}
                 variant="outlined"
               />
-            </Grid> 
+            </Grid>
           </Grid>
         </CardContent>
         <Divider />
@@ -185,18 +185,18 @@ export const ClientCreateDetails = (props) => {
             p: 2
           }}
         >
-         <Button
-                color="primary"
-                //disabled={formik.isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
+          <Button
+            color="primary"
+            //disabled={formik.isSubmitting}
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
           >
-            Save details
-          </Button> 
+            Crear Cliente
+          </Button>
         </Box>
-      </Card> 
-    </form> 
+      </Card>
+    </form>
   );
 };

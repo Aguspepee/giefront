@@ -6,6 +6,14 @@ export function contractGetList() {
     return instance.get(`contracts/list`, {
         headers: { Authorization: `Bearer ${token}` }
     })
+} 
+
+//Search
+export function contractSearch(nombre) {
+    let token = localStorage.getItem("token")
+    return instance.get(`contracts/search?nombre=${nombre}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 //Get Names 

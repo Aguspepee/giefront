@@ -51,8 +51,8 @@ export const contractSchema = yup.object().shape({
   ),
 })
 
-//USUARIOS
-export const userSchema = yup.object().shape({
+//USUARIOS whit password
+export const userAddSchema = yup.object().shape({
   nombre: yup.string().required("El nombre del cliente es requerido"),
   apellido: yup.string().required("La descripción del contrato es requerida"),
   area: yup.string().required("La descripción del contrato es requerida"),
@@ -67,6 +67,29 @@ export const userSchema = yup.object().shape({
     .oneOf([Yup.ref('password')], 'Passwords does not match'), */
   //active: yup.boolean(),
 })
+
+//USUARIOS whitout password
+export const userEditSchema = yup.object().shape({
+  nombre: yup.string().required("El nombre del cliente es requerido"),
+  apellido: yup.string().required("La descripción del contrato es requerida"),
+  area: yup.string().required("La descripción del contrato es requerida"),
+  role: yup.string().required("El cliente es requerido"),
+  email: yup.string().required("La descripción del contrato es requerida"),
+  numero_orden: yup.string().required("El cliente es requerido"),
+  active: yup.boolean(),
+})
+
+//USUARIOS whit password
+export const passwordSchema = yup.object().shape({
+  password: yup.string()
+    .required('Password is mendatory')
+    .min(3, 'Password must be at 3 char long'),
+   confirm: yup.string()
+    .required('Password is mendatory')
+    .oneOf([yup.ref('password')], 'Passwords does not match'), 
+  //active: yup.boolean(),
+})
+
 
 //CLIENTES
 export const clientSchema = yup.object().shape({

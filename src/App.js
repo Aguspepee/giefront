@@ -95,12 +95,11 @@ function App() {
             <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
             {/* Users */}
-            <Route path="/users-account" element={<UsersAccount />} />
-            <Route path="/users-create" element={<UsersCreate />} />
-            <Route path="/users-edit/:id" element={<UsersEdit />} />
-            <Route path="/users-list" element={<UsersList />} />
-            <Route path="/users-login" element={<UsersLogin />} />
-
+            <Route path="/users-account" element={<Private Component={UsersAccount} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/users-create" element={<Private Component={UsersCreate} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/users-edit/:id" element={<Private Component={UsersEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/users-list" element={<Private Component={UsersList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/users-login" element={<UsersLogin />}/>
 
             {/* Partes */}
             <Route path="/partes-add" element={<Private Component={PartesAdd} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />

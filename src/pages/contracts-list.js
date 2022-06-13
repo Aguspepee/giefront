@@ -1,12 +1,34 @@
 import { Box, Container } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
 import ContractsListToolbar from '../components/contracts-list/contracts-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
+import { contractGetList, contractSearch } from '../services/contracts';
 
 function ContractsList() {
   const [reload, setReload] = useState(false)
+  const [search, setSearch] = useState("")
+  const [contracts, setContracts] = useState([])
 
+  useEffect(() => { 
+    async function getList() {
+      try {
+        const contracts = await contractSearch(search)
+        setContracts(contracts.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getList()
+  }, [reload,search])
+
+  const handleReload = () => {
+    setReload(!reload)
+  }
+  const handleSearchChange = (value) => {
+    console.log(value)
+    setSearch(value)
+  }
   return (
     <>
       <DashboardLayout>
@@ -18,9 +40,9 @@ function ContractsList() {
           }}
         >
           <Container maxWidth={false}>
-            <ContractsListToolbar setReload={setReload} reload={reload} />
+            <ContractsListToolbar handleReload={handleReload} handleSearchChange={handleSearchChange} />
             <Box sx={{ mt: 3 }}>
-              <ContractsListResults setReload={setReload} reload={reload} />
+              <ContractsListResults handleReload={handleReload} contracts={contracts} />
             </Box>
           </Container>
         </Box>

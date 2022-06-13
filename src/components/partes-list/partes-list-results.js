@@ -103,7 +103,7 @@ export const PartesListResults = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+console.log(partes)
   useEffect(() => {
     async function getList() {
       try {

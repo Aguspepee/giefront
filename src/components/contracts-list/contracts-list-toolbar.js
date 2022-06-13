@@ -11,18 +11,11 @@ import { Search as SearchIcon } from '../../icons/search';
 import { contractEmpty } from '../../services/contracts'
 import { useEffect } from 'react';
 
-function ContractsListToolbar(props) {
-  const setReload = props.setReload
-  const reload = props.reload
+function ContractsListToolbar({ handleReload, handleSearchChange, ...props }) {
 
-  useEffect(
-    () => {
-        
-    }, [reload]
-)
   function handleNewContract() {
     contractEmpty()
-    setReload(true)
+    handleReload()
   }
 
   return (
@@ -43,18 +36,6 @@ function ContractsListToolbar(props) {
           Contratos
         </Typography>
         <Box sx={{ m: 1 }}>
-          {/*         <Button
-            startIcon={(<UploadIcon fontSize="small" />)}
-            sx={{ mr: 1 }}
-          >
-            Import
-          </Button>
-          <Button
-            startIcon={(<DownloadIcon fontSize="small" />)}
-            sx={{ mr: 1 }}
-          >
-            Export
-          </Button> */}
           <Button
             color="primary"
             variant="contained"
@@ -82,6 +63,7 @@ function ContractsListToolbar(props) {
                     </InputAdornment>
                   )
                 }}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Buscar contracte"
                 variant="outlined"
               />

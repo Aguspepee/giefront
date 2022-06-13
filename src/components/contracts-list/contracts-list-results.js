@@ -7,7 +7,7 @@ import {
   Tooltip
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { contractGetList, contractDelete } from '../../services/contracts';
+import { contractDelete } from '../../services/contracts';
 import { Link } from 'react-router-dom';
 
 //Alerts y Notifications
@@ -20,30 +20,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-export const ContractsListResults = (props) => {
-  const setReload = props.setReload
-  const reload = props.reload
-  const [contracts, setContracts] = useState([])
+export const ContractsListResults = ({handleReload, contracts,...props}) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  useEffect(() => {
-    async function getList() {
-      try {
-        const contracts = await contractGetList()
-        console.log(contracts)
-        setContracts(contracts.data)
-        setReload(false)
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-    getList()
-  }, [reload])
-
+  
   async function handleDelete(id) {
     contractDelete(id)
-    setReload(true)
+    handleReload()
     setConfirmDialog({
       ...confirmDialog,
       isOpen: false
@@ -54,7 +37,7 @@ export const ContractsListResults = (props) => {
       type: 'error'
     })
   }
-
+console.log(contracts)
   return (
     <>
       <Card>
@@ -93,9 +76,9 @@ export const ContractsListResults = (props) => {
                         }}
                       >
                         <Avatar
-                          src={contract?.avatarUrl}
+                          src={contract.cliente[0].image ? `${process.env.REACT_APP_BACKEND_URL}${contract.cliente[0].image}` : ""}
                           sx={{ mr: 2 }}
-                        >
+                        > 
                           {getInitials(contract?.nombre)}
                         </Avatar>
                         <Typography
@@ -107,7 +90,7 @@ export const ContractsListResults = (props) => {
                       </Box>
                     </TableCell>
                     <TableCell>
-                      {contract.cliente}
+                      {contract.cliente_nombre}
                     </TableCell>
                     <TableCell>
                       {contract.area}

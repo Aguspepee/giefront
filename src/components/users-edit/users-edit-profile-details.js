@@ -8,10 +8,10 @@ import {
   Divider,
   Grid,
 } from '@mui/material';
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from "react-router-dom";
-import { userSchema } from '../../utils/yup';
+import { userEditSchema } from '../../utils/yup';
 import { userEdit } from '../../services/users';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -30,8 +30,8 @@ export const UsersEditProfileDetails = (props) => {
   const user = props.user;
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  const { control, handleSubmit, reset, formState: { errors} } = useForm({
-    resolver: yupResolver(userSchema),
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(userEditSchema),
   });
 
   async function editUser(user) {
@@ -69,6 +69,7 @@ export const UsersEditProfileDetails = (props) => {
       role: user.role,
       area: user.area,
       active: user.active,
+      numero_orden: user.numero_orden
     });
   }, [user]);
 
@@ -134,11 +135,19 @@ export const UsersEditProfileDetails = (props) => {
                 </Grid>
                 <Grid
                   item
-                  md={12}
+                  md={6}
+                  xs={12}
+                >
+                  <StyledTextfield show={true} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} />
+                </Grid>
+                <Grid
+                  item
+                  md={6}
                   xs={12}
                 >
                   <StyledCheckbox show={true} control={control} name="active" defaultValue={false} description="Usuario activo" />
                 </Grid>
+
               </Grid>
             </CardContent>
             <Divider />

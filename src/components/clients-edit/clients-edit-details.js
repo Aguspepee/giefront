@@ -8,7 +8,7 @@ import {
   Divider,
   Grid,
 } from '@mui/material';
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from "react-router-dom";
 import { clientSchema } from '../../utils/yup';
@@ -24,9 +24,8 @@ import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 
-export const ClientsEditDetails = (props) => {
+export const ClientsEditDetails = ({handleReload,client,...props}) => {
   let { id } = useParams();
-  const client = props.client;
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
@@ -51,7 +50,7 @@ export const ClientsEditDetails = (props) => {
         ...confirmDialog,
         isOpen: false
       })
-      props.setReload(!props.reload)
+      handleReload()
       setNotify({
         isOpen: true,
         message: `El perfil de ${client.nombre} se modificó correctamente`,
@@ -61,7 +60,7 @@ export const ClientsEditDetails = (props) => {
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false
-      }) 
+      })
       setNotify({
         isOpen: true,
         message: 'Ha habido un error, intente nuevamente',
@@ -132,10 +131,9 @@ export const ClientsEditDetails = (props) => {
                 >
                   <StyledTextfield show={true} control={control} name={`direccion`} type="text" description="Dirección" errors={errors} />
                 </Grid>
-
                 <Grid
                   item
-                  md={12}
+                  md={6}
                   xs={12}
                 >
                   <StyledCheckbox show={true} control={control} name="active" defaultValue={false} description="Cliente activo" />

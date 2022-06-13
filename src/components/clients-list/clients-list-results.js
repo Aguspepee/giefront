@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import {
   Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
-  Tooltip,
+  Tooltip, 
   Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { clientGetAll, clientDelete, clientEdit } from '../../services/clients';
+import {  clientDelete, clientEdit } from '../../services/clients';
 import { Link } from 'react-router-dom';
 import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'
 
@@ -19,29 +19,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
 
-export const ClientsListResults = (props) => {
-  const setReload = props.setReload
-  const reload = props.reload
-  const [clients, setClients] = useState([])
+export const ClientsListResults = ({handleReload, clients,...props}) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  useEffect(() => {
-    async function getList() {
-      try {
-        const clients = await clientGetAll()
-        setClients(clients.data)
-        setReload(false)
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-    getList()
-  }, [reload])
 
   async function handleDelete(id) {
     clientDelete(id)
-    setReload(true)
+    handleReload()
     setConfirmDialog({
       ...confirmDialog,
       isOpen: false

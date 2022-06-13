@@ -9,6 +9,14 @@ export function clientGetAll() {
     })
 }
 
+//Search
+export function clientSearch(nombre) {
+    let token = localStorage.getItem("token")
+    return instance.get(`clients/search?nombre=${nombre}`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 //Get Names 
 export function clientGetNames() {
     let token = localStorage.getItem("token")
@@ -19,7 +27,7 @@ export function clientGetNames() {
 
 export function clientOne(id) {
     let token = localStorage.getItem("token")
-    return instance.get(`clients/one/${id}`,{
+    return instance.get(`clients/one/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
@@ -48,7 +56,7 @@ export function clientDelete(id) {
 
 export function clientImage(id, formData) {
     let token = localStorage.getItem("token")
-    return instance.put(`clients/image/${id}`, formData,{
+    return instance.put(`clients/image/${id}-clients`, formData, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

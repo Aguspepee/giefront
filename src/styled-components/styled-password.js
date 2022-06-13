@@ -26,7 +26,7 @@ function StyledPassword({ show, control, name, description, type, md, xs, ...res
                                 <TextField
                                 fullWidth
                                 {...rest}
-                                    id="outlined-adornment-password"
+                                    id={name}
                                     error={Boolean(error)}
                                     type={showPassword ? 'text' : 'password'}
                                     value={value? value : ""}
@@ -45,7 +45,7 @@ function StyledPassword({ show, control, name, description, type, md, xs, ...res
                                             </InputAdornment>
                                         
                                       }}
-                                    label="Password"
+                                    label={description}
                                 />
                             </>}
                         name={name}

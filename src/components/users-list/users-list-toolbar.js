@@ -11,16 +11,11 @@ import { Search as SearchIcon } from '../../icons/search';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-function UsersListToolbar(props) {
+function UsersListToolbar({handleReload, handleSearchChange,...props}) { 
   const navigate = useNavigate();
   const setReload = props.setReload
   const reload = props.reload
 
-  useEffect(
-    () => {
-        
-    }, [reload]
-)
   function handleNewUser() {
     navigate("/users-create")
   }
@@ -70,7 +65,8 @@ function UsersListToolbar(props) {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Buscar usere"
+                onChange={(e)=>handleSearchChange(e.target.value)}
+                placeholder="Buscar usuario"
                 variant="outlined"
               />
             </Box>

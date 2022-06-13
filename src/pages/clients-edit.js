@@ -23,6 +23,10 @@ function ClientsEdit() {
     getClient()
   }, [reload])
 
+  const handleReload = () => {
+    setReload(!reload)
+  }
+
   return (
     <DashboardLayout>
 
@@ -50,7 +54,7 @@ function ClientsEdit() {
               md={6}
               xs={12}
             >
-              <ClientsEditProfile reload={reload} setReload={setReload} client={client} />
+              <ClientsEditProfile handleReload={handleReload} client={client} />
             </Grid>
             <Grid
               item
@@ -68,7 +72,7 @@ function ClientsEdit() {
                   md={12}
                   xs={12}
                 >
-                  <ClientsEditDetails reload={reload} setReload={setReload} client={client} />
+                  <ClientsEditDetails handleReload={handleReload} client={client} />
                 </Grid>
               </Grid>
             </Grid>

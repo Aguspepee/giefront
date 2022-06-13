@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-
 import {
   Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
-  Tooltip
+  Tooltip,
+  Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
 import { userGetAll, userDelete, userEdit } from '../../services/users';
@@ -19,29 +18,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-export const UsersListResults = (props) => {
-  const setReload = props.setReload
-  const reload = props.reload
-  const [users, setUsers] = useState([])
+export const UsersListResults = ({handleReload, users,...props}) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  useEffect(() => {
-    async function getList() {
-      try {
-        const users = await userGetAll()
-        setUsers(users.data)
-        setReload(false)
-      } catch (error) {
-        console.log(error)
-      }
-
-    }
-    getList()
-  }, [reload])
 
   async function handleDelete(id) {
     userDelete(id)
-    setReload(true)
+    handleReload()
     setConfirmDialog({
       ...confirmDialog,
       isOpen: false
@@ -56,7 +39,7 @@ export const UsersListResults = (props) => {
   return (
     <>
       <Card>
-        <PerfectScrollbar>
+      <Paper sx={{ overflowX: "auto", width: "100%", }}>
           <Box sx={{ minWidth: 1050 }}>
             <Table>
               <TableHead>
@@ -91,7 +74,7 @@ export const UsersListResults = (props) => {
                         }}
                       >
                         <Avatar
-                          src={user?.avatarUrl}
+                          src={user.image ? `${process.env.REACT_APP_BACKEND_URL}${user.image}` : ""}
                           sx={{ mr: 2 }}
                         >
                           {getInitials(user?.nombre)}
@@ -103,7 +86,7 @@ export const UsersListResults = (props) => {
                           {user.nombre} {user.apellido}
                         </Typography>
                       </Box>
-                    </TableCell>
+                    </TableCell> 
                     <TableCell>
                       {user.role}
                     </TableCell>
@@ -140,7 +123,7 @@ export const UsersListResults = (props) => {
               </TableBody>
             </Table>
           </Box>
-        </PerfectScrollbar>
+          </Paper>
       </Card>
       <Notification
         notify={notify}

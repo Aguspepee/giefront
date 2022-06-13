@@ -17,15 +17,9 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
-export const ClientsEditProfile = (props) => {
-  const client = props.client;
+export const ClientsEditProfile = ({handleReload,client ,...props}) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-
-
-  useEffect(() => {
-
-  }, [client])
 
   async function changePicture(event) {
     const formData = new FormData();
@@ -36,12 +30,12 @@ export const ClientsEditProfile = (props) => {
         ...confirmDialog,
         isOpen: false
       })
-      props.setReload(!props.reload)
       setNotify({
         isOpen: true,
         message: `El perfil de ${client.nombre} se modificó correctamente`,
         type: 'success'
       })
+      handleReload()
     } catch (e) {
       setConfirmDialog({
         ...confirmDialog,
@@ -78,6 +72,7 @@ export const ClientsEditProfile = (props) => {
             }}
           >
             <Avatar
+            key={Date.now()}
               src={client.image ? `${process.env.REACT_APP_BACKEND_URL}${client.image}` : ""}
               sx={{
                 height: 200,

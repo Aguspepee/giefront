@@ -1,11 +1,36 @@
 import { Box, Container } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ClientsListResults } from '../components/clients-list/clients-list-results';
 import ClientsListToolbar from '../components/clients-list/clients-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
+import { clientGetAll, clientSearch } from '../services/clients';
 
 function ClientsList() {
   const [reload, setReload] = useState(false)
+  const [search, setSearch] = useState("")
+  const [clients, setClients] = useState([])
+
+  useEffect(() => { 
+    async function getList() {
+      try {
+        const clients = await  clientSearch(search)
+        setClients(clients.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getList()
+  }, [reload, search])
+
+  const handleReload = () => {
+    console.log("llamo")
+    setReload(!reload)
+  }
+  const handleSearchChange = (value) => {
+    console.log(value)
+    setSearch(value)
+  }
+
   return (
     <>
       <DashboardLayout>
@@ -17,9 +42,9 @@ function ClientsList() {
           }}
         >
           <Container maxWidth={false}>
-            <ClientsListToolbar setReload={setReload} reload={reload} />
+            <ClientsListToolbar handleReload={handleReload} handleSearchChange={handleSearchChange} />
             <Box sx={{ mt: 3 }}>
-              <ClientsListResults setReload={setReload} reload={reload} />
+              <ClientsListResults handleReload={handleReload} clients={clients} />
             </Box>
           </Container>
         </Box>
