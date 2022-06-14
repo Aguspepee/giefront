@@ -43,15 +43,7 @@ import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 import IconButton from '@mui/material/IconButton';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-import FactoryIcon from '@mui/icons-material/Factory';
 import CloseIcon from '@mui/icons-material/Close';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-
-//Acordeon
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function PartesListAdd({ handleReload }) {
   const [open, setOpen] = React.useState(false);

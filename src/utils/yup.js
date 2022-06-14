@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 //CONTRATOS
-export const contractSchema = yup.object().shape({
+/* export const contractSchema = yup.object().shape({
   nombre: yup.string().required("El nombre del cliente es requerido"),
   descripcion: yup.string().required("La descripción del contrato es requerida"),
   area: yup.string().required("La descripción del contrato es requerida"),
@@ -49,6 +49,65 @@ export const contractSchema = yup.object().shape({
       nombre: yup.string().required("El nombre de la unidad es requerido"),
     })
   ),
+}) */
+
+
+export const contractGeneralSchema = yup.object().shape({
+  nombre: yup.string().required("El nombre del cliente es requerido"),
+  descripcion: yup.string().required("La descripción del contrato es requerida"),
+  area: yup.string().required("La descripción del contrato es requerida"),
+  //cliente: yup.string().required("El cliente es requerido"),
+  fecha_inicio: yup.date("Debe ser una fecha válida").required("El campo fecha de inicio es requerido"),
+  fecha_fin: yup.date("Debe ser una fecha válida").required("El campo fecha de fin es requerido"),
+  numero_reporte: yup.boolean(),
+  activo: yup.boolean(),
+})
+
+export const contractCamposSchema = yup.object().shape({
+  campos: yup.object().shape({
+    numero_reporte: yup.boolean().nullable(),
+    numero_orden: yup.boolean().nullable(),
+    unidad: yup.boolean().nullable(),
+    equipo_completo: yup.boolean().nullable(),
+    diametro: yup.boolean().nullable(),
+    espesor: yup.boolean().nullable(),
+    numero_costuras: yup.boolean().nullable(),
+    cantidad_placas: yup.boolean().nullable(),
+    tipo_rx: yup.boolean().nullable(),
+    paga: yup.boolean().nullable(),
+  }),
+})
+
+export const contractItemsSchema = yup.object().shape({
+  items: yup.array().of(
+    yup.object().shape({
+      descripcion_servicio: yup.string().required("First Name is required"),
+      codigo_servicio: yup.string().required("First Name is required"),
+      unidad_medida: yup.string().required("First Name is required"),
+      tipo_actividad: yup.string().required("First Name is required"),
+      clase: yup.string().required("First Name is required"),
+      valor: yup.number()
+        .typeError('age must be a number')
+        .positive('age must be greater than zero')
+        .required('age is required')
+    })
+  ),
+})
+
+export const contractUnidadesSchema = yup.object().shape({
+  unidades: yup.array().of(
+    yup.object().shape({
+      nombre: yup.string().required("El nombre de la unidad es requerido"),
+    })
+  ),
+})
+
+export const contractCertificantesSchema = yup.object().shape({
+  certificantes: yup.array().of(
+    yup.object().shape({
+      nombre: yup.string().required("El nombre de la unidad es requerido"),
+    })
+  ),
 })
 
 //USUARIOS whit password
@@ -62,9 +121,9 @@ export const userAddSchema = yup.object().shape({
   password: yup.string()
     .required('Password is mendatory')
     .min(3, 'Password must be at 3 char long'),
-/*   confirmPwd: Yup.string()
-    .required('Password is mendatory')
-    .oneOf([Yup.ref('password')], 'Passwords does not match'), */
+  /*   confirmPwd: Yup.string()
+      .required('Password is mendatory')
+      .oneOf([Yup.ref('password')], 'Passwords does not match'), */
   //active: yup.boolean(),
 })
 
@@ -84,9 +143,9 @@ export const passwordSchema = yup.object().shape({
   password: yup.string()
     .required('Password is mendatory')
     .min(3, 'Password must be at 3 char long'),
-   confirm: yup.string()
+  confirm: yup.string()
     .required('Password is mendatory')
-    .oneOf([yup.ref('password')], 'Passwords does not match'), 
+    .oneOf([yup.ref('password')], 'Passwords does not match'),
   //active: yup.boolean(),
 })
 

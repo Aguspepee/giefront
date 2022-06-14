@@ -32,6 +32,7 @@ function InputCheckbox(props) {
             <Typography
                 color="textSecondary"
                 variant="body2"
+                component={'span'}
             >
                 {description}
             </Typography>

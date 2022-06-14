@@ -93,7 +93,6 @@ export const PartesAddForm = (props) => {
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <form onSubmit={handleSubmit(data => onSubmit(data))}>
-
           <CardContent>
             <Grid container spacing={3}>
               <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} />
@@ -102,7 +101,6 @@ export const PartesAddForm = (props) => {
               <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} />
               <StyledTextfield show={contract[0]?.campos[0]?.numero_orden} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={12} xs={12} />
               <StyledTextfield control={control} name={`tag`} type="text" description="TAG del equipo" errors={errors} md={12} xs={12} />
-
               <StyledTextfield control={control} name={`tag_detalle`} type="text" description="Detalle del equipo" errors={errors} md={12} xs={12} />
               <StyledItem name={`items.0.descripcion_servicio`} errors={errors} control={control} list={list ? list : []} items={() => items.append({})} />
               {items.fields.slice(1).map((item, index) => (
