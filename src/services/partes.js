@@ -39,7 +39,8 @@ export function parteCreate(parte) {
     })
 }
 
-export function parteEdit(parte, id) {
+export function parteEdit({parte, id}) {
+    console.log("id",id)
     let token = localStorage.getItem("token")
     return instance.put(`partes/edit/${id}`, parte, {
         headers: { Authorization: `Bearer ${token}` }

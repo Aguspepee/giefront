@@ -118,9 +118,7 @@ export const partesSchema = yup.object().shape({
     diametro: yup.number(),
     espesor: yup.number(),
     numero_costuras: yup.number(),
-    cantidad_placas: yup.number()
-      .typeError('La cantidad debe ser un número')
-      .positive('Debe ser un número positivo'),
+    cantidad_placas: yup.number(),
     tipo: yup.string(),
   }),
 

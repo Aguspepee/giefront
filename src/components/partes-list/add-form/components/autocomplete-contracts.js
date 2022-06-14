@@ -19,7 +19,6 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
         }
         onSubmit()
     }, [contract])
-
     const findContract = (item) => {
         setContract(contracts.filter((contracts) => contracts.nombre === item.nombre))
     }
@@ -52,15 +51,7 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
                                         placeholder={description}
                                         error={Boolean(errors[name])}
                                         helperText={errors[name] && errors[name]?.message}
-                                        InputProps={{
-                                            ...params.InputProps,
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/* <EngineeringIcon /> */}
-                                                    <Icon />
-                                                </InputAdornment>
-                                            )
-                                        }} />}
+                                         />}
                                 value={value ? value : null}
                                 onChange={(event, item) => {
                                     findContract(item)

@@ -83,6 +83,7 @@ function ContractsEditItems() {
     control,
     name: "items"
   });
+
   const unidades = useFieldArray({
     control,
     name: "unidades"

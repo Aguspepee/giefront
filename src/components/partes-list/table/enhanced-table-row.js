@@ -15,7 +15,7 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RowDetails from './row-details';
-import PartesListEdit from '../partes-list-edit';
+
 
 
 //icons
@@ -23,12 +23,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, parte, selected, handleClick, index, handleReload, ...props }) {
+function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, parte, selected, handleClick, index, handleReload, handleEdit, ...props }) {
     const [open, setOpen] = useState(false);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(parte._id);
     const labelId = `enhanced-table-checkbox-${index}`;
-   
+
     //Cantidad de columnas mostradas
     const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
@@ -116,7 +116,9 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
                         <Tooltip title="Editar contrato">
-                            <IconButton sx={{ ml: 1 }} component={Link} to={`/partes-edit/${parte._id}`}>
+                            <IconButton sx={{ ml: 1 }} onClick={()=>{
+                                handleEdit({open:true, parte:parte})
+                            }}>
                                 <EditIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
@@ -133,15 +135,15 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
-                        <PartesListEdit id={parte._id}/>
+
                     </Stack>
                 </TableCell>
             </TableRow >
-             <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} /> 
+            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} />
 
         </>
     );
-} 
+}
 
 
 export default EnhancedTableRow

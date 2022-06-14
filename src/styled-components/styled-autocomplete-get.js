@@ -19,7 +19,6 @@ function StyledAutocompleteGet({ Icon, md, xs, control, name, description, error
         }
         onSubmit()
     }, [])
-    console.log(jsonResults)
 
     return (
         <Grid item md={md} xs={xs}>
@@ -29,10 +28,10 @@ function StyledAutocompleteGet({ Icon, md, xs, control, name, description, error
                 render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
                     return (
                         <Autocomplete
-                        {...props}
+                            {...props}
                             defaultValue={value}
                             disablePortal
-                            getOptionLabel={(jsonResults) => `${jsonResults?.apellido?.toUpperCase()}, ${jsonResults.nombre}`}
+                            getOptionLabel={(jsonResults) => `${jsonResults?.apellido}, ${jsonResults.nombre}`}
                             options={jsonResults}
                             isOptionEqualToValue={(option, value) => {
                                 return (option._id === value._id)
@@ -44,15 +43,7 @@ function StyledAutocompleteGet({ Icon, md, xs, control, name, description, error
                                 placeholder={description}
                                 error={Boolean(errors[name])}
                                 helperText={errors[name] && errors[name]?.message}
-                                InputProps={{
-                                    ...params.InputProps,
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            {/* <EngineeringIcon /> */}
-                                             <Icon/>
-                                        </InputAdornment>
-                                    )
-                                }} />}
+                            />}
                             value={value ? value : null}
                             onChange={(event, item) => {
                                 onChange(item ? item : null)

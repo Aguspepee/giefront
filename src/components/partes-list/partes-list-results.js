@@ -7,6 +7,8 @@ import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../context/userContext';
+import PartesListEdit from './partes-list-edit';
+
 import { useContext } from 'react';
 
 //Alerts y Notifications
@@ -15,17 +17,20 @@ import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 //Configuración de campos
 import { headCells } from './table/list';
-import { TableCell } from '@mui/material';
-import { TableRow } from '@mui/material';
 
 
 export const PartesListResults = () => {
   const [user, setUser] = useContext(UserContext);
+  const [edit, setEdit] = useState({ open: false, parte: [] })
   const [reload, setReload] = useState(false)
   const [data, setData] = useState([])
   const partes = data?.docs || []
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
+
+  const handleEdit = (value) => {
+    setEdit(value)
+  }
 
   const handleConfirmDialogChange = (value) => {
     console.log("confirm", value)
@@ -103,7 +108,6 @@ export const PartesListResults = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-console.log(partes)
   useEffect(() => {
     async function getList() {
       try {
@@ -154,6 +158,7 @@ console.log(partes)
                     columns={user.parteColumns}
                     handleConfirmDialogChange={handleConfirmDialogChange}
                     handleNotifyChange={handleNotifyChange}
+                    handleEdit={handleEdit}
                   />
                 ))}
                 {/*  {emptyRows > 0 && (
@@ -189,6 +194,11 @@ console.log(partes)
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog} />
+        {
+          edit.open&&
+      <PartesListEdit edit={edit} handleEdit={handleEdit} handleNotifyChange={handleNotifyChange} handleReload={handleReload}/>
+    
+    }
     </>
   );
 };

@@ -20,7 +20,7 @@ function StyledItem({ control, name, list, description, errors, items, ...rest }
 
                 <Controller
                     
-                    name={`items.0.descripcion_servicio`}
+                    name={name}
                     control={control}
                     render={({ field: { onChange, onBlur, value, ref, ...field } }) =>
                         <Autocomplete
