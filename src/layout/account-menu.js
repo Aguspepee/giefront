@@ -14,6 +14,8 @@ import Logout from '@mui/icons-material/Logout';
 import { userLogout } from '../services/users';
 import { useNavigate } from "react-router-dom";
 import UserContext from '../context/userContext';
+import { getInitials } from '../utils/get-initials';
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function AccountMenu() {
   const [user, setUser] = useContext(UserContext);
@@ -40,7 +42,11 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar
+              src={user.image ? `${process.env.REACT_APP_BACKEND_URL}${user.image}` : ""}
+              sx={{ mr: 2 }} >
+              {getInitials(user?.nombre)}
+            </Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -82,23 +88,12 @@ export default function AccountMenu() {
         <MenuItem onClick={() => {
           navigate(`/users-edit/${user._id}`)
         }}>
-          <Avatar /> Mi perfil
+          <ListItemIcon >
+          <PersonIcon /> 
+          </ListItemIcon >
+          Mi cuenta
         </MenuItem>
         <Divider />
-        {/*         <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Añadir nuevo usuario
-        </MenuItem> 
-        <MenuItem onClick={() => {
-          navigate(`/users-edit/${user._id}`)
-        }}>
-          <ListItemIcon >
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Configuración
-        </MenuItem>*/}
         <MenuItem onClick={() => {
           navigate("/users-login")
           setUser([]);

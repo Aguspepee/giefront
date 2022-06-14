@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { format } from 'date-fns';
 import {
-  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, IconButton,
-  Tooltip
+  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
+  Tooltip, Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { contractDelete } from '../../services/contracts';
+import { contractDelete, contractEdit } from '../../services/contracts';
 import { Link } from 'react-router-dom';
+import StyledCheckboxActive from '../../styled-components/styled-checkbox-active';
 
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
@@ -20,10 +19,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-export const ContractsListResults = ({handleReload, contracts,...props}) => {
+export const ContractsListResults = ({ handleReload, contracts, ...props }) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  
+
   async function handleDelete(id) {
     contractDelete(id)
     handleReload()
@@ -37,11 +36,11 @@ export const ContractsListResults = ({handleReload, contracts,...props}) => {
       type: 'error'
     })
   }
-console.log(contracts)
+  console.log(contracts)
   return (
     <>
       <Card>
-        <PerfectScrollbar>
+        <Paper sx={{ overflowX: "auto", width: "100%", }}>
           <Box sx={{ minWidth: 1050 }}>
             <Table>
               <TableHead>
@@ -57,6 +56,9 @@ console.log(contracts)
                   </TableCell>
                   <TableCell>
                     Fecha de Inicio
+                  </TableCell>
+                  <TableCell>
+                    Activo
                   </TableCell>
                   <TableCell>
                   </TableCell>
@@ -78,7 +80,7 @@ console.log(contracts)
                         <Avatar
                           src={contract.cliente[0].image ? `${process.env.REACT_APP_BACKEND_URL}${contract.cliente[0].image}` : ""}
                           sx={{ mr: 2 }}
-                        > 
+                        >
                           {getInitials(contract?.nombre)}
                         </Avatar>
                         <Typography
@@ -99,6 +101,9 @@ console.log(contracts)
                       {format(new Date(contract.fecha_inicio), 'dd/MM/yyyy')}
                     </TableCell>
                     <TableCell>
+                      <StyledCheckboxActive value={contract.activo} field="activo" id={contract._id} edit={contractEdit} />
+                    </TableCell>
+                    <TableCell>
                       <Tooltip title="Editar contrato">
                         <IconButton sx={{ ml: 1 }} component={Link} to={`/contracts-edit/${contract._id}`}>
                           <EditIcon fontSize="small" />
@@ -111,15 +116,15 @@ console.log(contracts)
                       </Tooltip>
                       <Tooltip title="Eliminar contrato">
                         <IconButton sx={{ ml: 1 }} onClick={() => {
-                            setConfirmDialog({
-                              isOpen: true,
-                              title: "¿Deseas eliminar este contrato?",
-                              subTitle: "La acción es irreversible y puede traer problemas en la aplicación",
-                              onConfirm: () => { handleDelete(contract._id) },
-                              icon:<HighlightOff fontSize='inherit' color="error"/>
-                            })
-                          }}
-                          >
+                          setConfirmDialog({
+                            isOpen: true,
+                            title: "¿Deseas eliminar este contrato?",
+                            subTitle: "La acción es irreversible y puede traer problemas en la aplicación",
+                            onConfirm: () => { handleDelete(contract._id) },
+                            icon: <HighlightOff fontSize='inherit' color="error" />
+                          })
+                        }}
+                        >
                           <DeleteIcon fontSize="small" />
                         </IconButton>
                       </Tooltip>
@@ -130,7 +135,7 @@ console.log(contracts)
               </TableBody>
             </Table>
           </Box>
-        </PerfectScrollbar>
+        </Paper>
       </Card>
       <Notification
         notify={notify}
