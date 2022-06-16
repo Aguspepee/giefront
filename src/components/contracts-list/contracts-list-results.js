@@ -49,7 +49,13 @@ export const ContractsListResults = ({ handleReload, contracts, ...props }) => {
                     Contrato
                   </TableCell>
                   <TableCell>
+                    Versión
+                  </TableCell>
+                  <TableCell>
                     Cliente
+                  </TableCell>
+                  <TableCell>
+                    Ref. Orden de Compra
                   </TableCell>
                   <TableCell>
                     Tipo
@@ -92,7 +98,13 @@ export const ContractsListResults = ({ handleReload, contracts, ...props }) => {
                       </Box>
                     </TableCell>
                     <TableCell>
+                      {contract.version}
+                    </TableCell>
+                    <TableCell>
                       {contract.cliente_nombre}
+                    </TableCell>
+                    <TableCell>
+                      {contract.ref_oc}
                     </TableCell>
                     <TableCell>
                       {contract.area}

@@ -1,31 +1,23 @@
 import { React, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Grid, Box } from '@mui/material';
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import InputCheckbox from "./components/contracts-edit-items-checkbox";
+import { Box } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { contractEdit } from "../../services/contracts";
-import InputCheckbox from "./components/contracts-edit-items-checkbox"
 import { useParams } from "react-router-dom";
-import StyledDatepickerDesktop from "../../styled-components/styled-datepicker-desktop";
-import StyledAutocompleteClients from "../../styled-components/styled-autocomplete-clients";
-//GET listas
-import { clientGetAll } from '../../services/clients'
-//Listados
-import { area } from "../../utils/list";
+
 //YUP Schema
 import { contractCamposSchema } from '../../utils/yup'
-import InputTexfield from "./components/contracts-edit-items-textfield";
+
 //Icons
 import EditIcon from '@mui/icons-material/Edit';
+
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
-import StyledAutocompleteList from "../../styled-components/styled-autocomplete-list";
-import StyledTexfield from "../../styled-components/styled-textfield";
 
 function ContractsEditCampos({ data, ...props }) {
-    console.log(data)
+
     let { id } = useParams();
     const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
@@ -35,17 +27,23 @@ function ContractsEditCampos({ data, ...props }) {
 
     useEffect(() => {
         reset({
-            nombre: data.nombre,
-            descripcion: data.descripcion,
-            area: data.area,
-            cliente: data.cliente ? data.cliente[0] : null,
-            fecha_inicio: data.fecha_inicio,
-            fecha_fin: data.fecha_fin,
-            activo: data.activo,
+            campos: {
+                numero_reporte: data.campos ? data.campos[0].numero_reporte : false,
+                numero_orden: data.campos ? data.campos[0].numero_orden : false,
+                diametro: data.campos ? data.campos[0].diametro : false,
+                espesor: data.campos ? data.campos[0].espesor : false,
+                numero_costuras: data.campos ? data.campos[0].numero_costuras : false,
+                cantidad_placas: data.campos ? data.campos[0].cantidad_placas : false,
+                tipo_rx: data.campos ? data.campos[0].tipo_rx : false,
+                unidad: data.campos ? data.campos[0].unidad : false,
+                paga: data.campos ? data.campos[0].paga : false,
+            }
         });
     }, [data]);
 
+
     async function editContract(contract) {
+        console.log(contract)
         try {
             await contractEdit(contract, id)
             setConfirmDialog({
@@ -79,25 +77,21 @@ function ContractsEditCampos({ data, ...props }) {
             icon: <EditIcon fontSize='inherit' color="success" />
         })
     }
-
     return (
         <>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Box style={{ padding: "0em 2em 1em 2em" }}>
-                    <form id="myform1" onSubmit={handleSubmit(data => onSubmit(data))}>
-                        <Grid container spacing={2}>
-                            <InputTexfield control={control} name={`nombre`} type="text" description="Nombre del Contrato" errors={errors} fullWidth margin="normal" />
-                            {/* <InputTexfield control={control} name={`descripcion`} multiline rows={4} type="text" description="Descripción del Contrato" errors={errors} fullWidth margin="normal" /> */}
-                            <StyledTexfield show={true} control={control} name={`descripcion`} type="text" description="Descripción del Contrato" errors={errors} md={12} xs={12}  multiline rows={4} />
-                            <StyledAutocompleteList show={true} md={6} xs={12} control={control} name={`area`} list={area} description="Area" errors={errors} />
-                            <StyledAutocompleteClients show={true} control={control} name="cliente" get={clientGetAll} description="Cliente" errors={errors} fullWidth margin="normal" md={6} xs={12} />
-                            <StyledDatepickerDesktop control={control} name="fecha_inicio" description="Fecha de Inicio" errors={errors} fullWidth margin="normal" md={6} xs={12} />
-                            <StyledDatepickerDesktop control={control} name="fecha_fin" description="Fecha de Fin" errors={errors} fullWidth margin="normal" md={6} xs={12} />
-                        </Grid>
-                        <InputCheckbox control={control} name="activo" defaultValue={false} description="Contrato Activo" />
-                    </form>
+            <form id="myform5" onSubmit={handleSubmit(data => onSubmit(data))}>
+                <Box style={{ padding: "18px 0px 15px 0px" }}>
+                    <InputCheckbox control={control} name="campos.numero_reporte" description="Numero de Reporte" />
+                    <InputCheckbox control={control} name="campos.numero_orden" description="Numero de Orden" />
+                    <InputCheckbox control={control} name="campos.unidad" description="Unidad" />
+                    <InputCheckbox control={control} name="campos.diametro" description="Diámetro" />
+                    <InputCheckbox control={control} name="campos.espesor" description="Espesor" />
+                    <InputCheckbox control={control} name="campos.numero_costuras" description="Número de Costuras" />
+                    <InputCheckbox control={control} name="campos.cantidad_placas" description="Cantidad de Placas" />
+                    <InputCheckbox control={control} name="campos.tipo_rx" description="Tipo de Ensayo RX" />
+                    <InputCheckbox control={control} name="campos.paga" description="Paga" />
                 </Box>
-            </LocalizationProvider>
+            </form>
             <Notification
                 notify={notify}
                 setNotify={setNotify} />

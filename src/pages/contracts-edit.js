@@ -9,9 +9,11 @@ import TabPanel from '@mui/lab/TabPanel';
 import SaveIcon from '@mui/icons-material/Save';
 import { contractOne } from "../services/contracts";
 import { useParams } from "react-router-dom";
+import ContractsEditGenerales from '../components/contracts-edit/contracts-edit-generales';
+import ContractsEditUnidades from '../components/contracts-edit/contracts-edit-unidades';
+import ContractsEditCertificantes from '../components/contracts-edit/contracts-edit-certificantes';
 import ContractsEditCampos from '../components/contracts-edit/contracts-edit-campos';
-
-
+import ContractsEditItems from '../components/contracts-edit/contracts-edit-items';
 
 function EditContract() {
   let { id } = useParams();
@@ -49,56 +51,59 @@ function EditContract() {
           <Typography sx={{ mb: 3 }} variant="h4">
             Editar Contrato
           </Typography>
-          <Card >
-            <Paper sx={{ overflowX: "auto", width: "100%", }}>
+          <TabContext value={value}>
+            <Card >
               <Box sx={{ width: '100%' }}>
-                <TabContext value={value}>
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        // flexWrap: 'wrap',
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                  <Box
+                    sx={{
+                      alignItems: 'center',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      // flexWrap: 'wrap',
 
-                      }}
-                    >
-                      <TabList onChange={handleChange}
-                        aria-label="lab API tabs example"
-                        variant="scrollable"
-                        scrollButtons="auto"
-                        value={value}>
-                        <Tab label="Datos Generales" value="1" />
-                        <Tab label="Ítems del contrato" value="2" />
-                        <Tab label="Unidades" value="3" />
-                        <Tab label="Certificantes" value="4" />
-                        <Tab label="Campos" value="5" />
-                      </TabList>
-                      <Box sx={{ m: 1 }}>
-                        <Tooltip title="Guardar cambios">
-                          <Fab size="small" color="primary" type="submit" form={`myform${value}`} value="Update">
-
-                            <SaveIcon />
-                          </Fab>
-                        </Tooltip>
-                      </Box>
+                    }}
+                  >
+                    <TabList onChange={handleChange}
+                      aria-label="lab API tabs example"
+                      variant="scrollable"
+                      scrollButtons="auto"
+                      value={value}>
+                      <Tab label="Datos Generales" value="1" />
+                      <Tab label="Ítems del contrato" value="2" />
+                      <Tab label="Unidades" value="3" />
+                      <Tab label="Certificantes" value="4" />
+                      <Tab label="Campos" value="5" />
+                    </TabList>
+                    <Box sx={{ m: 1 }}>
+                      <Tooltip title="Guardar cambios">
+                        <Fab size="small" color="primary" type="submit" form={`myform${value}`} value="Update">
+                          <SaveIcon />
+                        </Fab>
+                      </Tooltip>
                     </Box>
                   </Box>
-                  <TabPanel value="1">
-                    <ContractsEditCampos data={data} />
-                  </TabPanel>
-                  <TabPanel value="2" style={{ padding: "0em 0em 1em 0em" }}>
-                  </TabPanel>
-                  <TabPanel value="3">
-                  </TabPanel>
-                  <TabPanel value="4">
-                  </TabPanel>
-                  <TabPanel value="5">
-                  </TabPanel>
-                </TabContext>
+                </Box>
               </Box>
+            </Card>
+            <Paper sx={{ overflowX: "auto", width: "100%", }}>
+              <TabPanel value="1">
+                <ContractsEditGenerales data={data} />
+              </TabPanel>
+              <TabPanel value="2" style={{ padding: "0em 0em 1em 0em" }}>
+                <ContractsEditItems data={data} />
+              </TabPanel>
+              <TabPanel value="3" style={{ padding: "0em 0em 1em 0em" }}>
+                <ContractsEditUnidades data={data} />
+              </TabPanel>
+              <TabPanel value="4">
+                <ContractsEditCertificantes data={data} />
+              </TabPanel>
+              <TabPanel value="5">
+                <ContractsEditCampos data={data} />
+              </TabPanel>
             </Paper>
-          </Card>
+          </TabContext>
         </Container>
       </Box>
     </DashboardLayout >

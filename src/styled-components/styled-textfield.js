@@ -16,10 +16,8 @@ function StyledTexfield({ show, control, name, description, type, md, xs, ...res
                                 error={Boolean(error)}
                                 helperText={error && error.message}
                                 label={description}
-                                //margin="normal"
                                 onChange={onChange}
                                 onBlur={onBlur}
-                                //size="small"
                                 type={type}
                                 step={0.01}
                             />}
