@@ -57,9 +57,6 @@ function Uploader(props) {
                 cantidad: Number(item["Cant."])
             }]
         }
-
-
-
         console.log(parte)
         return (parte)
     }
@@ -76,14 +73,6 @@ function Uploader(props) {
                 }
             }
         })
-        /* deleteAll(dbSubBaseURL).then(createAll(dbSubBaseURL, json)
-            .then((res) => {
-                setOpen(false)
-                setSucces(true)
-                const ots = res.data;
-                console.log("Se cargaron los archivos", ots);
-            })
-        ); */
     }
 
     const readUploadFile = (e) => {

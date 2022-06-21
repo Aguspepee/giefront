@@ -8,16 +8,13 @@ import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../context/userContext';
 import PartesListEdit from './partes-list-edit';
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import { useContext } from 'react';
 
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
-
-//Configuración de campos
-import { headCells } from './table/list';
-
 
 export const PartesListResults = () => {
   const [user, setUser] = useContext(UserContext);
@@ -79,11 +76,7 @@ export const PartesListResults = () => {
   };
 
   //Search filers
-  let cond = {}
-  headCells.map((headCell) => {
-    cond[headCell.id.replace("[", ".").replace("]", "")] = ""
-  })
-  const [search, setSearch] = useState(cond)
+  const [search, setSearch] = useState({})
   const handleSearchChange = (newValue) => {
     setSearch(newValue)
   }
@@ -120,8 +113,6 @@ export const PartesListResults = () => {
     getList()
   }, [reload, page, rowsPerPage, order, orderBy, search])
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  /*  const emptyRows =  Math.max(0, (1 + page) * rowsPerPage - partes.length); */
   return (
     <>
       <Card sx={{}}>
@@ -130,8 +121,8 @@ export const PartesListResults = () => {
           selected={selected}
           handleReload={handleReload} />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
+    {/*     <PerfectScrollbar> */}
           <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
-
             <Table stickyHeader size="small" >
               <EnhancedTableHead
                 order={order}
@@ -161,19 +152,10 @@ export const PartesListResults = () => {
                     handleEdit={handleEdit}
                   />
                 ))}
-                {/*  {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )} */}
               </TableBody>
             </Table>
-
           </Box>
+         {/*  </PerfectScrollbar> */}
         </Paper>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
@@ -185,7 +167,6 @@ export const PartesListResults = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
           style={{ backgroundColor: "#F3F4F6" }}
           labelRowsPerPage={"Filas por página"}
-
         />
       </Card>
       <Notification
@@ -194,11 +175,10 @@ export const PartesListResults = () => {
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog} />
-        {
-          edit.open&&
-      <PartesListEdit edit={edit} handleEdit={handleEdit} handleNotifyChange={handleNotifyChange} handleReload={handleReload}/>
-    
-    }
+      {
+        edit.open &&
+        <PartesListEdit edit={edit} handleEdit={handleEdit} handleNotifyChange={handleNotifyChange} handleReload={handleReload} />
+      }
     </>
   );
 };

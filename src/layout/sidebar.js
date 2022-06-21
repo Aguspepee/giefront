@@ -35,19 +35,11 @@ const items = [
     roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
   },
   {
-    href: '/partes-add',
-    icon: (<NoteAddIcon fontSize="small" />),
-    title: 'Cargar Parte',
-    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
-  },
-  {
     href: '/partes-list',
     icon: (<ViewListIcon fontSize="small" />),
     title: 'Parte Diario',
     roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
   },
-
-
   {
     href: '/clients-list',
     icon: (<SupervisedUserCircleIcon fontSize="small" />),

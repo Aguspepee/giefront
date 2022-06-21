@@ -17,9 +17,7 @@ import { userWhoami } from './services/users';
 import Dashboard from "./pages/dashboard";
 import UsersLogin from './pages/users-login';
 import UsersAccount from './pages/users-account';
-import PartesAdd from './pages/partes-add';
 import PartesList from './pages/partes-list';
-import PartesEdit from './pages/partes-edit';
 import ClientsList from './pages/clients-list';
 import UsersList from './pages/users-list';
 import ContractsList from './pages/contracts-list';
@@ -102,10 +100,7 @@ function App() {
             <Route path="/users-login" element={<UsersLogin />}/>
 
             {/* Partes */}
-            <Route path="/partes-add" element={<Private Component={PartesAdd} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-            <Route path="/partes-list" element={<Private Component={PartesList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-            <Route path="/partes-edit/:id" element={<Private Component={PartesEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-            
+            <Route path="/partes-list" element={<Private Component={PartesList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />          
 
             {/* Contracts */}
             <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
