@@ -81,17 +81,18 @@ function ContractsEditItems({ data, ...props }) {
   return (
     <>
       <form id="myform2" onSubmit={handleSubmit(data => onSubmit(data))}>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+        {/* <TableContainer component={Paper}> */}
+        <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
+          <Table aria-label="simple table" stickyHeader size="small">
             <TableHead style={{ height: "50px" }}>
               <TableRow>
                 <TableCell>#</TableCell>
                 <TableCell>Descripción del Servicio</TableCell>
-                <TableCell align="right">Código del Servicio</TableCell>
-                <TableCell align="right">Tipo de Actividad</TableCell>
-                <TableCell align="right">Subtipo de Actividad</TableCell>
-                <TableCell align="right">Valor</TableCell>
-                <TableCell align="right">Unidad de Medida</TableCell>
+                <TableCell align="right" sx={{ minWidth: 150 }}>Código del Servicio</TableCell>
+                <TableCell align="right" sx={{ minWidth: 150 }}>Tipo de Actividad</TableCell>
+                <TableCell align="right" sx={{ minWidth: 180 }}>Subtipo de Actividad</TableCell>
+                <TableCell align="right" sx={{ minWidth: 150 }}>Valor</TableCell>
+                <TableCell align="right" sx={{ minWidth: 300 }}>Unidad de Medida</TableCell>
                 <TableCell align="right"></TableCell>
               </TableRow>
             </TableHead>
@@ -103,22 +104,22 @@ function ContractsEditItems({ data, ...props }) {
                 >
                   <TableCell component="th" scope="row">{index + 1}</TableCell>
                   <TableCell align="left" style={{ minWidth: "500px" }}>
-                    <InputTexfield control={control} name={`items.${index}.descripcion_servicio`} type="text" description="" errors={errors} multiline maxRows={4} fullWidth />
+                    <InputTexfield control={control} name={`items.${index}.descripcion_servicio`} type="text" description="" errors={errors} multiline maxRows={4} fullWidth size="small"/>
                   </TableCell>
                   <TableCell align="right">
-                    <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="" errors={errors} />
+                    <InputTexfield control={control} name={`items.${index}.codigo_servicio`} type="text" description="" errors={errors} size="small"/>
                   </TableCell>
                   <TableCell align="right">
-                    <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="" errors={errors} />
+                    <InputAutocompleteList control={control} name={`items.${index}.tipo_actividad`} list={tipos_actividad} description="" errors={errors} size="small"/>
                   </TableCell>
                   <TableCell align="right">
-                    <InputAutocompleteList control={control} name={`items.${index}.clase`} list={subtipos_actividad} description="" errors={errors} />
+                    <InputAutocompleteList control={control} name={`items.${index}.clase`} list={subtipos_actividad} description="" errors={errors} size="small"/>
                   </TableCell>
                   <TableCell align="right">
-                    <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="" errors={errors} />
+                    <InputTexfield control={control} name={`items.${index}.valor`} type="number" description="" errors={errors} size="small"/>
                   </TableCell>
                   <TableCell align="right">
-                    <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="" errors={errors} />
+                    <InputAutocompleteList control={control} name={`items.${index}.unidad_medida`} list={unidades_medida} description="" errors={errors} size="small"/>
                   </TableCell>
                   <TableCell align="right">
                     <Stack direction="row">
@@ -143,7 +144,8 @@ function ContractsEditItems({ data, ...props }) {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+          </Paper>
+        {/* </TableContainer> */}
         <Stack direction="row" spacing={2}>
           <Button
             color="primary"

@@ -81,7 +81,7 @@ function UsersEdit() {
                   md={12}
                   xs={12}
                 >
-                  <UsersEditPassword reload={reload} setReload={setReload} user={user}/>
+                  <UsersEditPassword handleReload={handleReload} user={user}/>
                 </Grid>
               </Grid>
             </Grid>

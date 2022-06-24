@@ -12,7 +12,7 @@ import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 import { userEdit } from '../../services/users';
 
-export const UsersEditPassword = (props) => {
+export const UsersEditPassword = ({handleReload,...props}) => {
   let { id } = useParams();
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
@@ -27,7 +27,7 @@ export const UsersEditPassword = (props) => {
         ...confirmDialog,
         isOpen: false
       })
-      props.setReload(!props.reload)
+      handleReload()
       setNotify({
         isOpen: true,
         message: `El perfil de ${user.nombre} se modificó correctamente`,

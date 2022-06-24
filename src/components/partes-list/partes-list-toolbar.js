@@ -48,7 +48,6 @@ export const PartesListToolbar = (props) => (
           component={Link}
         >
           Nuevo Parte
-
         </Button>
         {/* <PartesListAdd/> */}
       </Box>

@@ -25,9 +25,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
-export const UsersEditProfileDetails = (props) => {
+export const UsersEditProfileDetails = ({handleReload,user,...props}) => {
   let { id } = useParams();
-  const user = props.user;
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const { control, handleSubmit, reset, formState: { errors } } = useForm({
@@ -41,7 +40,7 @@ export const UsersEditProfileDetails = (props) => {
         ...confirmDialog,
         isOpen: false
       })
-      props.setReload(!props.reload)
+      handleReload()
       setNotify({
         isOpen: true,
         message: `El perfil de ${user.nombre} se modificó correctamente`,

@@ -46,7 +46,7 @@ import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function PartesListAdd({ handleReload }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 

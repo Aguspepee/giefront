@@ -7,12 +7,9 @@ import { alpha } from '@mui/material/styles';
 import { Tooltip } from "@mui/material";
 import ColumnsEdit from './columns-edit'
 import { parteDeleteMany } from "../../../services/partes";
-import { Receipt } from "@mui/icons-material";
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { Link } from 'react-router-dom';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import PartesListAdd from "../partes-list-add";
+import RemitoCreate from "../partes-list-remito";
 
 export default function EnhancedTableToolbar({ numSelected, selected, handleReload, ...props }) {
   const handleDelete = () => {
@@ -57,11 +54,7 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
 
       {numSelected > 0 ? (
         <>
-          <Tooltip title="Elaborar Remito">
-            <IconButton  >
-              <Receipt />
-            </IconButton>
-          </Tooltip>
+          <RemitoCreate />
           <Tooltip title="Borrar ítems">
             <IconButton onClick={() => handleDelete()} >
               <Delete />
@@ -70,9 +63,8 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
         </>
       ) : (
         <>
-
           <ColumnsEdit handleReload={handleReload} />
-          <PartesListAdd handleReload={handleReload}/>
+          <PartesListAdd handleReload={handleReload} />
         </>
       )
       }
