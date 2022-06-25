@@ -1,16 +1,11 @@
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon, Typography
+  Button, IconButton, Tooltip, Typography
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
 import { Link } from 'react-router-dom';
+import { Settings } from '@mui/icons-material';
 
-export const RemitosListToolbar = (props) => (
+export const PartesListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -25,10 +20,16 @@ export const RemitosListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Remitos
+        Parte Diario
+        <Tooltip title="Editar campos">
+          <IconButton sx={{ ml: 1 }} >
+            <Settings fontSize="small" />
+          </IconButton>
+        </Tooltip>
       </Typography>
+
       <Box sx={{ m: 1 }}>
-{/*         <Button
+        {/*         <Button
           startIcon={(<UploadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
         >
@@ -43,14 +44,15 @@ export const RemitosListToolbar = (props) => (
         <Button
           color="primary"
           variant="contained"
-          to= '/remitos-create'
+          to='/partes-add'
           component={Link}
         >
-          Nuevo Remito
+          Nuevo Parte
         </Button>
+        {/* <PartesListAdd/> */}
       </Box>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    {/* <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
           <Box sx={{ maxWidth: 500 }}>
@@ -74,6 +76,6 @@ export const RemitosListToolbar = (props) => (
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Box> */}
   </Box>
 );

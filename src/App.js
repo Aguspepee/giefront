@@ -23,11 +23,9 @@ import UsersList from './pages/users-list';
 import ContractsList from './pages/contracts-list';
 import ContractsEdit from './pages/contracts-edit';
 import RemitosList from './pages/remitos-list';
-import RemitosCreate from './pages/remitos-create';
 import ClientsEdit from './pages/clients-edit';
 //import RemitosTable from './pages/remitos-table';
 //import PartesTable from './pages/partes-table';
-import CertificacionesCreate from './pages/certif-create';
 import CertificacionesList from './pages/certif-list';
 import UsersCreate from './pages/users-create';
 import ClientsCreate from './pages/clients-create';
@@ -113,12 +111,8 @@ function App() {
 
             {/* Remitos */}
             <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]} />} />
-            <Route path="/remitos-create" element={<RemitosCreate />} />
-            {/* <Route path="/remitos-table" element={<RemitosTable />} /> */}
-            <Route path="/remitos-edit/:id" element={<RemitosCreate />} />
 
             {/* Certificaciones */}
-           <Route path="/certif-create" element={<CertificacionesCreate />} />
             <Route path="/certif-list" element={<CertificacionesList />} />
 
             {/* Loading */}
@@ -127,7 +121,6 @@ function App() {
             {/* Settings*/}
             <Route path="/settings" element={<Private Component={Settings} user={user} roles={["Administrador"]} />} />
             
-
           </Routes>
           <SessionTimeout expirationDialog={expirationDialog} setExpirationDialog={setExpirationDialog} />
         </BrowserRouter>}

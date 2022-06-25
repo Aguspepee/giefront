@@ -150,16 +150,21 @@ function Uploader({ Titulo, Subtitulo, fileTypes, ...props }) {
             tag_detalle: "",
             items: [],
             informe_realizado: item["Informe Realizado"] === "NO" ? false : true,
-            operador: operador[0]? operador[0].id : "62a4d4d885bad7c20edc997c",
+            operador: operador[0] ? operador[0].id : "62a4d4d885bad7c20edc997c",
             unidad: item["Unidad"],
             remito_numero: item["N° Remito"] ? ((item["N° Remito"]).toUpperCase() === "ERROR" ? null : item["N° Remito"]) : null,
             remito_realizado: item["N° Remito"] ? true : false,
+            certificado_numero: item["N° Remito"] ? ((item["N° Remito"]).toUpperCase() === "ERROR" ? null : item["N° Remito"]) : null,
+            certificado_realizado: item["N° Remito"] ? true : false,
             paga: "626d99480581fea5022d628e",
+
             //Campos Booleano/Fecha
             fecha_inspeccion: dateToJS(item["Fecha de Ensayo"]),
             trabajo_terminado_fecha: dateToJS(item["Fecha de Ensayo"]),
             informe_realizado_fecha: dateToJS(item["Fecha Informe"]),
+            informe_revisado_fecha: dateToJS(item["Fecha Informe"]),
             remito_realizado_fecha: dateToJS(item["Fecha Remito"]),
+            certificado_realizado_fecha: dateToJS(item["Fecha Remito"]),
         }]
 
         if (adic) {

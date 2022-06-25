@@ -1,13 +1,13 @@
 import { Box, Container } from '@mui/material';
-import { CertificacionesListResults } from '../components/certif-list/certif-list-results';
-import { CertificacionesListToolbar } from '../components/certif-list/certif-list-toolbar';
+/*import { CertificacionesListResults } from '../components/certif-list/certif-list-results';
+import { CertificacionesListToolbar } from '../components/certif-list/certif-list-toolbar'; */
 import { DashboardLayout } from '../layout/layout';
 
 function CertificacionessList() {
   return (
     <>
       <DashboardLayout>
-      <Box
+        {/*       <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -20,7 +20,7 @@ function CertificacionessList() {
             <CertificacionesListResults />
           </Box>
         </Container>
-      </Box>
+      </Box> */}
       </DashboardLayout>
     </>
   )
