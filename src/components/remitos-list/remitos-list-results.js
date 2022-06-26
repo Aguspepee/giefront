@@ -80,7 +80,7 @@ export const RemitosListResults = () => {
 
   //Sort states and functions
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('Id');
+  const [orderBy, setOrderBy] = useState('remito_numero');
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');

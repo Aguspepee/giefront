@@ -15,6 +15,7 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RowDetails from './row-details';
+import { remitoPDF } from '../../../utils/exports/remito-pdf';
 
 
 
@@ -22,6 +23,7 @@ import RowDetails from './row-details';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
+import DownloadIcon from '@mui/icons-material/Download';
 
 function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, remito, selected, handleClick, index, handleReload, handleEdit, ...props }) {
     const [open, setOpen] = useState(false);
@@ -115,6 +117,13 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 })}
                 <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
+                    <Tooltip title="Descargar Remito">
+                            <IconButton sx={{ ml: 1 }} onClick={()=>{
+                               remitoPDF(remito)
+                            }}>
+                                <DownloadIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
                         <Tooltip title="Editar contrato">
                             <IconButton sx={{ ml: 1 }} onClick={()=>{
                                 handleEdit({open:true, remito:remito})
