@@ -11,7 +11,7 @@ function RemitosList() {
           sx={{
             flexGrow: 1,
             py: 3
-          }}
+          }} 
         >
           <Container maxWidth={false}>
             <RemitosListResults />
