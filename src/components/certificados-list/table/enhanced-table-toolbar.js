@@ -44,7 +44,7 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
           id="tableTitle"
           component="div"
         >
-          Remitos
+          Certificados
         </Typography>
       )}
 

@@ -67,7 +67,7 @@ const items = [
   {
     href: '/certif-list',
     icon: (<PaidIcon fontSize="small" />),
-    title: 'Certificaciones',
+    title: 'Certificados',
     roles: ["Administrador", "Supervisor"]
   },
   {

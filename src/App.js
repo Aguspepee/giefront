@@ -26,7 +26,7 @@ import RemitosList from './pages/remitos-list';
 import ClientsEdit from './pages/clients-edit';
 //import RemitosTable from './pages/remitos-table';
 //import PartesTable from './pages/partes-table';
-import CertificacionesList from './pages/certif-list';
+import CertificadosList from './pages/certif-list';
 import UsersCreate from './pages/users-create';
 import ClientsCreate from './pages/clients-create';
 import UsersEdit from './pages/users-edit';
@@ -112,8 +112,8 @@ function App() {
             {/* Remitos */}
             <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]} />} />
 
-            {/* Certificaciones */}
-            <Route path="/certif-list" element={<CertificacionesList />} />
+            {/* Certificados */}
+            <Route path="/certif-list" element={<CertificadosList />} />
 
             {/* Loading */}
             <Route path="/loading" element={<Loading />} />
