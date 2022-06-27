@@ -15,7 +15,7 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RowDetails from './row-details';
-//import { certificadoPDF } from '../../../utils/exports/certificado-pdf';
+import { certificadoXLS } from '../../../utils/exports/certificado-xls';
 
 
 
@@ -119,7 +119,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                     <Stack direction="row" spacing={2}>
                     <Tooltip title="Descargar Certificado">
                             <IconButton sx={{ ml: 1 }} onClick={()=>{
-                              // certificadoPDF(certificado)
+                               certificadoXLS(certificado)
                             }}>
                                 <DownloadIcon fontSize="small" />
                             </IconButton>
