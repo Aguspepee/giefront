@@ -23,7 +23,7 @@ export const ClientsEditProfile = ({handleReload,client ,...props}) => {
 
   async function changePicture(event) {
     const formData = new FormData();
-    formData.append("userImage", event.target.files[0]);
+    formData.append("clientImage", event.target.files[0]);
     try {
       await clientImage(client._id, formData)
       setConfirmDialog({
