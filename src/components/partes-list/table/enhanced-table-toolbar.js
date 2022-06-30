@@ -11,10 +11,23 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import PartesListAdd from "../partes-list-add";
 import RemitoCreate from "../partes-list-remito";
 
-export default function EnhancedTableToolbar({ numSelected, selected, handleReload, ...props }) {
+//Icons
+import HighlightOff from "@mui/icons-material/HighlightOff";
+
+export default function EnhancedTableToolbar({ handleConfirmDialogChange, handleNotifyChange, numSelected, selected, remito, handleReload, ...props }) {
   const handleDelete = () => {
     console.log("borró")
     parteDeleteMany(selected)
+    handleConfirmDialogChange({
+      isOpen: false,
+      title: "",
+      subTitle: ""
+    })
+    handleNotifyChange({
+      isOpen: true,
+      message: 'Los partes se eliminaron correctamente correctamente',
+      type: 'error'
+    })
     handleReload()
   }
 
@@ -54,9 +67,23 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
 
       {numSelected > 0 ? (
         <>
-          <RemitoCreate />
+          <RemitoCreate
+            remito={remito}
+            selected={selected}
+            handleConfirmDialogChange={handleConfirmDialogChange}
+            handleNotifyChange={handleNotifyChange} 
+            handleReload={handleReload}/>
+
           <Tooltip title="Borrar ítems">
-            <IconButton onClick={() => handleDelete()} >
+            <IconButton onClick={() => {
+              handleConfirmDialogChange({
+                isOpen: true,
+                title: "¿Deseas eliminar los partes seleccionados?",
+                subTitle: "Luego de eliminarlos, no podrás recuperar la información.",
+                onConfirm: () => { handleDelete() },
+                icon: <HighlightOff fontSize='inherit' color="error" />
+              })
+            }} >
               <Delete />
             </IconButton>
           </Tooltip>

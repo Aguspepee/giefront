@@ -15,7 +15,6 @@ function EnhancedTableSearch({ search, columns, ...props }) {
             {columns.map((column) => {
                 function handleChange(event) {
                     props.onChange({ ...search, [column.id.replace("[", ".").replace("]", "")]: event.target.value })
-                    console.log(search)
                 }
                 return (
                     <Fragment key={column.id}>

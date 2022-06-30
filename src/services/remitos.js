@@ -9,3 +9,16 @@ export function remitoGetAll(page, rowsPerPage, order, orderBy, search) {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
+
+export function remitoNumero() {
+    let token = localStorage.getItem("token")
+    return instance.get(`remitos/numero`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function remitoCreate(selected) {
+    let token = localStorage.getItem("token")
+    return instance.put(`remitos/${selected}`,{},
+     { headers: { Authorization: `Bearer ${token}` } })
+}

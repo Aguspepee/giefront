@@ -16,8 +16,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import RowDetails from './row-details';
 
-
-
 //icons
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -50,7 +48,6 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
         <>
             <TableRow
                 hover
-                //onClick={(event) => handleClick(event, parte._id)}
                 role="checkbox"
                 aria-checked={isItemSelected}
                 tabIndex={-1}
@@ -60,7 +57,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
 
                 <TableCell padding="checkbox" style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Checkbox
-                        onClick={(event) => handleClick(event, parte._id)}
+                        onClick={(event) => handleClick(event, parte._id, parte)}
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{

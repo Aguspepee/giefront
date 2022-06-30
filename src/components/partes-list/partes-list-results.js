@@ -24,6 +24,7 @@ export const PartesListResults = () => {
   const partes = data?.docs || []
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
+  const [remito, setRemito] = useState([])
 
   const handleEdit = (value) => {
     setEdit(value)
@@ -50,28 +51,40 @@ export const PartesListResults = () => {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = partes.map((n) => n._id);
+      const newItemsRemito = partes
       setSelected(newSelecteds);
+      setRemito(newItemsRemito);
       return;
     }
     setSelected([]);
+    setRemito([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClick = (event, name, item) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
+    let newItem = [];
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
+      newItem = newItem.concat(remito, item)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      newItem = newItem.concat(remito.slice(1))
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      newItem = newItem.concat(remito.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
       );
+      newItem = newItem.concat(
+        remito.slice(0, selectedIndex),
+        remito.slice(selectedIndex + 1)
+      )
     }
     setSelected(newSelected);
+    setRemito(newItem)
   };
 
   //Search filers
@@ -118,9 +131,13 @@ export const PartesListResults = () => {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
-          handleReload={handleReload} />
+          remito={remito}
+          handleReload={handleReload}
+          handleConfirmDialogChange={handleConfirmDialogChange}
+          handleNotifyChange={handleNotifyChange}
+        />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
-    {/*     <PerfectScrollbar> */}
+          {/*     <PerfectScrollbar> */}
           <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
             <Table stickyHeader size="small" >
               <EnhancedTableHead
@@ -154,7 +171,7 @@ export const PartesListResults = () => {
               </TableBody>
             </Table>
           </Box>
-         {/*  </PerfectScrollbar> */}
+          {/*  </PerfectScrollbar> */}
         </Paper>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
