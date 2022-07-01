@@ -83,7 +83,7 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
 
   async function editParte(value) {
     try {
-      const doc = await parteEdit({ parte: value, id: edit.parte._id, inspector: `${user.nombre} ${user.apellido}` })
+      const doc = await parteEdit({ data: value, id: edit.parte._id })
 
       setConfirmDialog({
         ...confirmDialog,

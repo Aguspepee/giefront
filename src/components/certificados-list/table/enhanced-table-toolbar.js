@@ -37,7 +37,6 @@ export default function EnhancedTableToolbar({handleConfirmDialogChange, handleN
           bgcolor: (theme) =>
             alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
         }),
-
       }}
 
     >

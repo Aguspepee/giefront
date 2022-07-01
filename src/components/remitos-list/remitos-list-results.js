@@ -21,6 +21,7 @@ export const RemitosListResults = () => {
   const remitos = data?.docs || []
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
+  const [certificado, setCertificado] = useState([])
 
   const handleEdit = (value) => {
     setEdit(value)
@@ -46,30 +47,44 @@ export const RemitosListResults = () => {
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = remitos.map((n) => n._id);
+      const newItemsCertificado = remitos
       setSelected(newSelecteds);
+      setCertificado(newItemsCertificado);
       return;
     }
     setSelected([]);
+    setCertificado([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClick = (event, name, item) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
+    let newItem = [];
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
+      newItem = newItem.concat(certificado, item)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
+      newItem = newItem.concat(certificado.slice(1))
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
+      newItem = newItem.concat(certificado.slice(0, -1))
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
       );
+      newItem = newItem.concat(
+        certificado.slice(0, selectedIndex),
+        certificado.slice(selectedIndex + 1)
+      )
     }
     setSelected(newSelected);
+    setCertificado(newItem)
   };
 
+  console.log(selected)
+  console.log(certificado)
   //Search filers
   const [search, setSearch] = useState({})
   const handleSearchChange = (newValue) => {
@@ -114,10 +129,11 @@ export const RemitosListResults = () => {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
-          handleReload={handleReload} 
+          certificado={certificado}
+          handleReload={handleReload}
           handleConfirmDialogChange={handleConfirmDialogChange}
           handleNotifyChange={handleNotifyChange}
-          />
+        />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
           <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>

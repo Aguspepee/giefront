@@ -19,12 +19,19 @@ export function remitoNumero() {
 
 export function remitoCreate(selected) {
     let token = localStorage.getItem("token")
-    return instance.put(`remitos/${selected}`,{},
-     { headers: { Authorization: `Bearer ${token}` } })
+    return instance.put(`remitos/${selected}`, {},
+        { headers: { Authorization: `Bearer ${token}` } })
+}
+
+export function remitoEstado({ data, id }) {
+    let token = localStorage.getItem("token")
+    return instance.put(`remitos/estado/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 export function remitoDelete(selected) {
     let token = localStorage.getItem("token")
     return instance.delete(`remitos/${selected}`,
-     { headers: { Authorization: `Bearer ${token}` } })
+        { headers: { Authorization: `Bearer ${token}` } })
 }

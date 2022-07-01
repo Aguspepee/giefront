@@ -41,7 +41,6 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                                 padding={column.disablePadding ? 'none' : 'normal'}
                                 sortDirection={orderBy === column.id ? order : false}
                                 style={{ backgroundColor: "#F3F4F6", minWidth: `${column.width}px` }}
-
                             >
                                 <TableSortLabel
                                     active={orderBy === column.id}

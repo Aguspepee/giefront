@@ -19,7 +19,7 @@ export default function StyledChipUpdate({ handleReload, edit, value, field, id,
             isOpen: false
         })
         try {
-            const res = await edit({ parte:{[field]: !value} , id})
+            const res = await edit({ data:{[field]: !value} , id})
             setNotify({
                 isOpen: true,
                 message: `El estado se modificó correctamente a ${value ? "NO" : "SI"}`,

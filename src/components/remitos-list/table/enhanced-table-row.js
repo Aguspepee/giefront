@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { remitoDelete } from '../../../services/remitos';
+import { remitoDelete, remitoEstado } from '../../../services/remitos';
 import { Checkbox } from '@mui/material';
 import StyledChipUpdate from '../../../styled-components/styled-chip-update'
 //import { remitoEdit } from '../../../services/remitos';
@@ -62,7 +62,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
 
                 <TableCell padding="checkbox" style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Checkbox
-                        onClick={(event) => handleClick(event, remito._id)}
+                        onClick={(event) => handleClick(event, remito._id, remito)}
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
@@ -99,7 +99,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                         {column.type === "select" &&
                                             <StyledChipUpdate
                                                 value={resolvePath(remito, column.id)}
-                                                //edit={remitoEdit}
+                                                edit={remitoEstado}
                                                 field={column.id}
                                                 label={column.label}
                                                 id={remito._id}

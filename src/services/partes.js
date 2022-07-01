@@ -46,11 +46,9 @@ export function parteMasiva(parte) {
     })
 }
 
-export function parteEdit({parte, id}) {
-    console.log("id",id)
-    console.log("parte",parte)
+export function parteEdit({data, id}) {
     let token = localStorage.getItem("token")
-    return instance.put(`partes/edit/${id}`, parte, {
+    return instance.put(`partes/edit/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
