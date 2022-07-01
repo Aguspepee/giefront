@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-//import { remitoDelete } from '../../../services/remitos';
+import { remitoDelete } from '../../../services/remitos';
 import { Checkbox } from '@mui/material';
 import StyledChipUpdate from '../../../styled-components/styled-chip-update'
 //import { remitoEdit } from '../../../services/remitos';
@@ -35,7 +35,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
-        //remitoDelete(id)
+        remitoDelete(id)
         handleConfirmDialogChange({
             isOpen: false,
             title: "",
@@ -137,7 +137,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                     isOpen: true,
                                     title: "¿Deseas eliminar este remito?",
                                     subTitle: "Luego de eliminarlo, no podrás recuperar la información.",
-                                    onConfirm: () => { handleDelete(remito._id) },
+                                    onConfirm: () => { handleDelete(remito.remito_numero) },
                                     icon: <HighlightOff fontSize='inherit' color="error" />
                                 })
                             }}>

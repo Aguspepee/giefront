@@ -6,11 +6,24 @@ import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import { Tooltip } from "@mui/material";
 import ColumnsEdit from './columns-edit'
+import { certificadoDelete } from "../../../services/certificados";
 
-export default function EnhancedTableToolbar({ numSelected, selected, handleReload, ...props }) {
+//Icons
+import HighlightOff from "@mui/icons-material/HighlightOff";
+
+export default function EnhancedTableToolbar({handleConfirmDialogChange, handleNotifyChange, numSelected, selected, handleReload, ...props }) {
   const handleDelete = () => {
-    console.log("borró")
-    //remitoDeleteMany(selected)
+    certificadoDelete(selected)
+    handleConfirmDialogChange({
+      isOpen: false,
+      title: "",
+      subTitle: ""
+    })
+    handleNotifyChange({
+      isOpen: true,
+      message: 'Los certificados se eliminaron correctamente correctamente',
+      type: 'error'
+    })
     handleReload()
   }
 
@@ -50,7 +63,19 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
 
       {numSelected > 0 ? (
         <>
-          Create
+          <Tooltip title="Borrar ítems">
+            <IconButton onClick={() => {
+              handleConfirmDialogChange({
+                isOpen: true,
+                title: "¿Deseas eliminar el certificado seleccionado?",
+                subTitle: "Luego de eliminarlo, no podrás recuperar la información.",
+                onConfirm: () => { handleDelete() },
+                icon: <HighlightOff fontSize='inherit' color="error" />
+              })
+            }} >
+              <Delete />
+            </IconButton>
+          </Tooltip>
         </>
       ) : (
         <>

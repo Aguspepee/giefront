@@ -9,3 +9,22 @@ export function certificadoGetAll(page, rowsPerPage, order, orderBy, search) {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
+
+export function certificadoNumero() {
+    let token = localStorage.getItem("token")
+    return instance.get(`certificados/numero`, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
+export function certificadoCreate(selected) {
+    let token = localStorage.getItem("token")
+    return instance.put(`certificados/${selected}`,{},
+     { headers: { Authorization: `Bearer ${token}` } })
+}
+
+export function certificadoDelete(selected) {
+    let token = localStorage.getItem("token")
+    return instance.delete(`certificados/${selected}`,
+     { headers: { Authorization: `Bearer ${token}` } })
+}

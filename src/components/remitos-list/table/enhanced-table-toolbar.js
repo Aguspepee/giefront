@@ -6,11 +6,24 @@ import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import { Tooltip } from "@mui/material";
 import ColumnsEdit from './columns-edit'
+import { remitoDelete } from "../../../services/remitos";
 
-export default function EnhancedTableToolbar({ numSelected, selected, handleReload, ...props }) {
+//Icons
+import HighlightOff from "@mui/icons-material/HighlightOff";
+
+export default function EnhancedTableToolbar({ handleConfirmDialogChange, handleNotifyChange, numSelected, selected, handleReload, ...props }) {
   const handleDelete = () => {
-    console.log("borró")
-    //remitoDeleteMany(selected)
+    remitoDelete(selected)
+    handleConfirmDialogChange({
+      isOpen: false,
+      title: "",
+      subTitle: ""
+    })
+    handleNotifyChange({
+      isOpen: true,
+      message: 'Los remitos se eliminaron correctamente correctamente',
+      type: 'error'
+    })
     handleReload()
   }
 
@@ -50,7 +63,26 @@ export default function EnhancedTableToolbar({ numSelected, selected, handleRelo
 
       {numSelected > 0 ? (
         <>
-          Create
+          {/*  <RemitoCreate
+            remito={remito}
+            selected={selected}
+            handleConfirmDialogChange={handleConfirmDialogChange}
+            handleNotifyChange={handleNotifyChange} 
+            handleReload={handleReload}/> */}
+
+          <Tooltip title="Borrar ítems">
+            <IconButton onClick={() => {
+              handleConfirmDialogChange({
+                isOpen: true,
+                title: "¿Deseas eliminar el remito seleccionado?",
+                subTitle: "Luego de eliminarlo, no podrás recuperar la información.",
+                onConfirm: () => { handleDelete() },
+                icon: <HighlightOff fontSize='inherit' color="error" />
+              })
+            }} >
+              <Delete />
+            </IconButton>
+          </Tooltip>
         </>
       ) : (
         <>

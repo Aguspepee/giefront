@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
-//import { certificadoDelete } from '../../../services/certificados';
+import { certificadoDelete } from '../../../services/certificados';
 import { Checkbox } from '@mui/material';
 import StyledChipUpdate from '../../../styled-components/styled-chip-update'
 //import { certificadoEdit } from '../../../services/certificados';
@@ -35,7 +35,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
-        //certificadoDelete(id)
+        certificadoDelete(id)
         handleConfirmDialogChange({
             isOpen: false,
             title: "",

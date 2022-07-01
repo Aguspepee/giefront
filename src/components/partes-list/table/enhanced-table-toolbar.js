@@ -16,7 +16,6 @@ import HighlightOff from "@mui/icons-material/HighlightOff";
 
 export default function EnhancedTableToolbar({ handleConfirmDialogChange, handleNotifyChange, numSelected, selected, remito, handleReload, ...props }) {
   const handleDelete = () => {
-    console.log("borró")
     parteDeleteMany(selected)
     handleConfirmDialogChange({
       isOpen: false,

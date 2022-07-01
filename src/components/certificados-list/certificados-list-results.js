@@ -7,7 +7,6 @@ import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../context/userContext';
-
 import { useContext } from 'react';
 
 //Alerts y Notifications
@@ -117,9 +116,11 @@ export const CertificadosListResults = () => {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
-          handleReload={handleReload} />
+          handleReload={handleReload}
+          handleConfirmDialogChange={handleConfirmDialogChange}
+          handleNotifyChange={handleNotifyChange} />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
-    {/*     <PerfectScrollbar> */}
+          {/*     <PerfectScrollbar> */}
           <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
             <Table stickyHeader size="small" >
               <EnhancedTableHead
@@ -153,7 +154,7 @@ export const CertificadosListResults = () => {
               </TableBody>
             </Table>
           </Box>
-         {/*  </PerfectScrollbar> */}
+          {/*  </PerfectScrollbar> */}
         </Paper>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
@@ -176,7 +177,7 @@ export const CertificadosListResults = () => {
       {
         edit.open &&
         <>
-        edit
+          edit
         </>
       }
     </>

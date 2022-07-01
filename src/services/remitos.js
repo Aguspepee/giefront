@@ -22,3 +22,9 @@ export function remitoCreate(selected) {
     return instance.put(`remitos/${selected}`,{},
      { headers: { Authorization: `Bearer ${token}` } })
 }
+
+export function remitoDelete(selected) {
+    let token = localStorage.getItem("token")
+    return instance.delete(`remitos/${selected}`,
+     { headers: { Authorization: `Bearer ${token}` } })
+}

@@ -7,7 +7,6 @@ import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../context/userContext';
-
 import { useContext } from 'react';
 
 //Alerts y Notifications
@@ -28,7 +27,6 @@ export const RemitosListResults = () => {
   }
 
   const handleConfirmDialogChange = (value) => {
-    console.log("confirm", value)
     setConfirmDialog({
       ...confirmDialog,
       ...value
@@ -102,7 +100,6 @@ export const RemitosListResults = () => {
     async function getList() {
       try {
         const res = await remitoGetAll(page, rowsPerPage, order, orderBy, search)
-        console.log(res.data)
         setData(res.data)
       } catch (error) {
         console.log(error)
@@ -117,9 +114,12 @@ export const RemitosListResults = () => {
         <EnhancedTableToolbar
           numSelected={selected.length}
           selected={selected}
-          handleReload={handleReload} />
+          handleReload={handleReload} 
+          handleConfirmDialogChange={handleConfirmDialogChange}
+          handleNotifyChange={handleNotifyChange}
+          />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
-    {/*     <PerfectScrollbar> */}
+          {/*     <PerfectScrollbar> */}
           <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
             <Table stickyHeader size="small" >
               <EnhancedTableHead
@@ -153,7 +153,7 @@ export const RemitosListResults = () => {
               </TableBody>
             </Table>
           </Box>
-         {/*  </PerfectScrollbar> */}
+          {/*  </PerfectScrollbar> */}
         </Paper>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
@@ -176,7 +176,7 @@ export const RemitosListResults = () => {
       {
         edit.open &&
         <>
-        edit
+          edit
         </>
       }
     </>
