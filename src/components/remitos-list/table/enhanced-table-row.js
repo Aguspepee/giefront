@@ -6,7 +6,6 @@ import { resolvePath } from '../../../utils/path-resolvers';
 import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { remitoDelete, remitoEstado } from '../../../services/remitos';
 import { Checkbox } from '@mui/material';
 import StyledChipUpdate from '../../../styled-components/styled-chip-update'
@@ -14,10 +13,7 @@ import StyledChipUpdate from '../../../styled-components/styled-chip-update'
 import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import RowDetails from './row-details';
 import { remitoPDF } from '../../../utils/exports/remito-pdf';
-
-
 
 //icons
 import EditIcon from '@mui/icons-material/Edit';
@@ -32,7 +28,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const labelId = `enhanced-table-checkbox-${index}`;
 
     //Cantidad de columnas mostradas
-    const colums_quantity = columns.filter((column) => column.show === true).length + 3
+    //const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
         remitoDelete(id)

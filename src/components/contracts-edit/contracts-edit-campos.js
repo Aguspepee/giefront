@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import InputCheckbox from "./components/contracts-edit-items-checkbox";
 import { Box } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,7 +21,7 @@ function ContractsEditCampos({ data, ...props }) {
     let { id } = useParams();
     const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
     const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-    const { control, handleSubmit, reset, formState: { errors } } = useForm({
+    const { control, handleSubmit, reset } = useForm({
         resolver: yupResolver(contractCamposSchema),
     });
 

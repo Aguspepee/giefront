@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Card, Table, TableBody, Paper, Button } from '@mui/material';
+import { Box, Card, Table, TableBody, Paper } from '@mui/material';
 import { certificadoGetAll } from '../../services/certificados';
 import EnhancedTableToolbar from './table/enhanced-table-toolbar';
 import EnhancedTableHead from './table/enhanced-table-head';

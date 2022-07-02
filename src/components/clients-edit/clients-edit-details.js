@@ -24,11 +24,11 @@ import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 
-export const ClientsEditDetails = ({handleReload,client,...props}) => {
+export const ClientsEditDetails = ({ handleReload, client, ...props }) => {
   let { id } = useParams();
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
-  const { control, handleSubmit, setValue, reset, formState: { errors, value } } = useForm({
+  const { control, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(clientSchema),
   });
 
@@ -45,7 +45,7 @@ export const ClientsEditDetails = ({handleReload,client,...props}) => {
 
   async function editClient(client) {
     try {
-      const res = await clientEdit(client, id)
+      await clientEdit(client, id)
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

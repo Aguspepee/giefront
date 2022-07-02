@@ -10,21 +10,6 @@ import {
   TextField
 } from '@mui/material';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-]; 
-
 export const UsersAccountProfileDetails = (props) => {
   const [values, setValues] = useState({
     nombre: 'Katarina',

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
   Tooltip,
   Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
-import { userGetAll, userDelete, userEdit } from '../../services/users';
+import { userDelete, userEdit } from '../../services/users';
 import { Link } from 'react-router-dom';
 import StyledCheckboxActive from '../../styled-components/styled-checkbox-active'
 
@@ -18,7 +18,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-export const UsersListResults = ({handleReload, users,...props}) => {
+export const UsersListResults = ({ handleReload, users, ...props }) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
 
@@ -39,7 +39,7 @@ export const UsersListResults = ({handleReload, users,...props}) => {
   return (
     <>
       <Card>
-      <Paper sx={{ overflowX: "auto", width: "100%", }}>
+        <Paper sx={{ overflowX: "auto", width: "100%", }}>
           <Box sx={{ minWidth: 1050 }}>
             <Table>
               <TableHead>
@@ -86,7 +86,7 @@ export const UsersListResults = ({handleReload, users,...props}) => {
                           {user.nombre} {user.apellido}
                         </Typography>
                       </Box>
-                    </TableCell> 
+                    </TableCell>
                     <TableCell>
                       {user.role}
                     </TableCell>
@@ -123,7 +123,7 @@ export const UsersListResults = ({handleReload, users,...props}) => {
               </TableBody>
             </Table>
           </Box>
-          </Paper>
+        </Paper>
       </Card>
       <Notification
         notify={notify}

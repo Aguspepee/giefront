@@ -8,13 +8,10 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function UsersListToolbar({handleReload, handleSearchChange,...props}) { 
   const navigate = useNavigate();
-  const setReload = props.setReload
-  const reload = props.reload
 
   function handleNewUser() {
     navigate("/users-create")

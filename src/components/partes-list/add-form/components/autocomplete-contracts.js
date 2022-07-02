@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, Autocomplete, Grid, Box } from '@mui/material';
-import { InputAdornment } from '@mui/material';
+import { TextField, Autocomplete, Grid } from '@mui/material';
 
 function AutocompleteContracts({ Icon, contract, setContract, control, name, description, errors, get, xs, md, ...props }) {
     const [contracts, setContracts] = useState([])
@@ -32,7 +31,7 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
                     render={({ field: { onChange, onBlur, value, ref, ...field } }) => {
                         return (
                             <Autocomplete
-                                
+
                                 {...props}
                                 defaultValue={value}
                                 disablePortal
@@ -51,7 +50,7 @@ function AutocompleteContracts({ Icon, contract, setContract, control, name, des
                                         placeholder={description}
                                         error={Boolean(errors[name])}
                                         helperText={errors[name] && errors[name]?.message}
-                                         />}
+                                    />}
                                 value={value ? value : null}
                                 onChange={(event, item) => {
                                     findContract(item)

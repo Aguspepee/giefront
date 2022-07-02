@@ -6,7 +6,6 @@ import { Users as UsersIcon } from '../icons/users';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Logo } from '../components/logo';
 import { NavItem } from './nav-item';
 import ReceiptIcon from '@mui/icons-material/Receipt';

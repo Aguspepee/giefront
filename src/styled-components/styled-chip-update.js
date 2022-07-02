@@ -1,13 +1,12 @@
 import Chip from '@mui/material/Chip';
 import { Tooltip } from '@mui/material';
 import { useState } from 'react';
-import { Box } from '@mui/material';
 
 //Alerts y Notifications
 import Notification from './alerts/notification';
 import ConfirmDialog from './alerts/confirm-dialog';
 
-//icons
+//icons 
 import EventIcon from '@mui/icons-material/Event';
 
 export default function StyledChipUpdate({ handleReload, edit, value, field, id, label, onChangeFunction, ...props }) {

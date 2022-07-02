@@ -1,20 +1,16 @@
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { PartesAddForm } from './add-form/partes-add-form';
-import Fab from '@mui/material/Fab';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import { Tooltip } from "@mui/material";
 import { useEffect, useState } from 'react';
-import { Box, Button, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Button,  Grid, Typography } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { partesSchema } from '../../utils/yup';
-import { parteCreate, parteEdit } from '../../services/partes';
+import {parteEdit } from '../../services/partes';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import StyledTextfield from '../../styled-components/styled-textfield';
@@ -25,9 +21,6 @@ import StyledAutocompleteList from '../../styled-components/styled-autocomplete-
 import StyledAdicional from '../../styled-components/styled-adicional';
 import StyledItem from '../../styled-components/styled-item';
 import { tipo_rx } from '../../utils/list';
-import UserContext from '../../context/userContext';
-import { useContext } from 'react';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import StyledDatepickerDesktop from '../../styled-components/styled-datepicker-desktop';
 import StyledAutocompleteGet from '../../styled-components/styled-autocomplete-get';
 import { userGetNames } from '../../services/users';
@@ -36,7 +29,6 @@ import StyledAutocompleteClients from '../../styled-components/styled-autocomple
 import { clientGetAll } from '../../services/clients';
 
 //Alerts y Notifications
-import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 //Icons
@@ -48,8 +40,6 @@ import Edit from '@mui/icons-material/Edit';
 export default function PartesListEdit({ handleReload, handleEdit, edit, handleNotifyChange, ...props }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  /*   const [parte, setParte] = useState([]) */
-  const [user, setUser] = useContext(UserContext);
   const [contract, setContract] = useState([])
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const { control, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
@@ -78,13 +68,11 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
       paga: edit.parte.paga ? { nombre: edit.parte.paga[0].nombre, _id: edit.parte.paga[0]._id } : undefined,
       informe_realizado: edit.parte.informe_realizado,
     });
-
   }, [edit.parte]);
 
   async function editParte(value) {
     try {
-      const doc = await parteEdit({ data: value, id: edit.parte._id })
-
+      await parteEdit({ data: value, id: edit.parte._id })
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false
@@ -120,12 +108,7 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
     })
 
   }
-  //Controled Accordion
-  const [expanded, setExpanded] = useState("panel1");
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
   return (
     <div>
       <Dialog

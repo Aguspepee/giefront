@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Avatar,
   Box,
@@ -17,7 +17,7 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
-export const ClientsEditProfile = ({handleReload,client ,...props}) => {
+export const ClientsEditProfile = ({ handleReload, client, ...props }) => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
 
@@ -72,7 +72,7 @@ export const ClientsEditProfile = ({handleReload,client ,...props}) => {
             }}
           >
             <Avatar
-            key={Date.now()}
+              key={Date.now()}
               src={client.image ? `${process.env.REACT_APP_BACKEND_URL}${client.image}` : ""}
               sx={{
                 height: 200,

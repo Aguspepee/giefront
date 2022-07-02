@@ -6,15 +6,12 @@ import { resolvePath } from '../../../utils/path-resolvers';
 import { format } from 'date-fns';
 import { Tooltip } from '@mui/material';
 import { Stack } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { certificadoDelete } from '../../../services/certificados';
+import { certificadoDelete, certificadoEstado } from '../../../services/certificados';
 import { Checkbox } from '@mui/material';
-import StyledChipUpdate from '../../../styled-components/styled-chip-update'
-//import { certificadoEdit } from '../../../services/certificados';
+import StyledChipUpdate from '../../../styled-components/styled-chip-update';
 import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import RowDetails from './row-details';
 import { certificadoXLS } from '../../../utils/exports/certificado-xls';
 
 
@@ -32,7 +29,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const labelId = `enhanced-table-checkbox-${index}`;
 
     //Cantidad de columnas mostradas
-    const colums_quantity = columns.filter((column) => column.show === true).length + 3
+   // const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
         certificadoDelete(id)
@@ -99,7 +96,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                         {column.type === "select" &&
                                             <StyledChipUpdate
                                                 value={resolvePath(certificado, column.id)}
-                                                //edit={certificadoEdit}
+                                                edit={certificadoEstado}
                                                 field={column.id}
                                                 label={column.label}
                                                 id={certificado._id}

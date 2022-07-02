@@ -1,16 +1,14 @@
 import * as React from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { PartesAddForm } from './add-form/partes-add-form';
 import Fab from '@mui/material/Fab';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Tooltip } from "@mui/material";
 import { useEffect, useState } from 'react';
-import { Box, Button, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { partesSchema } from '../../utils/yup';
@@ -121,13 +119,6 @@ export default function PartesListAdd({ handleReload }) {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  //Controled Accordion
-  const [expanded, setExpanded] = useState("panel1");
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
   };
 
   return (

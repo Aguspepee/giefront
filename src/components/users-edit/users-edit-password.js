@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
 import StyledPassword from '../../styled-components/styled-password';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { passwordSchema } from '../../utils/yup';
@@ -12,7 +12,7 @@ import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 import { userEdit } from '../../services/users';
 
-export const UsersEditPassword = ({handleReload,...props}) => {
+export const UsersEditPassword = ({ handleReload, ...props }) => {
   let { id } = useParams();
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
@@ -69,8 +69,8 @@ export const UsersEditPassword = ({handleReload,...props}) => {
           <CardContent>
             <Grid container
               spacing={3}>
-              <StyledPassword show={true} control={control} name={`password`} type="text" description="Contraseña" errors={errors} md={12} sm={12}/>
-              <StyledPassword show={true} control={control} name={`confirm`} type="text" description="Contraseña" errors={errors}  md={12} sm={12}/>
+              <StyledPassword show={true} control={control} name={`password`} type="text" description="Contraseña" errors={errors} md={12} sm={12} />
+              <StyledPassword show={true} control={control} name={`confirm`} type="text" description="Contraseña" errors={errors} md={12} sm={12} />
             </Grid>
           </CardContent>
           <Divider />
@@ -82,7 +82,7 @@ export const UsersEditPassword = ({handleReload,...props}) => {
             }}
           >
             <Button
-            type="submit"
+              type="submit"
               color="primary"
               variant="contained"
             >

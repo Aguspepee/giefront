@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete, Grid } from '@mui/material';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import { InputAdornment } from '@mui/material';
 
 function StyledAutocompleteGet({ Icon, md, xs, control, name, description, errors, get, show, ...props }) {
     const [jsonResults, setJsonResults] = useState([])

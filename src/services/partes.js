@@ -1,7 +1,5 @@
 import instance from "../config/axios"
 import * as qs from 'qs'
-import { qsobjects } from "../utils/qs-objets"
-
 
 //rutas Axios
 export function parteGetAll() {
@@ -27,7 +25,7 @@ export function parteGetUnrestricted() {
 
 export function parteOne(id) {
     let token = localStorage.getItem("token")
-    return instance.get(`partes/one/${id}`,{
+    return instance.get(`partes/one/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }
@@ -46,7 +44,7 @@ export function parteMasiva(parte) {
     })
 }
 
-export function parteEdit({data, id}) {
+export function parteEdit({ data, id }) {
     let token = localStorage.getItem("token")
     return instance.put(`partes/edit/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` }
@@ -63,5 +61,5 @@ export function parteDelete(id) {
 export function parteDeleteMany(selected) {
     let token = localStorage.getItem("token")
     return instance.delete(`partes/many/${selected}`,
-     { headers: { Authorization: `Bearer ${token}` } })
+        { headers: { Authorization: `Bearer ${token}` } })
 }

@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import { ContractsListResults } from '../components/contracts-list/contracts-list-results';
 import ContractsListToolbar from '../components/contracts-list/contracts-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { contractGetList, contractSearch } from '../services/contracts';
+import { contractSearch } from '../services/contracts';
 
 function ContractsList() {
   const [reload, setReload] = useState(false)
   const [search, setSearch] = useState("")
   const [contracts, setContracts] = useState([])
 
-  useEffect(() => { 
+  useEffect(() => {
     async function getList() {
       try {
         const contracts = await contractSearch(search)
@@ -20,7 +20,7 @@ function ContractsList() {
       }
     }
     getList()
-  }, [reload,search])
+  }, [reload, search])
 
   const handleReload = () => {
     setReload(!reload)

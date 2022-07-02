@@ -19,7 +19,6 @@ import EditIcon from '@mui/icons-material/Edit';
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
-import { TableContainer } from "@mui/material";
 import { Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { Stack } from "@mui/material";
 
@@ -46,7 +45,7 @@ function ContractsEditItems({ data, ...props }) {
 
   async function editContract(contract) {
     try {
-      const hola = await contractEdit(contract, id)
+      await contractEdit(contract, id)
       setConfirmDialog({
         ...confirmDialog,
         isOpen: false

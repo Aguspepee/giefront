@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
 import { contractEmpty } from '../../services/contracts'
-import { useEffect } from 'react';
 
 function ContractsListToolbar({ handleReload, handleSearchChange, ...props }) {
 

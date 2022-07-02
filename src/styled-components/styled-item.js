@@ -3,7 +3,6 @@ import { Grid, IconButton, Tooltip } from '@mui/material';
 import { Controller } from "react-hook-form";
 import { Autocomplete, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { Typography } from "@mui/material";
 
 function StyledItem({ control, name, list, description, errors, items, ...rest }) {
 

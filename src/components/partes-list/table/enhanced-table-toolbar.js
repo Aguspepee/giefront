@@ -7,7 +7,6 @@ import { alpha } from '@mui/material/styles';
 import { Tooltip } from "@mui/material";
 import ColumnsEdit from './columns-edit'
 import { parteDeleteMany } from "../../../services/partes";
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import PartesListAdd from "../partes-list-add";
 import RemitoCreate from "../partes-list-remito";
 

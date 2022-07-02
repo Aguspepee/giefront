@@ -1,5 +1,4 @@
 import jsPDF from "jspdf";
-import autoTable from 'jspdf-autotable';
 import { format } from 'date-fns';
 import logo1 from './logo1.png';
 import logo2 from './logo2.png';

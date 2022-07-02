@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { Box, Button, CardContent, Divider, Grid } from '@mui/material';
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { partesSchema } from '../../../utils/yup';
@@ -103,7 +103,7 @@ export const PartesAddForm = ({ handleReload }) => {
 
           <CardContent >
             <Grid container spacing={1.5}>
-              <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} Icon={() => <HistoryEduIcon />} small/>
+              <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato" errors={errors} md={12} xs={12} Icon={() => <HistoryEduIcon />} small />
               <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a" errors={errors} fullWidth margin="normal" md={12} xs={12} Icon={() => <EngineeringIcon />} />
               <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad" errors={errors} Icon={() => <FactoryIcon />} />
               <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección" errors={errors} md={12} xs={12} />

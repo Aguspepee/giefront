@@ -15,7 +15,6 @@ import { clientGetAll } from '../../services/clients'
 import { area } from "../../utils/list";
 //YUP Schema
 import { contractCamposSchema } from '../../utils/yup'
-import InputTexfield from "./components/contracts-edit-items-textfield";
 //Icons
 import EditIcon from '@mui/icons-material/Edit';
 //Alerts y Notifications

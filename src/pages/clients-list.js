@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { ClientsListResults } from '../components/clients-list/clients-list-results';
 import ClientsListToolbar from '../components/clients-list/clients-list-toolbar';
 import { DashboardLayout } from '../layout/layout';
-import { clientGetAll, clientSearch } from '../services/clients';
+import { clientSearch } from '../services/clients';
 
 function ClientsList() {
   const [reload, setReload] = useState(false)

@@ -1,5 +1,4 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { ClientCreateProfile } from '../components/clients-create/clients-create-profile';
 import { ClientCreateDetails } from '../components/clients-create/clients-create-details';
 import { DashboardLayout } from '../layout/layout';
 

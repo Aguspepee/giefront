@@ -23,6 +23,13 @@ export function certificadoCreate(selected) {
      { headers: { Authorization: `Bearer ${token}` } })
 }
 
+export function certificadoEstado({ data, id }) {
+    let token = localStorage.getItem("token")
+    return instance.put(`certificados/estado/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function certificadoDelete(selected) {
     let token = localStorage.getItem("token")
     return instance.delete(`certificados/${selected}`,

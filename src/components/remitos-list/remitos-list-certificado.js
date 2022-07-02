@@ -3,8 +3,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import Fab from '@mui/material/Fab';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Chip, Stack, Tooltip } from "@mui/material";
 import { useEffect, useState } from 'react';
 import { Box, Button, Table, TableBody, TableHead } from '@mui/material';
@@ -13,11 +11,6 @@ import { TableCell } from '@mui/material';
 import { TableRow } from '@mui/material';
 import { certificadoCreate, certificadoNumero } from '../../services/certificados'
 import { Typography } from '@mui/material';
-
-
-//Alerts y Notifications
-import Notification from '../../styled-components/alerts/notification';
-import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 //Icons
 import IconButton from '@mui/material/IconButton';
@@ -34,10 +27,8 @@ export default function CertificadoCreate({ handleReload, handleEdit, certificad
   const [numeroCertificado, setNumeroCertificado] = useState(0);
 
   useEffect(() => {
-    //Descomentar cuando esté habilitado el cambio de estados en los remitos
-   //let estado = !certificado.some((item) => (item.certificado_realizado === true || item.remito_entregado === false || item.remito_firmado === false || item.remito_revisado === false))
-   let estado = true
-   setShow(estado)
+    let estado = !certificado.some((item) => (item.certificado_realizado === true || item.remito_entregado === false || item.remito_firmado === false || item.remito_revisado === false))
+    setShow(estado)
   }, [certificado])
 
   useEffect(() => {
@@ -144,7 +135,7 @@ export default function CertificadoCreate({ handleReload, handleEdit, certificad
               }
               )}
             </TableBody>
-          </Table> 
+          </Table>
         </DialogContent>
         <DialogActions >
           <Button type='submit' form="myform" color="primary" variant="contained" fullWidth
@@ -153,7 +144,7 @@ export default function CertificadoCreate({ handleReload, handleEdit, certificad
                 isOpen: true,
                 title: "¿Deseas crear un nuevo certificado?",
                 onConfirm: () => { handleCertificadoCreate() },
-                icon: <PlaylistAddIcon  fontSize='inherit' color="success" />
+                icon: <PlaylistAddIcon fontSize='inherit' color="success" />
               })
             }}>
             Crear Certificado

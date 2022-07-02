@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import {
-  Avatar, Box, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
+  Avatar, Box, Card, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton,
   Tooltip, Paper
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
