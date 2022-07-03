@@ -22,7 +22,6 @@ const columns = [
 ]
 
 export function certificadoXLS(certificado) {
-    console.log(certificado)
     let ExcelJSWorkbook = new ExcelJS.Workbook();
     let ws = ExcelJSWorkbook.addWorksheet(`Certificado ${certificado.certificado_numero}`, {
         properties: {},
@@ -30,7 +29,6 @@ export function certificadoXLS(certificado) {
 
     //Especifica las columnas
     ws.columns = columns;
-
     //Añade las filas
     certificado.items.map((item, index) => {
         ws.addRow({
@@ -43,6 +41,7 @@ export function certificadoXLS(certificado) {
             numero_remito: item.numero_remito,
             fecha_ejecucion: item.fecha_inspeccion ? format(new Date(item.fecha_inspeccion), 'dd/MM/yyyy') : "-",
             fecha_remito: item.remito_fecha ? format(new Date(item.remito_fecha), 'dd/MM/yyyy') : "-",
+            certificante: item.certificante,
             detalle: item.detalle,
             valor_unitario: item.valor_unitario,
             valor_total: item.valor_total

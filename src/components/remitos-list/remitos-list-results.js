@@ -83,8 +83,6 @@ export const RemitosListResults = () => {
     setCertificado(newItem)
   };
 
-  console.log(selected)
-  console.log(certificado)
   //Search filers
   const [search, setSearch] = useState({})
   const handleSearchChange = (newValue) => {

@@ -34,37 +34,17 @@ import Loading from './pages/loading';
 import SessionTimeout from './styled-components/alerts/session-timeout';
 import Settings from './pages/settings';
 
-
-
 function App() {
   console.log(process.env.REACT_APP_BACKEND_URL)
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
-  const [expirationDialog, setExpirationDialog] = useState({ isOpen: false, title: "", subTitle: "", expired: false })
-  let Now = new Date()
-  let Difference = 100000000
+  const [expirationTime, setExpirationTime] = useState(1000000)
+
   useEffect(() => {
     const Login = async () => {
       try {
         const { data: usuario } = await userWhoami()
-        let Expiration = new Date(usuario.exp * 1000)
-        Difference = Expiration - Now;
-        setTimeout(() => {
-          setExpirationDialog({
-            title: "La sesión está por expirar",
-            subTitle: "Su sesión vence en 5 minutos, guarde su trabajo e inicie sesión nuevamente.",
-            isOpen: true,
-            expired: false
-          })
-        }, Difference - (5 * 60000))
-        setTimeout(() => {
-          setExpirationDialog({
-            title: "La sesión ha finalizado",
-            subTitle: "Debe volver a iniciar sesión nuevamente.",
-            isOpen: true,
-            expired: true
-          })
-        }, Difference)
+        setExpirationTime(usuario.exp)
         setUser(usuario[0])
         setLoadingUser(false)
       } catch (e) {
@@ -75,7 +55,6 @@ function App() {
     Login()
   }, []
   )
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -95,10 +74,10 @@ function App() {
             <Route path="/users-create" element={<Private Component={UsersCreate} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
             <Route path="/users-edit/:id" element={<Private Component={UsersEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
             <Route path="/users-list" element={<Private Component={UsersList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
-            <Route path="/users-login" element={<UsersLogin />}/>
+            <Route path="/users-login" element={<UsersLogin />} />
 
             {/* Partes */}
-            <Route path="/partes-list" element={<Private Component={PartesList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />          
+            <Route path="/partes-list" element={<Private Component={PartesList} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
             {/* Contracts */}
             <Route path="/contracts-edit/:id" element={<Private Component={ContractsEdit} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
@@ -120,9 +99,10 @@ function App() {
 
             {/* Settings*/}
             <Route path="/settings" element={<Private Component={Settings} user={user} roles={["Administrador"]} />} />
-            
+
           </Routes>
-          <SessionTimeout expirationDialog={expirationDialog} setExpirationDialog={setExpirationDialog} />
+
+          <SessionTimeout expirationTime={expirationTime} />
         </BrowserRouter>}
 
     </ThemeProvider>

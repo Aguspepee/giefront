@@ -1,11 +1,11 @@
 import jsPDF from "jspdf";
+import autoTable from 'jspdf-autotable';
 import { format } from 'date-fns';
 import logo1 from './logo1.png';
 import logo2 from './logo2.png';
 
 export function remitoPDF(remito) {
     const doc = new jsPDF()
-    console.log("Remito", remito.items)
     let end = 0
 
     //HEADER
@@ -66,7 +66,6 @@ export function remitoPDF(remito) {
         },
         didDrawPage: (d) => {
             end = d.cursor.y
-            console.log(d.cursor.y)
         },
         didDrawCell: function (data) {
             if (data.section === 'body' && data.row.index === 0) {
@@ -126,10 +125,8 @@ export function remitoPDF(remito) {
         theme: 'grid',
         didDrawPage: (d) => {
             end = d.cursor.y
-            console.log(d.cursor.y)
         },
     })
-   // doc.addSvg(img1)
 
     //FOOTER
     doc.autoTable({
@@ -156,7 +153,6 @@ export function remitoPDF(remito) {
         theme: 'grid',
         didDrawPage: (d) => {
             end = d.cursor.y
-            console.log(d.cursor.y)
         },
     })
 

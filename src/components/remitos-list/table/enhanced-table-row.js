@@ -14,9 +14,9 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { remitoPDF } from '../../../utils/exports/remito-pdf';
+import RowDetails from '../table/row-details'
 
 //icons
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -28,7 +28,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const labelId = `enhanced-table-checkbox-${index}`;
 
     //Cantidad de columnas mostradas
-    //const colums_quantity = columns.filter((column) => column.show === true).length + 3
+    const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
         remitoDelete(id)
@@ -113,18 +113,11 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 })}
                 <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
-                    <Tooltip title="Descargar Remito">
-                            <IconButton sx={{ ml: 1 }} onClick={()=>{
-                               remitoPDF(remito)
+                        <Tooltip title="Descargar Remito">
+                            <IconButton sx={{ ml: 1 }} onClick={() => {
+                                remitoPDF(remito)
                             }}>
                                 <DownloadIcon fontSize="small" />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Editar contrato">
-                            <IconButton sx={{ ml: 1 }} onClick={()=>{
-                                handleEdit({open:true, remito:remito})
-                            }}>
-                                <EditIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Eliminar remito">
@@ -144,7 +137,13 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                     </Stack>
                 </TableCell>
             </TableRow >
-            {/* <RowDetails open={open} remito={remito} colums_quantity={colums_quantity} handleReload={handleReload} /> */}
+            <RowDetails
+                open={open}
+                remito={remito}
+                colums_quantity={colums_quantity}
+                handleReload={handleReload}
+                handleConfirmDialogChange={handleConfirmDialogChange}
+                handleNotifyChange={handleNotifyChange} />
 
         </>
     );

@@ -17,9 +17,9 @@ export function remitoNumero() {
     })
 }
 
-export function remitoCreate(selected) {
+export function remitoCreate({selected, certificante}) {
     let token = localStorage.getItem("token")
-    return instance.put(`remitos/${selected}`, {},
+    return instance.put(`remitos/${selected}`, {certificante:certificante},
         { headers: { Authorization: `Bearer ${token}` } })
 }
 

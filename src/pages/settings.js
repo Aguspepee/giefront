@@ -1,6 +1,8 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { DashboardLayout } from '../layout/layout';
-import Uploader from '../components/settings/Uploader';
+import UploaderInspecciones from '../components/settings/uploader-inspecciones';
+import UploaderParoPlanta from '../components/settings/uploader-paro-planta';
+
 
 function Settings() {
     return (
@@ -24,13 +26,22 @@ function Settings() {
                         container
                         spacing={3}
                     >
-                        <Uploader
-                            dbSubBaseURL="sapBase"
-                            Titulo="Base de datos de Inspección"
-                            Subtitulo="Seleccione el archivo"
-                            fileTypes=".xlsx , xls"
-                        ></Uploader>
-
+                        <Grid item>
+                            <UploaderInspecciones
+                                dbSubBaseURL="sapBase"
+                                Titulo="Base de datos de Inspección"
+                                Subtitulo="Seleccione el archivo"
+                                fileTypes=".xlsx , xls"
+                            ></UploaderInspecciones>
+                        </Grid>
+                        <Grid item>
+                            <UploaderParoPlanta
+                                dbSubBaseURL="sapBase"
+                                Titulo="Base de datos de Paro de Planta"
+                                Subtitulo="Seleccione el archivo"
+                                fileTypes=".xlsx , xls"
+                            ></UploaderParoPlanta>
+                        </Grid>
 
 
 

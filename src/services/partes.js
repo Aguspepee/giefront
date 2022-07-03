@@ -51,6 +51,19 @@ export function parteEdit({ data, id }) {
     })
 }
 
+export function parteDeleteRemito({ data, id }) {
+    let token = localStorage.getItem("token")
+    return instance.put(`partes/remitoDelete/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+export function parteDeleteCertificado({ data, id }) {
+    let token = localStorage.getItem("token")
+    return instance.put(`partes/certificadoDelete/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function parteDelete(id) {
     let token = localStorage.getItem("token")
     return instance.delete(`partes/${id}`, {

@@ -135,7 +135,7 @@ const insp = [
     }
 ]
 
-function Uploader({ Titulo, Subtitulo, fileTypes, ...props }) {
+function UploaderInspecciones({ Titulo, Subtitulo, fileTypes, ...props }) {
     let json = [];
 
     const convertToSchema = (item, adic) => {
@@ -249,4 +249,4 @@ function Uploader({ Titulo, Subtitulo, fileTypes, ...props }) {
     );
 }
 
-export default Uploader;
+export default UploaderInspecciones;

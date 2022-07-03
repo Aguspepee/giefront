@@ -13,7 +13,7 @@ import { Fragment } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { certificadoXLS } from '../../../utils/exports/certificado-xls';
-
+import RowDetails from '../table/row-details'
 
 
 //icons
@@ -29,7 +29,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
     const labelId = `enhanced-table-checkbox-${index}`;
 
     //Cantidad de columnas mostradas
-   // const colums_quantity = columns.filter((column) => column.show === true).length + 3
+    const colums_quantity = columns.filter((column) => column.show === true).length + 3
 
     const handleDelete = (id) => {
         certificadoDelete(id)
@@ -114,16 +114,16 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 })}
                 <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
-                    <Tooltip title="Descargar Certificado">
-                            <IconButton sx={{ ml: 1 }} onClick={()=>{
-                               certificadoXLS(certificado)
+                        <Tooltip title="Descargar Certificado">
+                            <IconButton sx={{ ml: 1 }} onClick={() => {
+                                certificadoXLS(certificado)
                             }}>
                                 <DownloadIcon fontSize="small" />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Editar contrato">
-                            <IconButton sx={{ ml: 1 }} onClick={()=>{
-                                handleEdit({open:true, certificado:certificado})
+                            <IconButton sx={{ ml: 1 }} onClick={() => {
+                                handleEdit({ open: true, certificado: certificado })
                             }}>
                                 <EditIcon fontSize="small" />
                             </IconButton>
@@ -145,7 +145,13 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                     </Stack>
                 </TableCell>
             </TableRow >
-            {/* <RowDetails open={open} certificado={certificado} colums_quantity={colums_quantity} handleReload={handleReload} /> */}
+            <RowDetails
+                open={open}
+                certificado={certificado}
+                colums_quantity={colums_quantity}
+                handleReload={handleReload}
+                handleConfirmDialogChange={handleConfirmDialogChange}
+                handleNotifyChange={handleNotifyChange} />
 
         </>
     );
