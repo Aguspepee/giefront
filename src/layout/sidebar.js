@@ -16,6 +16,9 @@ import styled from "styled-components";
 import { ReactComponent as GieLogo } from "../images/gie_blanco.svg";
 import SettingsIcon from '@mui/icons-material/Settings';
 
+//Icons
+import HomeIcon from '@mui/icons-material/Home';
+
 import { Typography } from '@mui/material';
 import { default as LinkMaterial } from '@mui/material/Link';
 
@@ -29,6 +32,12 @@ const StyledLogo = styled(GieLogo)`
 const items = [
   {
     href: '/',
+    icon: (<HomeIcon fontSize="small" />),
+    title: 'Inicio',
+    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
+  },
+  {
+    href: '/dashboard',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard',
     roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]

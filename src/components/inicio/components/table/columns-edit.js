@@ -3,21 +3,21 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import UserContext from '../../../context/userContext';
+import UserContext from '../../../../context/userContext';
 import { useContext } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { userEdit } from '../../../services/users';
+import { userEdit } from '../../../../services/users';
 
 const ITEM_HEIGHT = 48;
 
 export default function ColumnsEdit() {
     const [user, setUser] = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    let columns = user.certificadoColumns;
+    let columns = user.parteColumns;
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -31,7 +31,7 @@ export default function ColumnsEdit() {
             column._id === id ? (column.show = !column.show) : (column.show = column.show)
             return ({ ...column })
         })
-        let document = await userEdit({ certificadoColumns: columns }, user._id)
+        let document = await userEdit({ parteColumns: columns }, user._id)
         setUser(document.data)
     };
 
@@ -41,7 +41,7 @@ export default function ColumnsEdit() {
             column._id === id ? column.width = Number(event.target.value) : (column.width = column.width)
             return ({ ...column })
         })
-        let document = await userEdit({ certificadoColumns: columns }, user._id)
+        let document = await userEdit({ parteColumns: columns }, user._id)
         setUser(document.data)
     };
 
@@ -99,6 +99,8 @@ export default function ColumnsEdit() {
                         </Typography>
                     </MenuItem>
                 ))}
+
+
             </Menu>
         </div>
     );

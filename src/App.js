@@ -14,6 +14,7 @@ import Private from './components/Private';
 import { userWhoami } from './services/users';
 
 //Páginas
+import Inicio from './pages/inicio';
 import Dashboard from "./pages/dashboard";
 import UsersLogin from './pages/users-login';
 import UsersAccount from './pages/users-account';
@@ -65,8 +66,11 @@ function App() {
         <BrowserRouter>
           <Routes>
 
+            {/* Inicio */}
+            <Route path="/" element={<Private Component={Inicio} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/inicio" element={<Private Component={Inicio} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+
             {/* Dashboard */}
-            <Route path="/" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
             <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
             {/* Users */}
