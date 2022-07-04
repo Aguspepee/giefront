@@ -7,22 +7,29 @@ import EnhancedTableSearch from './table/enhanced-table-search';
 import EnhancedTableRow from './table/enhanced-table-row';
 import TablePagination from '@mui/material/TablePagination';
 import UserContext from '../../../context/userContext';
+import Skeleton from '@mui/material/Skeleton';
 
 import { useContext } from 'react';
 
 //Alerts y Notifications
 import Notification from '../../../styled-components/alerts/notification';
 import ConfirmDialog from '../../../styled-components/alerts/confirm-dialog';
+import EnhancedTableSkeleton from './table/enhanced-table-skeleton';
 
-export const InicioTable = () => {
+export const InicioTable = ({reload, handleReload}) => {
   const [user, setUser] = useContext(UserContext);
   const [edit, setEdit] = useState({ open: false, parte: [] })
-  const [reload, setReload] = useState(false)
+  //const [reload, setReload] = useState(false)
   const [data, setData] = useState([])
   const partes = data?.docs || []
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [remito, setRemito] = useState([])
+
+
+  //Loading
+  const [loading, setLoading] = useState(true)
+
 
   const handleEdit = (value) => {
     setEdit(value)
@@ -40,9 +47,9 @@ export const InicioTable = () => {
     setNotify(value)
   }
 
-  const handleReload = () => {
+/*   const handleReload = () => {
     setReload(!reload)
-  }
+  } */
 
   //Selected 
   const [selected, setSelected] = useState([]);
@@ -86,7 +93,7 @@ export const InicioTable = () => {
   };
 
   //Search filers
-  const [search, setSearch] = useState({})
+  const [search, setSearch] = useState({operador:user._id})
   const handleSearchChange = (newValue) => {
     setSearch(newValue)
   }
@@ -113,15 +120,18 @@ export const InicioTable = () => {
   };
   useEffect(() => {
     async function getList() {
+      setLoading(true)
       try {
         const res = await parteGetRestricted(page, rowsPerPage, order, orderBy, search)
         setData(res.data)
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         console.log(error)
       }
     }
     getList()
-  }, [reload, page, rowsPerPage, order, orderBy, search])
+  }, [  reload, page, rowsPerPage, order, orderBy, search])
 
   return (
     <>
@@ -152,7 +162,13 @@ export const InicioTable = () => {
                   columns={user.parteColumns}
                   search={search}
                   onChange={handleSearchChange} />
-                {partes?.map((parte, index) => (
+
+                {loading &&
+                  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item,index) =>
+                    <EnhancedTableSkeleton key={index} columns={user.parteColumns} />)
+                }
+
+                {!loading && partes?.map((parte, index) => (
                   <EnhancedTableRow
                     key={parte._id}
                     parte={parte}
@@ -189,7 +205,7 @@ export const InicioTable = () => {
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog} />
-      
+
     </>
   );
 };

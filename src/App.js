@@ -71,7 +71,7 @@ function App() {
             <Route path="/inicio" element={<Private Component={Inicio} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
 
             {/* Dashboard */}
-            <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />
+            <Route path="/dashboard" element={<Private Component={Dashboard} user={user} roles={["Administrador", "Supervisor"]} />} />
 
             {/* Users */}
             <Route path="/users-account" element={<Private Component={UsersAccount} user={user} roles={["Administrador", "Supervisor", "Inspector", "Asistente"]} />} />

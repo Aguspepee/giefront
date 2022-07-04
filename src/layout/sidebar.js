@@ -40,7 +40,7 @@ const items = [
     href: '/dashboard',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard',
-    roles: ["Administrador", "Supervisor", "Inspector", "Asistente"]
+    roles: ["Administrador", "Supervisor"]
   },
   {
     href: '/partes-list',
