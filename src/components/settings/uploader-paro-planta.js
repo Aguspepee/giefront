@@ -148,7 +148,7 @@ function UploaderParoPlanta({ Titulo, Subtitulo, fileTypes, ...props }) {
             numero_orden: item["OS pura"],
             tag: item["TAG"],
             items: [],
-            operador: operador[0] ? operador[0].id : "62a4d4d885bad7c20edc997c",
+            operador: operador[0] ? operador[0].id : "62b2203adad85c26fc3357fc",
             paga: "626d99480581fea5022d628e",
             fecha_inspeccion: ExcelDateToJSDate(item["inicio plan"]),
 

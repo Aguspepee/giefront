@@ -2,8 +2,8 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-export const TotalCustomers = ({value,subvalue,title,description,...props}) => (
-  <Card {...props}>
+export const TotalCustomers = ({value,subvalue,title,description, icon, ...props}) => (
+  <Card {...props} style={{height:"100%"}}>
     <CardContent>
       <Grid
         container
@@ -11,7 +11,7 @@ export const TotalCustomers = ({value,subvalue,title,description,...props}) => (
         sx={{ justifyContent: 'space-between' }}
       >
         <Grid item>
-          <Box style={{width:"10em"}}>
+         
           <Typography
             color="textSecondary"
             //gutterBottom
@@ -20,7 +20,7 @@ export const TotalCustomers = ({value,subvalue,title,description,...props}) => (
           >
             {title}
           </Typography>
-          </Box>
+         
           <Typography
             color="textPrimary"
             variant="h4"
@@ -40,7 +40,7 @@ export const TotalCustomers = ({value,subvalue,title,description,...props}) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
+{/*       <Box
         sx={{
           alignItems: 'center',
           display: 'flex',
@@ -62,7 +62,7 @@ export const TotalCustomers = ({value,subvalue,title,description,...props}) => (
         >
           Since last month
         </Typography>
-      </Box>
+      </Box> */}
     </CardContent>
   </Card>
 );

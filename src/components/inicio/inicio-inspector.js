@@ -80,7 +80,7 @@ console.log(indicadores)
               sm={6}
               xs={12}
             >
-              <TotalCustomers value={indicadores[0]?.informes_no_realizados} subvalue={0} title="Informes Penedientes" subtitle="" icon={()=>{}}/>
+              <TotalCustomers value={indicadores[0]?.informes_no_realizados} subvalue={0} title="Informes Penedientes" subtitle="" />
             </Grid>
             <Grid
               item
