@@ -15,7 +15,7 @@ export function inicioIndicadoresSupervisor() {
     })
 }
 
-export function inicioIndicadoresInspector(id) {
+export function inicioIndicadoresInspector({id}) {
     let token = localStorage.getItem("token")
     return instance.get(`inicio/inspector/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -24,7 +24,7 @@ export function inicioIndicadoresInspector(id) {
 
 export function inicioIndicadoresAsistente() {
     let token = localStorage.getItem("token")
-    return instance.get(`inicio/inspector/`, {
+    return instance.get(`inicio/asistente/`, {
         headers: { Authorization: `Bearer ${token}` }
     })
 }

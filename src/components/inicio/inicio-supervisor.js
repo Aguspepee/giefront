@@ -1,104 +1,132 @@
 import { Box, Container, Grid } from '@mui/material';
-import { Budget } from './components/budget';
-import { TasksProgress } from './components/tasks-progress';
-import { TotalCustomers } from './components/total-customers';
-import { TotalProfit } from './components/total-profit';
-import { Sales } from './components/sales';
+import { IndicadorSimple } from './components/indicador-simple';
 import { InicioTable } from './components/table';
+import { useEffect, useState } from 'react';
+import { inicioIndicadoresSupervisor } from '../../services/inicio';
+import UserContext from './../../context/userContext';
+import { useContext } from 'react';
+
+//Icons
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 
-function InicioAdministrador() {
+function InicioSupervisor() {
+  const [reload, setReload] = useState(false)
+  const [user, setUser] = useContext(UserContext);
+  const [indicadores, setIndicadores] = useState([])
+
+  const handleReload = () => {
+    setReload(!reload)
+    console.log("cambio")
+  }
+  useEffect(() => {
+    const getIndicadores = async () => {
+      try {
+        const res = await inicioIndicadoresSupervisor()
+        setIndicadores(res.data)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getIndicadores()
+  }, [reload])
+  console.log(indicadores)
   return (
     <>
       <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 2
-      }}
-    >
-      <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 2
+        }}
+      >
+        <Container maxWidth={false}>
           <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
+            container
+            spacing={3}
           >
-            <TotalCustomers />
+            <Grid
+              item
+              xl={3}
+              lg={6}
+              sm={6}
+              xs={12}
+            >
+              <IndicadorSimple
+                value={indicadores[0]?.trabajos_sin_terminar}
+                subvalue={indicadores[0]?.trabajos_sin_terminar}
+                title="Inspecciones incompletas"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='error.main'
+              />
+            </Grid>
+            <Grid
+              item
+              xl={3}
+              lg={6}
+              sm={6}
+              xs={12}
+            >
+              <IndicadorSimple
+                value={indicadores[0]?.partes_sin_informe}
+                subvalue={indicadores[0]?.partes_sin_informe}
+                title="Inspecciones sin Informe"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='secondary.main'
+              />
+
+            </Grid>
+            <Grid
+              item
+              xl={3}
+              lg={6}
+              sm={6}
+              xs={12}
+            >
+              <IndicadorSimple
+                value={indicadores[0]?.informes_para_revision}
+                subvalue={indicadores[0]?.informes_para_revision}
+                title="Informes para Revision"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='secondary.main'
+              />
+            </Grid>
+            
+            <Grid
+              item
+              xl={3}
+              lg={6}
+              sm={6}
+              xs={12}
+            >
+              <IndicadorSimple
+                value={indicadores[0]?.partes_para_remitar}
+                subvalue={indicadores[0]?.partes_para_remitar}
+                title="Partes para Remitar"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='primary.main'
+              />
+            </Grid>
+            <Grid
+              item
+              lg={12}
+              md={12}
+              xl={12}
+              xs={12}
+            >
+              <InicioTable reload={reload} handleReload={handleReload} />
+            </Grid>
           </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            lg={12}
-            md={12}
-            xl={12}
-            xs={12}
-          >
-             <InicioTable/>
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
-          </Grid>
-{/*           <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid> */}
-          <Grid
-            item
-            lg={12}
-            md={12}
-            xl={12}
-            xs={12}
-          >
-           {/*  <LatestOrders /> */}
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-        </>
-        )
+        </Container>
+      </Box>
+    </>
+  )
 }
 
-        export default InicioAdministrador;
+export default InicioSupervisor;

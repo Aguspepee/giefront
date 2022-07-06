@@ -1,15 +1,15 @@
 import { Box, Container, Grid } from '@mui/material';
-import { Budget } from './components/budget';
-import { TasksProgress } from './components/tasks-progress';
-import { TotalCustomers } from './components/total-customers';
-import { TotalProfit } from './components/total-profit';
-import { Sales } from './components/sales';
+import { IndicadorSimple } from './components/indicador-simple';
 import { InicioTable } from './components/table';
 import { useEffect, useState } from 'react';
 import { inicioIndicadoresAdministrador } from '../../services/inicio';
 import UserContext from './../../context/userContext';
 import { useContext } from 'react';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+
+//Icons
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 function InicioAdministrador() {
 
@@ -54,11 +54,14 @@ function InicioAdministrador() {
               sm={6}
               xs={12}
             >
-              <TotalCustomers
+              <IndicadorSimple
                 value={indicadores[0]?.partes_para_remitar}
                 subvalue={indicadores[0]?.partes_para_remitar}
                 title="Partes para Remitar"
-                subtitle="" />
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='secondary.main'
+              />
             </Grid>
             <Grid
               item
@@ -67,11 +70,14 @@ function InicioAdministrador() {
               sm={6}
               xs={12}
             >
-              <TotalCustomers
+              <IndicadorSimple
                 value={indicadores[0]?.remitos_para_certificar}
-                ubvalue={0}
+                subvalue={0}
                 title="Remitos para Certificar"
-                subtitle="" />
+                subtitle=""
+                Icon={() => <ReceiptIcon />}
+                backgroundColor='secondary.main'
+              />
             </Grid>
             <Grid
               item
@@ -80,11 +86,14 @@ function InicioAdministrador() {
               sm={6}
               xs={12}
             >
-              <TotalCustomers
-                value={`$${indicadores[0]?.monto_para_remitar}`}
+              <IndicadorSimple
+                value={indicadores[0]?`$${indicadores[0]?.monto_para_remitar}`:`$0`}
                 subvalue={indicadores[0]?.monto_para_remitar}
                 title="Monto para remitar"
-                subtitle="" />
+                subtitle=""
+                Icon={() => <AttachMoneyIcon />}
+                backgroundColor='warning.main'
+              />
             </Grid>
             <Grid
               item
@@ -93,11 +102,14 @@ function InicioAdministrador() {
               sm={6}
               xs={12}
             >
-              <TotalCustomers 
-              value={`$${indicadores[0]?.monto_para_certificar}`}
-              subvalue={indicadores[0]?.monto_para_certificar}
-              title="Monto para Certificar" 
-              subtitle="" />
+              <IndicadorSimple
+                value={indicadores[0]?`$${indicadores[0]?.monto_para_certificar}`:`$0`}
+                subvalue={indicadores[0]?.monto_para_certificar}
+                title="Monto para Certificar"
+                subtitle=""
+                Icon={() => <AttachMoneyIcon />}
+                backgroundColor='warning.main'
+              />
             </Grid>
             <Grid
               item

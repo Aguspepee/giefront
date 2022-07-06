@@ -1,15 +1,15 @@
 import { Box, Container, Grid } from '@mui/material';
-import { Budget } from './components/budget';
-import { TasksProgress } from './components/tasks-progress';
-import { TotalCustomers } from './components/total-customers';
-import { TotalProfit } from './components/total-profit';
-import { Sales } from './components/sales';
+import { IndicadorSimple } from './components/indicador-simple';
 import { InicioTable } from './components/table';
 import { useEffect, useState } from 'react';
 import { inicioIndicadoresInspector } from '../../services/inicio';
 import UserContext from './../../context/userContext';
 import { useContext } from 'react';
-import RateReviewIcon from '@mui/icons-material/RateReview';
+
+//Icons
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 
 function InicioInspector() {
@@ -24,15 +24,15 @@ function InicioInspector() {
   useEffect(() => {
     const getIndicadores = async () => {
       try {
-       const res = await inicioIndicadoresInspector(user._id)
-       setIndicadores(res.data)
+        const res = await inicioIndicadoresInspector({id:user._id})
+        setIndicadores(res.data)
       } catch (e) {
         console.log(e)
       }
     }
     getIndicadores()
   }, [reload])
-console.log(indicadores)
+  console.log(indicadores)
   return (
     <>
       <Box
@@ -49,47 +49,67 @@ console.log(indicadores)
           >
             <Grid
               item
-              lg={3}
-              sm={6}
               xl={3}
+              lg={6}
+              sm={6}
               xs={12}
             >
-              <TotalCustomers 
-              value={indicadores[0]?.inspecciones_realizadas} 
-              subvalue={indicadores[0]?.inspecciones_realizadas} 
-              title="Inspecciones" 
-              subtitle="" />
+              <IndicadorSimple
+                value={indicadores[0]?.inspecciones_realizadas}
+                subvalue={indicadores[0]?.inspecciones_realizadas}
+                title="Inspecciones Cargadas"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='secondary.main'
+              />
             </Grid>
             <Grid
               item
               xl={3}
-              lg={3}
+              lg={6}
               sm={6}
               xs={12}
             >
-              <TotalCustomers 
-              value={indicadores[0]?.trabajos_no_terminados} 
-              ubvalue={0} 
-              title="Trabajos Pendientes" 
-              subtitle="" />
+              <IndicadorSimple
+                value={indicadores[0]?.trabajos_no_terminados}
+                subvalue={indicadores[0]?.trabajos_no_terminados}
+                title="Trabajos No Terminados"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='warning.main'
+              />
             </Grid>
             <Grid
               item
               xl={3}
-              lg={3}
+              lg={6}
               sm={6}
               xs={12}
             >
-              <TotalCustomers value={indicadores[0]?.informes_no_realizados} subvalue={0} title="Informes Penedientes" subtitle="" />
+              <IndicadorSimple
+                value={indicadores[0]?.informes_no_realizados}
+                subvalue={indicadores[0]?.informes_no_realizados}
+                title="Informes No Realizados"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='error.main'
+              />
             </Grid>
             <Grid
               item
               xl={3}
-              lg={3}
+              lg={6}
               sm={6}
               xs={12}
             >
-              <TotalCustomers value={indicadores[0]?.inspecciones_realizadas} subvalue={0} title="Informes en Revisión" subtitle="" />
+              <IndicadorSimple
+                value={indicadores[0]?.informes_en_revision}
+                subvalue={indicadores[0]?.informes_en_revision}
+                title="Informes en revision"
+                subtitle=""
+                Icon={() => <StickyNote2Icon />}
+                backgroundColor='primary.main'
+              />
             </Grid>
             <Grid
               item
@@ -98,34 +118,7 @@ console.log(indicadores)
               xl={12}
               xs={12}
             >
-              <InicioTable reload={reload} handleReload={handleReload}/>
-            </Grid>
-            <Grid
-              item
-              lg={4}
-              md={6}
-              xl={3}
-              xs={12}
-            >
-              {/* <TrafficByDevice sx={{ height: '100%' }} /> */}
-            </Grid>
-            {/*           <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts sx={{ height: '100%' }} />
-          </Grid> */}
-            <Grid
-              item
-              lg={12}
-              md={12}
-              xl={12}
-              xs={12}
-            >
-              {/*  <LatestOrders /> */}
+              <InicioTable reload={reload} handleReload={handleReload} />
             </Grid>
           </Grid>
         </Container>
