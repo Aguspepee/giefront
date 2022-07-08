@@ -1,10 +1,11 @@
 import { Box, Container, Grid } from '@mui/material';
 import { IndicadorSimple } from './components/indicador-simple';
-import { InicioTable } from './components/table';
 import { useEffect, useState } from 'react';
 import { inicioIndicadoresAdministrador } from '../../services/inicio';
 import UserContext from './../../context/userContext';
 import { useContext } from 'react';
+import { PartesTable } from './components/inicio-administrador/partes-table';
+import { RemitosTable } from './components/inicio-administrador/remitos-table';
 
 //Icons
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -50,7 +51,8 @@ function InicioAdministrador() {
             <Grid
               item
               xl={3}
-              lg={6}
+              lg={3}
+              md={3}
               sm={6}
               xs={12}
             >
@@ -66,7 +68,8 @@ function InicioAdministrador() {
             <Grid
               item
               xl={3}
-              lg={6}
+              lg={3}
+              md={3}
               sm={6}
               xs={12}
             >
@@ -82,12 +85,13 @@ function InicioAdministrador() {
             <Grid
               item
               xl={3}
-              lg={6}
+              lg={3}
+              md={3}
               sm={6}
               xs={12}
             >
               <IndicadorSimple
-                value={indicadores[0]?`$${indicadores[0]?.monto_para_remitar}`:`$0`}
+                value={indicadores[0] ? `$${indicadores[0]?.monto_para_remitar}` : `$0`}
                 subvalue={indicadores[0]?.monto_para_remitar}
                 title="Monto para remitar"
                 subtitle=""
@@ -98,12 +102,13 @@ function InicioAdministrador() {
             <Grid
               item
               xl={3}
-              lg={6}
+              lg={3}
+              md={3}
               sm={6}
               xs={12}
             >
               <IndicadorSimple
-                value={indicadores[0]?`$${indicadores[0]?.monto_para_certificar}`:`$0`}
+                value={indicadores[0] ? `$${indicadores[0]?.monto_para_certificar}` : `$0`}
                 subvalue={indicadores[0]?.monto_para_certificar}
                 title="Monto para Certificar"
                 subtitle=""
@@ -113,12 +118,21 @@ function InicioAdministrador() {
             </Grid>
             <Grid
               item
-              lg={12}
-              md={12}
-              xl={12}
+              lg={4}
+              md={4}
+              xl={4}
               xs={12}
             >
-              <InicioTable reload={reload} handleReload={handleReload} />
+              <RemitosTable />
+            </Grid>
+            <Grid
+              item
+              lg={8}
+              md={8}
+              xl={8}
+              xs={12}
+            >
+              <PartesTable />
             </Grid>
           </Grid>
         </Container>

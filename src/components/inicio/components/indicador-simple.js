@@ -2,39 +2,38 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
-export const IndicadorSimple = ({ value, subvalue, title, description, Icon, backgroundColor,...props }) => (
+export const IndicadorSimple = ({ value, subvalue, title, description, Icon, backgroundColor, ...props }) => (
   <Card {...props} style={{ height: "100%" }}>
     <CardContent>
       <Grid
         container
-        spacing={3}
+        spacing={1}
         sx={{ justifyContent: 'space-between' }}
       >
-        <Grid item>
-
+        <Grid item style={{width:'60%'}}>
           <Typography
             color="textSecondary"
             //gutterBottom
-            variant="overline"
-            style={{ padding: "0em 0em 0em 0em" }}
+            variant="h6"
+            style={{ padding: "0em 0em 0em 0em", fontSize:"0.75em"}}
           >
-            {title}
+            {(title).toUpperCase()}
           </Typography>
 
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            {value!==undefined && value}
-            {value===undefined && 0}
+            {value !== undefined && value}
+            {value === undefined && 0}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
               backgroundColor: backgroundColor,
-              height: 56,
-              width: 56
+              height: 40,
+              width: 40
             }}
           >
             {Icon && <Icon />}

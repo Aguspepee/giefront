@@ -18,7 +18,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
         <TableHead>
             <TableRow style={{ height: "50px" }}>
 
-                <TableCell padding="checkbox" style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell padding="checkbox" >
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -29,7 +29,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                         }}
                     />
                 </TableCell>
-                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell >
 
                 </TableCell>
                 {columns.map((column) => (
@@ -40,7 +40,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                                 align={column.numeric ? 'right' : 'left'}
                                 padding={column.disablePadding ? 'none' : 'normal'}
                                 sortDirection={orderBy === column.id ? order : false}
-                                style={{ backgroundColor: "#F3F4F6", minWidth: `${column.width}px` }}
+                                style={{ minWidth: `${column.width}px` }}
 
                             >
                                 <TableSortLabel
@@ -58,7 +58,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                             </TableCell>}
                     </Fragment>
                 ))}
-                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell >
                 </TableCell>
             </TableRow>
         </TableHead>
