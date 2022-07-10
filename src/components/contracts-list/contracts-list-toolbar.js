@@ -34,7 +34,7 @@ function ContractsListToolbar({ handleReload, handleSearchChange, ...props }) {
         isOpen: false
       })
       setNotify({
-        isOpen: true,
+        isOpen: true, 
         message: 'El contrato se creó correctamente',
         type: 'success'
       })
