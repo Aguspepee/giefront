@@ -21,7 +21,7 @@ import { parteGetRestricted } from '../../../../services/partes';
 
 export const PartesTable = (props) => {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const partes = data?.docs || []
   const [reload, setReload] = useState(false)
 

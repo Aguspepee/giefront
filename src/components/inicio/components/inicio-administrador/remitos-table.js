@@ -10,18 +10,21 @@ import {
   ListItemAvatar,
   ListItemText,
   Skeleton,
-  Tooltip
+  Stack,
+  Tooltip,
+  Typography
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { remitoGetAll } from '../../../../services/remitos';
 import TablePagination from '@mui/material/TablePagination';
 import DownloadIcon from '@mui/icons-material/Download';
 import { remitoPDF } from '../../../../utils/exports/remito-pdf';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 
 export const RemitosTable = (props) => {
   const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const remitos = data?.docs || []
   const [reload, setReload] = useState(false)
 
@@ -102,7 +105,26 @@ export const RemitosTable = (props) => {
         {(!loading && emptyRows > 0) &&
           <ListItem style={{ height: `${75 * emptyRows}px` }}>
             {emptyRows === rowsPerPage &&
-              "No hay remitos para certificar"
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: "100%"
+              }}>
+                <Stack direction="column">
+                  <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: "100%",
+                    paddingBottom:"1.5em"
+                  }}>
+                    <AssignmentTurnedInIcon sx={{ fontSize: 100, }}  style={{color:"#C1C1C1"}} />
+                  </Box>
+                  <Typography variant="h5" style={{color:"#C1C1C1"}} align='center'>
+                    No hay remitos para certificar
+                  </Typography>
+                </Stack>
+              </Box>
+
             }
           </ListItem>
         }

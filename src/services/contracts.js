@@ -45,6 +45,13 @@ export function contractCreate(contract) {
     })
 }
 
+export function contractCopy({id}) {
+    let token = localStorage.getItem("token")
+    return instance.put(`contracts/copy/${id}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
+
 export function contractEdit(contract,id) {
     let token = localStorage.getItem("token")
     return instance.put(`contracts/edit/${id}`, contract, {

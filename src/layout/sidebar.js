@@ -152,7 +152,7 @@ export const DashboardSidebar = (props) => {
           <Typography variant="caption" display="block" gutterBottom>
             Made by
           </Typography>
-          <LinkMaterial target="_blank" href="http://test.growup-digital.com" rel="noreferrer">
+          <LinkMaterial target="_blank" href="http://growup-digital.com" rel="noreferrer">
             <Logo
               sx={{
                 width: 30
