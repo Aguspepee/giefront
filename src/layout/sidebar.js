@@ -23,7 +23,7 @@ import { Typography } from '@mui/material';
 import { default as LinkMaterial } from '@mui/material/Link';
 
 const StyledLogo = styled(GieLogo)`
-  width: 12em;
+  width: 8em;
   display: block;
   margin: auto;
 `;
@@ -147,15 +147,15 @@ export const DashboardSidebar = (props) => {
         </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
 
-        <div style={{ padding: "2em 4em 2em 4em" }} >
+        <div style={{ padding: "2em 3em 1em 3em" }} >
 
-          <Typography variant="caption" display="block" gutterBottom>
-            Made by
+          <Typography variant="caption" display="block" gutterBottom style={{textSize:"0.5em"}}>
+            Developed by
           </Typography>
           <LinkMaterial target="_blank" href="http://growup-digital.com" rel="noreferrer">
             <Logo
               sx={{
-                width: 30
+                width: 50
               }}
 
             />
@@ -174,7 +174,8 @@ export const DashboardSidebar = (props) => {
           sx: {
             backgroundColor: '#19334F',
             color: '#FFFFFF',
-            width: 280
+            //width: 280
+            width: 200
           }
         }}
         variant="permanent"
@@ -193,7 +194,7 @@ export const DashboardSidebar = (props) => {
         sx: {
           backgroundColor: 'neutral.900',
           color: '#FFFFFF',
-          width: 280
+          width: 200
         }
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}

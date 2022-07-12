@@ -138,7 +138,7 @@ export const PartesListResults = () => {
         />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
-          <Box sx={{ minWidth: 1050, maxWidth: 1600 }}>
+          <Box sx={{ minWidth: 1050, maxWidth: 1800 }}>
             <Table stickyHeader size="small" >
               <EnhancedTableHead
                 order={order}

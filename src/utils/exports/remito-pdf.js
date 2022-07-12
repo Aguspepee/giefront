@@ -24,7 +24,7 @@ export function remitoPDF(remito) {
             ['GIE S.A.'],
             ['CUIT 30-69001149-9'],
             ['34-DOWAR-022019-026-00-00'],
-            ['Galicia N° 52, Mar del Plata, Buenos Aires (7600)'],
+            ['Juan B. Justo 4391, Mar del Plata, Buenos Aires (7600)'],
             ['Telefono (+54) 0223-482-2308   Fax (+54) 0223- 482-2308'],
             ['www.giegroup.net'],
             ['Senor/es: PBB-Polisur', `N° de REMITO: ${remito.remito_numero}`],
