@@ -11,8 +11,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { userEdit } from '../../../services/users';
+import { Stack, Tooltip } from '@mui/material';
+
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const ITEM_HEIGHT = 48;
+
+
 
 export default function ColumnsEdit() {
     const [user, setUser] = useContext(UserContext);
@@ -42,6 +48,18 @@ export default function ColumnsEdit() {
             return ({ ...column })
         })
         let document = await userEdit({ parteColumns: columns }, user._id)
+        setUser(document.data)
+    };
+
+    const onChangePosition = async (arr, old_index, new_index) => {
+        if (new_index >= arr.length) {
+            var k = new_index - arr.length + 1;
+            while (k--) {
+                arr.push(undefined);
+            }
+        }
+        arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+        let document = await userEdit({ parteColumns: arr }, user._id)
         setUser(document.data)
     };
 
@@ -76,8 +94,20 @@ export default function ColumnsEdit() {
                         Seleccione las columnas que desea ver en la tabla.
                     </Typography>
                 </Box>
-                {columns.map((option) => (
+                {columns.map((option, index) => (
                     <MenuItem key={option._id}>
+                        <Stack direction="row">
+                            <Tooltip title="Subir un nivel">
+                                <IconButton sx={{ ml: 1 }} onClick={() => onChangePosition(columns, index, index - 1)}>
+                                    <ArrowUpwardIcon fontSize="small" />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Bajar un nivel">
+                                <IconButton sx={{ ml: 1 }} onClick={() => onChangePosition(columns, index, index + 1)}>
+                                    <ArrowDownwardIcon fontSize="small" />
+                                </IconButton>
+                            </Tooltip>
+                        </Stack>
                         <Checkbox
                             checked={option.show}
                             inputProps={{ 'aria-label': 'controlled' }}
