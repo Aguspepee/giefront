@@ -40,7 +40,8 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                                 align={column.numeric ? 'right' : 'left'}
                                 padding={column.disablePadding ? 'none' : 'normal'}
                                 sortDirection={orderBy === column.id ? order : false}
-                                style={{ backgroundColor: "#F3F4F6", minWidth: `${column.width}px` }}
+                                style={{ backgroundColor: "#F3F4F6",maxWidth: `${column.width}px` }}
+                               
 
                             >
                                 <TableSortLabel

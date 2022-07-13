@@ -82,7 +82,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                     key={column.id}
                                     align={column.numeric ? 'right' : 'left'}
                                     padding={column.disablePadding ? 'none' : 'normal'}
-                                    style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}
+                                    style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "",fontSize: '0.8em' }}
                                 >
                                     <>
                                         {column.type === "text" &&
