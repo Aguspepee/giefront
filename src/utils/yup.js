@@ -183,7 +183,7 @@ export const partesSchema = yup.object().shape({
 
   items: yup.array().of(
     yup.object().shape({
-      descripcion_servicio: yup.string().required("First Name is required"),
+      descripcion_servicio: yup.string().required("La descripción del servicio es requerida"),
       cantidad: yup.number()
         .typeError('La cantidad debe ser un número')
         .positive('Debe ser un número positivo')

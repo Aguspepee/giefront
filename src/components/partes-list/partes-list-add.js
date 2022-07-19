@@ -66,7 +66,7 @@ export default function PartesListAdd({ handleReload }) {
       operador: { _id: user._id, nombre: user.nombre, apellido: user.apellido },
     });
 
-  }, [user, setUser]);
+  }, [user, setUser, open]);
 
   const items = useFieldArray({
     control,
@@ -87,6 +87,7 @@ export default function PartesListAdd({ handleReload }) {
         message: 'El parte de agregó correctamente',
         type: 'success'
       })
+      handleClose()
       handleReload()
       console.log(doc)
     } catch (e) {
@@ -131,10 +132,13 @@ export default function PartesListAdd({ handleReload }) {
         </Tooltip>
       </Box>
       <Dialog
+      
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
+        fullWidth
+        maxWidth="md"
       >
         <DialogTitle id="responsive-dialog-title" style={{ backgroundColor: "#F3F4F6" }}>
           <IconButton disabled style={{ padding: "0em 0.2em 0.2em 0em" }}>
