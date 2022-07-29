@@ -39,7 +39,7 @@ function App() {
   console.log(process.env.REACT_APP_BACKEND_URL)
   const [user, setUser] = useContext(UserContext);
   const [loadingUser, setLoadingUser] = useState(true)
-  const [expirationTime, setExpirationTime] = useState(1000000)
+  const [expirationTime, setExpirationTime] = useState(1000000000000)
 
   useEffect(() => {
     const Login = async () => {

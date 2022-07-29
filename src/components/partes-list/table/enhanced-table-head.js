@@ -18,7 +18,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
         <TableHead>
             <TableRow style={{ height: "50px" }}>
 
-                <TableCell padding="checkbox" style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6" }}>
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -27,9 +27,10 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                         inputProps={{
                             'aria-label': 'select all desserts',
                         }}
+                        size="small"
                     />
                 </TableCell>
-                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6" }}>
 
                 </TableCell>
                 {columns.map((column) => (
@@ -41,8 +42,6 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                                 padding={column.disablePadding ? 'none' : 'normal'}
                                 sortDirection={orderBy === column.id ? order : false}
                                 style={{ backgroundColor: "#F3F4F6",maxWidth: `${column.width}px` }}
-                               
-
                             >
                                 <TableSortLabel
                                     active={orderBy === column.id}

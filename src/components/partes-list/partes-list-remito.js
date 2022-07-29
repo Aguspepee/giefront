@@ -15,11 +15,6 @@ import { remitoCreate, remitoNumero } from '../../services/remitos'
 import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
 
-
-//Alerts y Notifications
-import Notification from '../../styled-components/alerts/notification';
-import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
-
 //Icons
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -27,7 +22,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 
-export default function RemitoCreate({ handleReload, handleEdit, remito, selected, handleConfirmDialogChange, handleNotifyChange, ...props }) {
+export default function RemitoCreate({ handleReload, handleEdit, remito, selected, handleConfirmDialogChange, handleNotifyChange,selectedToEmpty, ...props }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = useState(false);
@@ -45,7 +40,6 @@ export default function RemitoCreate({ handleReload, handleEdit, remito, selecte
     async function getList() {
       try {
         const res = await remitoNumero()
-        console.log(res.data)
         setNumeroRemito(res.data)
       } catch (error) {
         console.log(error)
@@ -66,6 +60,7 @@ export default function RemitoCreate({ handleReload, handleEdit, remito, selecte
       type: 'success'
     })
     remitoCreate({ selected: selected, certificante: certificante })
+    selectedToEmpty()
     handleReload()
     handleClose()
   }

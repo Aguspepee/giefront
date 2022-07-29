@@ -50,7 +50,6 @@ export const ContractsListResults = ({ handleReload, contracts, ...props }) => {
       type: 'success'
     })
   }
-  console.log(contracts)
   return (
     <>
       <Card>

@@ -11,7 +11,6 @@ export default function SessionTimeout({ expirationTime }) {
         const Login = () => {
                 let Expiration = new Date(expirationTime * 1000)
                 Difference = Expiration - Now;
-                console.log(Difference /60000)
                 setTimeout(() => {
                     setExpirationDialog({
                         title: "La sesión está por expirar",

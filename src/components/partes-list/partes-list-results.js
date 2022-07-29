@@ -87,6 +87,12 @@ export const PartesListResults = () => {
     setRemito(newItem)
   };
 
+  //Selected to emty
+  const selectedToEmpty = () => {
+    setSelected([])
+    setRemito([])
+  }
+
   //Search filers
   const [search, setSearch] = useState({})
   const handleSearchChange = (newValue) => {
@@ -135,6 +141,7 @@ export const PartesListResults = () => {
           handleReload={handleReload}
           handleConfirmDialogChange={handleConfirmDialogChange}
           handleNotifyChange={handleNotifyChange}
+          selectedToEmpty={selectedToEmpty}
         />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
@@ -166,6 +173,7 @@ export const PartesListResults = () => {
                     handleConfirmDialogChange={handleConfirmDialogChange}
                     handleNotifyChange={handleNotifyChange}
                     handleEdit={handleEdit}
+                    rol={user.role}
                   />
                 ))}
               </TableBody>

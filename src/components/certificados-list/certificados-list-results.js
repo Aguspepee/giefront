@@ -71,6 +71,11 @@ export const CertificadosListResults = () => {
     setSelected(newSelected);
   };
 
+  //Selected to emty
+  const selectedToEmty = ()=> {
+    setSelected([])
+  }
+
   //Search filers
   const [search, setSearch] = useState({})
   const handleSearchChange = (newValue) => {
@@ -101,7 +106,6 @@ export const CertificadosListResults = () => {
     async function getList() {
       try {
         const res = await certificadoGetAll(page, rowsPerPage, order, orderBy, search)
-        console.log(res.data)
         setData(res.data)
       } catch (error) {
         console.log(error)
@@ -149,6 +153,7 @@ export const CertificadosListResults = () => {
                     handleConfirmDialogChange={handleConfirmDialogChange}
                     handleNotifyChange={handleNotifyChange}
                     handleEdit={handleEdit}
+                    rol={user.role}
                   />
                 ))}
               </TableBody>

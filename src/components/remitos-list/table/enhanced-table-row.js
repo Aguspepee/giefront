@@ -21,7 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 import DownloadIcon from '@mui/icons-material/Download';
 
-function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, remito, selected, handleClick, index, handleReload, handleEdit, ...props }) {
+function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, remito, selected, handleClick, index, handleReload, handleEdit,rol, ...props }) {
     const [open, setOpen] = useState(false);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(remito._id);
@@ -94,12 +94,14 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                         }
                                         {column.type === "select" &&
                                             <StyledChipUpdate
+                                            data={remito}
                                                 value={resolvePath(remito, column.id)}
                                                 edit={remitoEstado}
                                                 field={column.id}
                                                 label={column.label}
                                                 id={remito._id}
-                                                handleReload={handleReload} />
+                                                handleReload={handleReload}
+                                                rol={rol} />
                                         }
                                         {column.type === "date" &&
                                             (resolvePath(remito, column.id) ? format(new Date(resolvePath(remito, column.id)), 'dd/MM/yyyy') : "-")
@@ -143,7 +145,8 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 colums_quantity={colums_quantity}
                 handleReload={handleReload}
                 handleConfirmDialogChange={handleConfirmDialogChange}
-                handleNotifyChange={handleNotifyChange} />
+                handleNotifyChange={handleNotifyChange} 
+                rol={rol}/>
 
         </>
     );

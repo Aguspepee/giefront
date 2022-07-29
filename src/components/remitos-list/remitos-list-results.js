@@ -131,6 +131,7 @@ export const RemitosListResults = () => {
           handleReload={handleReload}
           handleConfirmDialogChange={handleConfirmDialogChange}
           handleNotifyChange={handleNotifyChange}
+          
         />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
@@ -162,6 +163,7 @@ export const RemitosListResults = () => {
                     handleConfirmDialogChange={handleConfirmDialogChange}
                     handleNotifyChange={handleNotifyChange}
                     handleEdit={handleEdit}
+                    rol={user.role} 
                   />
                 ))}
               </TableBody>

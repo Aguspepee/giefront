@@ -13,7 +13,7 @@ import RemitoCreate from "../partes-list-remito";
 //Icons
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-export default function EnhancedTableToolbar({ handleConfirmDialogChange, handleNotifyChange, numSelected, selected, remito, handleReload, ...props }) {
+export default function EnhancedTableToolbar({ handleConfirmDialogChange, handleNotifyChange, numSelected, selected, remito, handleReload,selectedToEmpty, ...props }) {
   const handleDelete = () => {
     parteDeleteMany(selected)
     handleConfirmDialogChange({
@@ -26,6 +26,7 @@ export default function EnhancedTableToolbar({ handleConfirmDialogChange, handle
       message: 'Los partes se eliminaron correctamente correctamente',
       type: 'error'
     })
+    selectedToEmpty()
     handleReload()
   }
 
@@ -70,7 +71,8 @@ export default function EnhancedTableToolbar({ handleConfirmDialogChange, handle
             selected={selected}
             handleConfirmDialogChange={handleConfirmDialogChange}
             handleNotifyChange={handleNotifyChange} 
-            handleReload={handleReload}/>
+            handleReload={handleReload}
+            selectedToEmpty={selectedToEmpty}/>
 
           <Tooltip title="Borrar ítems">
             <IconButton onClick={() => {

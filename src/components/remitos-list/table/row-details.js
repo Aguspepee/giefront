@@ -17,7 +17,7 @@ import HighlightOff from "@mui/icons-material/HighlightOff";
 
 
 
-function RowDetails({ open, remito, colums_quantity, handleReload, handleConfirmDialogChange, handleNotifyChange, ...props }) {
+function RowDetails({ open, remito, colums_quantity, handleReload, handleConfirmDialogChange, handleNotifyChange, rol, ...props }) {
 
     const handleDelete = (id) => {
         parteDeleteRemito({ data: { ["remito_realizado"]: false }, id })
@@ -84,7 +84,9 @@ function RowDetails({ open, remito, colums_quantity, handleReload, handleConfirm
                                             field={"remito_revisado"}
                                             label={"Remito Revisado"}
                                             id={remito._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            data={remito}
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Remito Revisado
@@ -101,7 +103,9 @@ function RowDetails({ open, remito, colums_quantity, handleReload, handleConfirm
                                             field={"remito_entregado"}
                                             label={"Remito Entregado"}
                                             id={remito._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            data={remito}
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Remito Entregado
@@ -118,7 +122,9 @@ function RowDetails({ open, remito, colums_quantity, handleReload, handleConfirm
                                             field={"remito_firmado"}
                                             label={"Remito Firmado"}
                                             id={remito._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            data={remito}
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Remito Firmado

@@ -21,7 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HighlightOff from "@mui/icons-material/HighlightOff";
 
-function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, parte, selected, handleClick, index, handleReload, handleEdit, ...props }) {
+function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, columns, parte, selected, handleClick, index, handleReload, handleEdit, rol, ...props }) {
     const [open, setOpen] = useState(false);
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const isItemSelected = isSelected(parte._id);
@@ -55,7 +55,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 selected={isItemSelected}
             >
 
-                <TableCell padding="checkbox" style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
+                <TableCell padding='none' style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Checkbox
                         onClick={(event) => handleClick(event, parte._id, parte)}
                         color="primary"
@@ -63,9 +63,10 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                         inputProps={{
                             'aria-labelledby': labelId,
                         }}
+                        size="small"
                     />
                 </TableCell>
-                <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
+                <TableCell padding='none' style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -82,7 +83,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                     key={column.id}
                                     align={column.numeric ? 'right' : 'left'}
                                     padding={column.disablePadding ? 'none' : 'normal'}
-                                    style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "",fontSize: '0.8em' }}
+                                    style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "", fontSize: '0.8em' }}
                                 >
                                     <>
                                         {column.type === "text" &&
@@ -94,11 +95,14 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                                         {column.type === "select" &&
                                             <StyledChipUpdate
                                                 value={resolvePath(parte, column.id)}
+                                                data={parte}
                                                 edit={parteEdit}
                                                 field={column.id}
                                                 label={column.label}
                                                 id={parte._id}
-                                                handleReload={handleReload} />
+                                                handleReload={handleReload}
+                                                rol={rol}
+                                            />
                                         }
                                         {column.type === "date" &&
                                             (resolvePath(parte, column.id) ? format(new Date(resolvePath(parte, column.id)), 'dd/MM/yyyy') : "-")
@@ -113,8 +117,8 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                 <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
                         <Tooltip title="Editar contrato">
-                            <IconButton sx={{ ml: 1 }} onClick={()=>{
-                                handleEdit({open:true, parte:parte})
+                            <IconButton sx={{ ml: 1 }} onClick={() => {
+                                handleEdit({ open: true, parte: parte })
                             }}>
                                 <EditIcon fontSize="small" />
                             </IconButton>
@@ -136,7 +140,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                     </Stack>
                 </TableCell>
             </TableRow >
-            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} />
+            <RowDetails open={open} parte={parte} colums_quantity={colums_quantity} handleReload={handleReload} rol={rol} />
 
         </>
     );

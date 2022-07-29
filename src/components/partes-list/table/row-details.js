@@ -10,7 +10,7 @@ import StyledChipUpdate from '../../../styled-components/styled-chip-update';
 import format from 'date-fns/format';
 
 
-function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
+function RowDetails({ open, parte, colums_quantity, handleReload,rol, ...props }) {
     return (
         <TableRow style={{ backgroundColor: "#F3F4F6" }}>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colums_quantity}>
@@ -107,12 +107,14 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                 <Stack direction="column" spacing={0} style={{ paddingBottom: "1em" }}>
                                     <Stack direction="row" spacing={1}>
                                         <StyledChipUpdate
+                                        data={parte}
                                             value={parte.trabajo_terminado}
                                             edit={parteEdit}
                                             field={"trabajo_terminado"}
                                             label={"Trabajo Terminado"}
                                             id={parte._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Trabajo Terminado
@@ -124,12 +126,14 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                     </Stack>
                                     <Stack direction="row" spacing={1}>
                                         <StyledChipUpdate
+                                        data={parte}
                                             value={parte.informe_realizado}
                                             edit={parteEdit}
                                             field={"informe_realizado"}
                                             label={"Informe Realizado"}
                                             id={parte._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Informe Realizado
@@ -141,12 +145,14 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                     </Stack>
                                     <Stack direction="row" spacing={1}>
                                         <StyledChipUpdate
+                                        data={parte}
                                             value={parte.informe_revisado}
                                             edit={parteEdit}
                                             field={"informe_revisado"}
                                             label={"Informe Revisado"}
                                             id={parte._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Informe Revisado
@@ -158,12 +164,14 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                     </Stack>
                                     <Stack direction="row" spacing={1}>
                                         <StyledChipUpdate
+                                        data={parte}
                                             value={parte.remito_realizado}
                                             edit={parteEdit}
                                             field={"remito_realizado"}
                                             label={"Remito Realizado"}
                                             id={parte._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Remito Realizado
@@ -175,12 +183,14 @@ function RowDetails({ open, parte, colums_quantity, handleReload, ...props }) {
                                     </Stack>
                                     <Stack direction="row" spacing={1}>
                                         <StyledChipUpdate
+                                        data={parte}
                                             value={parte.certificado_realizado}
                                             edit={parteEdit}
                                             field={"certificado_realizado"}
                                             label={"Certificado Realizado"}
                                             id={parte._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Certificado Realizado

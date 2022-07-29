@@ -17,23 +17,8 @@ import HighlightOff from "@mui/icons-material/HighlightOff";
 
 
 
-function RowDetails({ open, certificado, colums_quantity, handleReload, handleConfirmDialogChange, handleNotifyChange, ...props }) {
-
-    const handleDelete = (id) => {
-        parteDeleteRemito({ data: { ["certificado_realizado"]: false }, id })
-        handleConfirmDialogChange({
-            isOpen: false,
-            title: "",
-            subTitle: ""
-        })
-        handleNotifyChange({
-            isOpen: true,
-            message: 'El item se eliminó correctamente',
-            type: 'error'
-        })
-        handleReload()
-    }
-
+function RowDetails({ open, certificado, colums_quantity, handleReload, handleConfirmDialogChange, handleNotifyChange, rol, ...props }) {
+    
     return (
         <TableRow style={{ backgroundColor: "#F3F4F6" }}>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={colums_quantity}>
@@ -137,7 +122,9 @@ function RowDetails({ open, certificado, colums_quantity, handleReload, handleCo
                                             field={"certificado_finalizado"}
                                             label={"Remito Finalizado"}
                                             id={certificado._id}
-                                            handleReload={handleReload} />
+                                            handleReload={handleReload} 
+                                            data={certificado}
+                                            rol={rol}/>
                                         <Box>
                                             <Typography variant="subtitle2" gutterBottom component="div">
                                                 Certificado Finalizado
