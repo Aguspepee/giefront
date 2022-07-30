@@ -16,7 +16,6 @@ import { parteCreate } from '../../services/partes';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import StyledTextfield from '../../styled-components/styled-textfield';
-import StyledCheckbox from '../../styled-components/styled-checkbox';
 import { contractGetList } from '../../services/contracts';
 import AutocompleteContracts from './add-form/components/autocomplete-contracts'
 import StyledAutocompleteList from '../../styled-components/styled-autocomplete-list';
@@ -39,8 +38,6 @@ import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
 
 //Icons
 import IconButton from '@mui/material/IconButton';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function PartesListAdd({ handleReload }) {
@@ -171,8 +168,8 @@ export default function PartesListAdd({ handleReload }) {
                 <Divider />
               </Box>
               <Grid container spacing={2}>
-                <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato*" errors={errors} md={12} xs={12} Icon={() => <HistoryEduIcon />} size="small" />
-                <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a*" errors={errors} fullWidth margin="normal" md={12} xs={12} Icon={() => <EngineeringIcon />} size="small" />
+                <AutocompleteContracts control={control} name="contrato" get={contractGetList} contract={contract} setContract={setContract} description="Contrato*" errors={errors} md={12} xs={12} size="small" />
+                <StyledAutocompleteGet control={control} name="operador" get={userGetNames} description="Operador/a*" errors={errors} fullWidth margin="normal" md={12} xs={12} size="small" />
                 <StyledAutocompleteList show={contract[0]?.campos[0]?.unidad} md={12} xs={12} control={control} name={`unidad`} list={unidades ? unidades : []} description="Unidad*" errors={errors} size="small" />
                 <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección*" errors={errors} md={12} xs={12} size="small" />
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} size="small" />

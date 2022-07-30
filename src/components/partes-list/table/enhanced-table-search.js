@@ -5,7 +5,7 @@ import StyledChipFilter from '../../../styled-components/styled-chip-filter'
 import StyledDatepickerFilter from '../../../styled-components/styled-datepicker-filter';
 import { Fragment } from 'react';
 
-function EnhancedTableSearch({ search, columns, ...props }) {
+function EnhancedTableSearch({ handleStartLoading, search, columns, handleSearchChange, ...props }) {
     return (
         <TableRow style={{ height: "40px", backgroundColor: "#F3F4F6" }}>
             <TableCell padding="checkbox">
@@ -14,14 +14,15 @@ function EnhancedTableSearch({ search, columns, ...props }) {
             </TableCell>
             {columns.map((column) => {
                 function handleChange(event) {
-                    props.onChange({ ...search, [column.id.replace("[", ".").replace("]", "")]: event.target.value })
+                    handleStartLoading()
+                    handleSearchChange({ ...search, [column.id.replace("[", ".").replace("]", "")]: event.target.value })
                 }
                 return (
                     <Fragment key={column.id}>
                         {column.show &&
                             <TableCell
                                 padding={column.disablePadding ? 'none' : 'normal'}
-                                style={{ backgroundColor: "#F3F4F6", minWidth: column.width }}>
+                                style={{ backgroundColor: "#F3F4F6" }}>
                                 {column.type === "text" &&
                                     <TextField
                                         size="small"

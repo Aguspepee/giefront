@@ -114,7 +114,7 @@ function EnhancedTableRow({ handleConfirmDialogChange, handleNotifyChange, colum
                         </Fragment>
                     )
                 })}
-                <TableCell style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
+                <TableCell align={'right'} style={{ backgroundColor: open ? "rgba(80, 72, 229, 0.12)" : "" }}>
                     <Stack direction="row" spacing={2}>
                         <Tooltip title="Editar contrato">
                             <IconButton sx={{ ml: 1 }} onClick={() => {

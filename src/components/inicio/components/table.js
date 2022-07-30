@@ -26,7 +26,6 @@ export const InicioTable = ({reload, handleReload}) => {
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [remito, setRemito] = useState([])
 
-
   //Loading
   const [loading, setLoading] = useState(true)
 

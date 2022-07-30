@@ -18,7 +18,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
         <TableHead>
             <TableRow style={{ height: "50px" }}>
 
-                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6", width: `10px` }}>
                     <Checkbox
                         color="primary"
                         indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -30,7 +30,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                         size="small"
                     />
                 </TableCell>
-                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell padding='none' style={{ backgroundColor: "#F3F4F6", width: `38px` }}>
 
                 </TableCell>
                 {columns.map((column) => (
@@ -41,7 +41,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                                 align={column.numeric ? 'right' : 'left'}
                                 padding={column.disablePadding ? 'none' : 'normal'}
                                 sortDirection={orderBy === column.id ? order : false}
-                                style={{ backgroundColor: "#F3F4F6",maxWidth: `${column.width}px` }}
+                                style={{ backgroundColor: "#F3F4F6" ,minWidth: `${column.width}px`,maxWidth: `${column.width+1}px`}}
                             >
                                 <TableSortLabel
                                     active={orderBy === column.id}
@@ -58,7 +58,7 @@ function EnhancedTableHead({ columns, order, orderBy, onRequestSort, onSelectAll
                             </TableCell>}
                     </Fragment>
                 ))}
-                <TableCell style={{ backgroundColor: "#F3F4F6" }}>
+                <TableCell style={{ backgroundColor: "#F3F4F6",minWidth: `120px`}}>
                 </TableCell>
             </TableRow>
         </TableHead>

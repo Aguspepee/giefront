@@ -15,6 +15,7 @@ import { Stack, Tooltip } from '@mui/material';
 
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ViewColumnIcon from '@mui/icons-material/ViewColumn';
 
 const ITEM_HEIGHT = 48;
 
@@ -73,7 +74,7 @@ export default function ColumnsEdit() {
                 aria-haspopup="true"
                 onClick={handleClick}
             >
-                <MoreVertIcon />
+                <ViewColumnIcon />
             </IconButton>
             <Menu
                 id="long-menu"

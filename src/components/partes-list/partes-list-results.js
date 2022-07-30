@@ -15,6 +15,7 @@ import { useContext } from 'react';
 //Alerts y Notifications
 import Notification from '../../styled-components/alerts/notification';
 import ConfirmDialog from '../../styled-components/alerts/confirm-dialog';
+import EnhancedTableSkeleton from './table/enhanced-table-skeleton';
 
 export const PartesListResults = () => {
   const [user, setUser] = useContext(UserContext);
@@ -25,6 +26,13 @@ export const PartesListResults = () => {
   const [notify, setNotify] = useState({ isOpen: false, message: "", type: "success" })
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [remito, setRemito] = useState([])
+
+  //Loading
+  const [loading, setLoading] = useState(true)
+  const handleStartLoading = ()=>{
+    setLoading(true)
+
+  }
 
   const handleEdit = (value) => {
     setEdit(value)
@@ -124,6 +132,7 @@ export const PartesListResults = () => {
       try {
         const res = await parteGetRestricted(page, rowsPerPage, order, orderBy, search)
         setData(res.data)
+        setLoading(false)
       } catch (error) {
         console.log(error)
       }
@@ -142,6 +151,9 @@ export const PartesListResults = () => {
           handleConfirmDialogChange={handleConfirmDialogChange}
           handleNotifyChange={handleNotifyChange}
           selectedToEmpty={selectedToEmpty}
+          search={search}
+          handleSearchChange={handleSearchChange}
+          handleStartLoading={handleStartLoading}
         />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
@@ -160,8 +172,16 @@ export const PartesListResults = () => {
                 <EnhancedTableSearch
                   columns={user.parteColumns}
                   search={search}
-                  onChange={handleSearchChange} />
-                {partes?.map((parte, index) => (
+                  handleSearchChange={handleSearchChange} 
+                  handleStartLoading={handleStartLoading}
+                  />
+
+                {loading &&
+                  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>
+                    <EnhancedTableSkeleton key={index} columns={user.parteColumns} />)
+                }
+
+                {!loading && partes?.map((parte, index) => (
                   <EnhancedTableRow
                     key={parte._id}
                     parte={parte}
