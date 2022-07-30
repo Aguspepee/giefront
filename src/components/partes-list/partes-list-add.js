@@ -59,6 +59,7 @@ export default function PartesListAdd({ handleReload }) {
   });
   let list = contract[0]?.items
   let unidades = contract[0]?.unidades.map((unidad) => unidad.nombre)
+  let certificantes = contract[0]?.certificantes.map((certificante) => certificante.nombre)
 
   //Setea el usuario como operador
   useEffect(() => {
@@ -132,7 +133,7 @@ export default function PartesListAdd({ handleReload }) {
         </Tooltip>
       </Box>
       <Dialog
-      
+
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
@@ -176,6 +177,7 @@ export default function PartesListAdd({ handleReload }) {
                 <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección*" errors={errors} md={12} xs={12} size="small" />
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_reporte} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} size="small" />
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_orden} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={12} xs={12} size="small" />
+                <StyledAutocompleteList show={true} md={12} xs={12} control={control} name={`certificante`} list={certificantes ? certificantes : []} description="Certificante" errors={errors} size="small" />
               </Grid>
 
               <Box style={{ paddingTop: "1em", paddingBottom: "0.5em" }}>
@@ -216,8 +218,8 @@ export default function PartesListAdd({ handleReload }) {
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_costuras} control={control} name={`detalles.numero_costuras`} type="number" description="Número de costuras" errors={errors} md={6} xs={6} size="small" />
                 <StyledTextfield show={contract[0]?.campos[0]?.cantidad_placas} control={control} name={`detalles.cantidad_placas`} type="number" description="Cantidad de Placas" errors={errors} md={6} xs={6} size="small" />
                 <StyledTextfield show={true} control={control} name={`observaciones`} type="text" description="Observaciones" errors={errors} md={12} xs={12} size="small" multiline rows={4} />
-                <StyledCheckbox show={true} control={control} name="informe_realizado" defaultValue={true} description="Informe realizado" md={12} xs={12} size="small" />
-                <StyledCheckbox show={true} control={control} name="trabajo_terminado" defaultValue={true} description="Trabajo terminado" md={12} xs={12} size="small" />
+                {/*   <StyledCheckbox show={true} control={control} name="informe_realizado" defaultValue={true} description="Informe realizado" md={12} xs={12} size="small" />
+                <StyledCheckbox show={true} control={control} name="trabajo_terminado" defaultValue={true} description="Trabajo terminado" md={12} xs={12} size="small" /> */}
               </Grid>
 
             </form>

@@ -47,6 +47,8 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
   });
   let list = contract ? contract[0]?.items : undefined
   let unidades = contract ? contract[0]?.unidades.map((unidad) => unidad.nombre) : undefined
+  let certificantes = contract[0]?.certificantes.map((certificante) => certificante.nombre)
+
   const items = useFieldArray({
     control,
     name: "items"
@@ -57,6 +59,7 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
       contrato: edit.parte.contrato ? { nombre: edit.parte.contrato[0].nombre, _id: edit.parte.contrato[0]._id } : undefined,
       operador: edit.parte.operador ? { nombre: edit.parte.operador[0].nombre, apellido: edit.parte.operador[0].apellido, _id: edit.parte.operador[0]._id } : undefined,
       unidad: edit.parte.unidad,
+      certificante: edit.parte.certificante,
       fecha_inspeccion: edit.parte.fecha_inspeccion,
       numero_reporte: edit.parte.numero_reporte,
       numero_orden: edit.parte.numero_orden,
@@ -131,7 +134,7 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
               top: 8,
               color: (theme) => theme.palette.grey[500],
             }}
-          >
+          > 
             <CloseIcon />
           </IconButton>
         </DialogTitle>
@@ -148,6 +151,7 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
                 <StyledDatepickerDesktop control={control} name="fecha_inspeccion" description="Fecha de Inspección*" errors={errors} md={12} xs={12} size="small" />
                 <StyledTextfield show={contract ? contract[0]?.campos[0]?.numero_reporte : undefined} control={control} name={`numero_reporte`} type="text" description="Número de Reporte" errors={errors} md={12} xs={12} size="small" />
                 <StyledTextfield show={contract ? contract[0]?.campos[0]?.numero_orden : undefined} control={control} name={`numero_orden`} type="text" description="Número de Orden" errors={errors} md={12} xs={12} size="small" />
+                <StyledAutocompleteList show={true} md={12} xs={12} control={control} name={`certificante`} list={certificantes ? certificantes : []} description="Certificante" errors={errors} size="small" />
               </Grid>
               <Typography variant="overline">
                 Equipo
@@ -182,8 +186,8 @@ export default function PartesListEdit({ handleReload, handleEdit, edit, handleN
                 <StyledTextfield show={contract[0]?.campos[0]?.numero_costuras} control={control} name={`detalles.numero_costuras`} type="number" description="Número de costuras" errors={errors} md={6} xs={6} size="small" />
                 <StyledTextfield show={contract[0]?.campos[0]?.cantidad_placas} control={control} name={`detalles.cantidad_placas`} type="number" description="Cantidad de Placas" errors={errors} md={6} xs={6} size="small" />
                 <StyledTextfield show={true} control={control} name={`observaciones`} type="text" description="Observaciones" errors={errors} md={12} xs={12} size="small" multiline rows={4} />
-                <StyledCheckbox show={true} control={control} name="informe_realizado" defaultValue={true} description="Informe realizado" md={12} xs={12} size="small" />
-                <StyledCheckbox show={true} control={control} name="trabajo_terminado" defaultValue={true} description="Trabajo terminado" md={12} xs={12} size="small" />
+                {/* <StyledCheckbox show={true} control={control} name="informe_realizado" defaultValue={true} description="Informe realizado" md={12} xs={12} size="small" />
+                <StyledCheckbox show={true} control={control} name="trabajo_terminado" defaultValue={true} description="Trabajo terminado" md={12} xs={12} size="small" /> */}
               </Grid>
 
             </form>

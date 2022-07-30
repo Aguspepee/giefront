@@ -178,7 +178,7 @@ function UploaderParoPlanta({ Titulo, Subtitulo, fileTypes, ...props }) {
                 cantidad: Number(item["CANT"])
             }]
         }
-         console.log(parte)
+        console.log(parte)
         return (parte)
     }
 
@@ -213,36 +213,31 @@ function UploaderParoPlanta({ Titulo, Subtitulo, fileTypes, ...props }) {
     };
 
     return (
-        <>
-
-            <div style={{ paddingTop: "10px" }}>
-                <Card style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
-                    <CardContent>
-                        <CardHeader
-                            title={Titulo}
-                            subheader={Subtitulo}
-                        />
-                        <form style={{ padding: " 0em 3em 0em 3em" }}>
-                            <div>
-                                <label htmlFor="upload"></label>
-                            </div>
-                            <input
-                                type="file"
-                                name="upload"
-                                id="upload"
-                                onChange={readUploadFile}
-                                accept={fileTypes}
-                            />
-                            <div style={{ padding: "1em 1em 1em 1em" }}>
-                                <Button variant="contained" onClick={() => uploadFiles(json)}>
-                                    Guardar
-                                </Button>
-                            </div>
-                        </form>
-                    </CardContent>
-                </Card>
-            </div>
-        </>
+        <Card>
+            <CardHeader
+                title={Titulo}
+                subheader={Subtitulo}
+            />
+            <CardContent>
+                <form>
+                    <div>
+                        <label htmlFor="upload"></label>
+                    </div>
+                    <input
+                        type="file"
+                        name="upload"
+                        id="upload"
+                        onChange={readUploadFile}
+                        accept={fileTypes}
+                    />
+                    <div style={{ padding: "1em 0em 0em 0em" }}>
+                        <Button variant="contained" onClick={() => uploadFiles(json)}>
+                            Guardar
+                        </Button>
+                    </div>
+                </form>
+            </CardContent>
+        </Card>
     );
 }
 

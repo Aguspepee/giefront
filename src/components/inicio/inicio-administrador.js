@@ -91,7 +91,7 @@ function InicioAdministrador() {
               xs={12}
             >
               <IndicadorSimple
-                value={indicadores[0] ? `$${indicadores[0]?.monto_para_remitar}` : `$0`}
+                value={indicadores[0] ? `$${Math.round(indicadores[0]?.monto_para_remitar)}` : `$0`}
                 subvalue={indicadores[0]?.monto_para_remitar}
                 title="Monto para remitar"
                 subtitle=""
@@ -108,7 +108,7 @@ function InicioAdministrador() {
               xs={12}
             >
               <IndicadorSimple
-                value={indicadores[0] ? `$${indicadores[0]?.monto_para_certificar}` : `$0`}
+                value={indicadores[0] ? `$${Math.round(indicadores[0]?.monto_para_certificar)}` : `$0`}
                 subvalue={indicadores[0]?.monto_para_certificar}
                 title="Monto para Certificar"
                 subtitle=""

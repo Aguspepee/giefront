@@ -2,6 +2,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { DashboardLayout } from '../layout/layout';
 import UploaderInspecciones from '../components/settings/uploader-inspecciones';
 import UploaderParoPlanta from '../components/settings/uploader-paro-planta';
+import UpdateUsers from '../components/settings/update-users';
 
 
 function Settings() {
@@ -15,7 +16,7 @@ function Settings() {
                     py: 4
                 }}
             >
-                <Container maxWidth="lg">
+                <Container>
                     <Typography
                         sx={{ mb: 3 }}
                         variant="h4"
@@ -42,9 +43,9 @@ function Settings() {
                                 fileTypes=".xlsx , xls"
                             ></UploaderParoPlanta>
                         </Grid>
-
-
-
+                        <Grid item>
+                            <UpdateUsers/>
+                        </Grid>
 
                     </Grid>
                 </Container>

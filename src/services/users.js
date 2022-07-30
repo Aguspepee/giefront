@@ -77,3 +77,9 @@ export function userImage(id, formData) {
     })
 }
 
+export function userUpdate() {
+    let token = localStorage.getItem("token")
+    return instance.put(`users/update`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+}
