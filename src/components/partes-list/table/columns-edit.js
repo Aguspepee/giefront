@@ -24,7 +24,7 @@ const ITEM_HEIGHT = 48;
 export default function ColumnsEdit() {
     const [user, setUser] = useContext(UserContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    let columns = user.parteColumns;
+    let columns = user.parteColumns?.filter((column)=>column.disable===false);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);

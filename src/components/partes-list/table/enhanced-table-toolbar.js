@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CardContent, Toolbar, Autocomplete, Stack, Box, Checkbox, Divider } from "@mui/material";
+import { CardContent, Toolbar, Autocomplete, Stack, Box, Checkbox, Divider, Chip, Avatar, Paper } from "@mui/material";
 import { Typography } from "@mui/material";
 import Delete from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
@@ -14,18 +14,36 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Collapse } from '@mui/material';
 import { contractGetList } from '../../../services/contracts';
 import { TextField } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
 //Icons
 import HighlightOff from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
+import { userEdit } from "../../../services/users";
 
-export default function EnhancedTableToolbar({ handleStartLoading, search, handleSearchChange, handleConfirmDialogChange, handleNotifyChange, numSelected, selected, remito, handleReload, selectedToEmpty, ...props }) {
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.5),
+}));
+
+export default function EnhancedTableToolbar({ handleStartLoading,
+  search, handleSearchChange, handleConfirmDialogChange, handleNotifyChange, numSelected,
+  selected, remito, handleReload, selectedToEmpty, user, handleUserChange, ...props }) {
   const [expanded, setExpanded] = useState(false)
   const [contracts, setContracts] = useState([])
-  const [contract, setContract] = useState('')
+  const [contract, setContract] = useState()
+  const [presearch, setPresearch] = useState(user.search)
 
-  const handleChange = (field, item) => {
+  const handleChange = async (field, item) => {
+    //Cambia el filtro de busqueda general que controla todo
     handleSearchChange({ ...search, [field]: item ? item?._id : undefined })
+    //Setea la prebusqueda, que queda guardada en el usuario(local)
+    handleUserChange({ ...user, ['search']: [{ contrato: item ? item?._id : undefined }] })
+    //Guarda la config. en el usuario
+    try {
+      const res = await userEdit({ ['search']: [{ contrato: item ? item?._id : undefined }] }, user._id)
+    } catch (e) {
+    }
+    //Recarga la tabla
     handleStartLoading()
     handleReload()
   }
@@ -49,10 +67,12 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
     const getContracts = async () => {
       const res = await contractGetList()
       setContracts(res.data)
+      const contract = res.data.filter((contract) => contract._id === user?.search[0]?.contrato)
+      setContract(contract[0] ? { _id: contract[0]?._id, nombre: contract[0]?.nombre } : '')
     }
     getContracts()
-
   }, [])
+
 
   return (
     <>
@@ -65,7 +85,6 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
             bgcolor: (theme) =>
               alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
           }),
-
         }}
 
       >
@@ -87,6 +106,7 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
               component="div"
             >
               Parte Diario
+
             </Typography>
             <Tooltip title="Borrar ítems">
               <IconButton onClick={() => setExpanded(!expanded)}>
@@ -129,6 +149,44 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
         }
 
       </Toolbar >
+      <Divider />
+      {contract &&
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'left',
+            flexWrap: 'wrap',
+            listStyle: 'none',
+            p: 0.5,
+            m: 0,
+          }}
+          component="ul"
+          style={{ padding: '0.5em 0em 0.5em 1em', width: '100%' }}>
+
+          <ListItem>
+            <Chip
+              color="primary"
+              label={contract?.nombre}
+              onDelete={() => {
+                handleChange('contrato', '')
+                setContract('')
+              }}
+            />
+          </ListItem>
+          <ListItem>
+            <Chip
+              color="primary"
+              label={contract?.nombre}
+              onDelete={() => {
+                handleChange('contrato', '')
+                setContract('')
+              }}
+            />
+          </ListItem>
+
+        </Box>
+      }
+
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Divider />
         <CardContent style={{ padding: '1em 1em 1em 1em' }}>
@@ -142,12 +200,13 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
             color="textSecondary"
             variant="body2"
           >
-            Los filtros generales quedan guardados en su perfil. 
+            Los filtros generales quedan guardados en su perfil.
           </Typography>
-          <Box style={{padding:'1em 0em 0em 0em'}}>
+          <Box style={{ padding: '1em 0em 0em 0em' }}>
             <Stack direction='column'>
               <Autocomplete
                 size="small"
+
                 getOptionLabel={(contracts) => `${contracts.nombre}`}
                 options={contracts}
                 disablePortal
@@ -160,7 +219,7 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
                     {...params}
                     label="Contrato"
                     placeholder="Contrato"
-                    style={{ width: '300px' }}
+                    style={{ width: '370px' }}
                   //  error={Boolean(errors[name])}
                   //  helperText={errors[name] && errors[name]?.message}
                   />}
@@ -171,51 +230,32 @@ export default function EnhancedTableToolbar({ handleStartLoading, search, handl
                 }}
                 clearOnBlur={true}
               />
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  ml: -1,
+              <Autocomplete
+                size="small"
 
+                getOptionLabel={(contracts) => `${contracts.nombre}`}
+                options={contracts}
+                disablePortal
+                isOptionEqualToValue={(option, value) => {
+                  return (option._id === value._id)
                 }}
-              >
-                <Checkbox
-                  //inputRef={ref}
-                  //checked={!!value}
-                  color="primary"
-                  size={"medium"}
-                  disableRipple
-                //onChange={onChange}
-                />
-                <Typography
-                  color="textSecondary"
-                  variant="body2"
-                >
-                  Remito Realizado
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  ml: -1,
+                noOptionsText={"Sin opciones"}
+                renderInput={(params) =>
+                  <TextField
+                    {...params}
+                    label="Contrato"
+                    placeholder="Contrato"
+                    style={{ width: '370px' }}
+                  //  error={Boolean(errors[name])}
+                  //  helperText={errors[name] && errors[name]?.message}
+                  />}
+                value={contract ? contract : null}
+                onChange={(event, item) => {
+                  setContract(item)
+                  handleChange('contrato', item)
                 }}
-              >
-                <Checkbox
-                  //inputRef={ref}
-                  //checked={!!value}
-                  color="primary"
-                  size={"medium"}
-                  disableRipple
-                //onChange={onChange}
-                />
-                <Typography
-                  color="textSecondary"
-                  variant="body2"
-                >
-                  Certificado Realizado
-                </Typography>
-              </Box>
+                clearOnBlur={true}
+              />
             </Stack>
           </Box>
         </CardContent>

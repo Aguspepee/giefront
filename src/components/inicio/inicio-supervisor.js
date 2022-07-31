@@ -32,7 +32,7 @@ function InicioSupervisor() {
     }
     getIndicadores()
   }, [reload])
-  console.log(indicadores)
+
   return (
     <>
       <Box

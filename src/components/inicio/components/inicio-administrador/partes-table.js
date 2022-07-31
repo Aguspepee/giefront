@@ -59,7 +59,6 @@ export const PartesTable = (props) => {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = partes.length < rowsPerPage ? rowsPerPage - partes.length : 0;
 
-  console.log(emptyRows)
   return (
     <Card style={{ height: "540px" }} {...props}>
       <CardHeader title="Inspecciones por Remitar" />

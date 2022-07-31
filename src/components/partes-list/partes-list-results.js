@@ -27,9 +27,14 @@ export const PartesListResults = () => {
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: "", subTitle: "" })
   const [remito, setRemito] = useState([])
 
+  //Cambios en usuario
+  const handleUserChange = (user) => {
+    setUser(user)
+  }
+
   //Loading
   const [loading, setLoading] = useState(true)
-  const handleStartLoading = ()=>{
+  const handleStartLoading = () => {
     setLoading(true)
 
   }
@@ -68,6 +73,8 @@ export const PartesListResults = () => {
     setRemito([]);
   };
 
+
+
   const handleClick = (event, name, item) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -102,7 +109,7 @@ export const PartesListResults = () => {
   }
 
   //Search filers
-  const [search, setSearch] = useState({})
+  const [search, setSearch] = useState(user?.search[0])
   const handleSearchChange = (newValue) => {
     setSearch(newValue)
   }
@@ -154,6 +161,9 @@ export const PartesListResults = () => {
           search={search}
           handleSearchChange={handleSearchChange}
           handleStartLoading={handleStartLoading}
+          user={user}
+          handleUserChange={handleUserChange}
+
         />
         <Paper sx={{ overflowX: "auto", width: "100%", height: '65vh' }}>
           {/*     <PerfectScrollbar> */}
@@ -172,9 +182,9 @@ export const PartesListResults = () => {
                 <EnhancedTableSearch
                   columns={user.parteColumns}
                   search={search}
-                  handleSearchChange={handleSearchChange} 
+                  handleSearchChange={handleSearchChange}
                   handleStartLoading={handleStartLoading}
-                  />
+                />
 
                 {loading &&
                   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) =>

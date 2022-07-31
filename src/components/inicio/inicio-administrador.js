@@ -33,7 +33,7 @@ function InicioAdministrador() {
     }
     getIndicadores()
   }, [reload])
-  console.log(indicadores)
+
   return (
     <>
       <Box

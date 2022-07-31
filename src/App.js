@@ -93,7 +93,7 @@ function App() {
             <Route path="/clients-create" element={<ClientsCreate />} />
 
             {/* Remitos */}
-            <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador"]} />} />
+            <Route path="/remitos-list" element={<Private Component={RemitosList} user={user} roles={["Administrador","Supervisor"]} />} />
 
             {/* Certificados */}
             <Route path="/certif-list" element={<CertificadosList />} />

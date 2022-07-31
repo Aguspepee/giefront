@@ -32,7 +32,7 @@ function InicioInspector() {
     }
     getIndicadores()
   }, [reload])
-  console.log(indicadores)
+
   return (
     <>
       <Box

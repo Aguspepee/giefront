@@ -25,6 +25,7 @@ function EnhancedTableSearch({ handleStartLoading, search, columns, handleSearch
                                 style={{ backgroundColor: "#F3F4F6" }}>
                                 {column.type === "text" &&
                                     <TextField
+                                        defaultValue={column.search}
                                         size="small"
                                         fullWidth
                                         placeholder={column.placeHolder}
@@ -34,6 +35,7 @@ function EnhancedTableSearch({ handleStartLoading, search, columns, handleSearch
                                 }
                                 {column.type === "number" &&
                                     <TextField
+                                        defaultValue={column.search}
                                         size="small"
                                         fullWidth
                                         placeholder={column.placeHolder}
@@ -46,7 +48,7 @@ function EnhancedTableSearch({ handleStartLoading, search, columns, handleSearch
                                     <StyledDatepickerFilter onChange={handleChange} />
                                 }
                                 {column.type === "select" &&
-                                    <StyledChipFilter onChange={handleChange} />
+                                    <StyledChipFilter default_value={column.search} onChange={handleChange} />
                                 }
                                 {column.type === "none" &&
                                     <>
